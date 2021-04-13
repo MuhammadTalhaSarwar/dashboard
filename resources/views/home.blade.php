@@ -134,6 +134,15 @@
         </figure>
     </div>
 
+
+    <div class="col-md-4">
+        <figure class="highcharts-figure">
+                   <div id="sinch_counts">
+                       
+                   </div>
+       </figure>
+   </div>
+
     <div class="col-md-4">
          <figure class="highcharts-figure">
                     <div id="smpp_links">
@@ -158,6 +167,92 @@
 
 
 <script>
+ var sinch_counts = <?php echo json_encode($sinch_counts);?> ;
+    // Create the chart
+
+    console.log(sinch_counts)
+Highcharts.chart('sinch_counts', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Sinch Counts'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Counts'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Sinch",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "SINCH DELIVERED TODAY",
+                    y: parseInt(sinch_counts.SINCH_DELIVERED_TODAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH UNDELIVERED TODAY",
+                    y: parseInt(sinch_counts.SINCH_UNDELIVERED_TODAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH EXPIRED TODAY",
+                    y: parseInt(sinch_counts.SINCH_EXPIRED_TODAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH DELIVERED YESTERDAY",
+                    y: parseInt(sinch_counts.SINCH_DELIVERED_YESTERDAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH UN-DELIVERED YESTERDAY",
+                    y: parseInt(sinch_counts.SINCH_UNDELIVERED_YESTERDAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH EXPIRED YESTERDAY",
+                    y: parseInt(sinch_counts.SINCH_EXPIRED_YESTERDAY),
+                    drilldown: null
+                }
+                
+            ]
+        }
+    ],
+});
+
     // window.location.reload(true);
     // setTimeout(function () {
     //     location.reload()
@@ -208,7 +303,7 @@ Highcharts.chart('kannel_tps', {
 
     series: [
         {
-            name: "Browsers",
+            name: "Kannels Tps",
             colorByPoint: true,
             data: [
                 {
@@ -312,7 +407,7 @@ Highcharts.chart('kannel_queue', {
 
     series: [
         {
-            name: "Browsers",
+            name: "Kannels Queue",
             colorByPoint: true,
             data: [
                 {
@@ -489,7 +584,7 @@ Highcharts.chart('kannel_smppbox_port_check', {
     },
     series: [
         {
-            name: "Browsers",
+            name: "Kannels SMPP",
             colorByPoint: true,
             data: data_kannel_smppbox_port_check
         }
@@ -559,7 +654,7 @@ Highcharts.chart('mysql_seconds_behind', {
 
     series: [
         {
-            name: "Browsers",
+            name: "Mysql Seconds Behind",
             colorByPoint: true,
             data: data_mysql_seconds_behind
         }
@@ -628,7 +723,7 @@ Highcharts.chart('redis_stat', {
 
     series: [
         {
-            name: "Browsers",
+            name: "Redis Stats",
             colorByPoint: true,
             data: data_redis
         }
