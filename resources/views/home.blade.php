@@ -94,27 +94,53 @@
 
 </style>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <figure class="highcharts-figure">
                     <div id="kannel_tps">
                         
                     </div>
         </figure>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-4">
          <figure class="highcharts-figure">
                     <div id="kannel_queue">
                         
                     </div>
         </figure>
     </div>
-    <div class="col-md-2">
+
+
+      <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="redis_stat">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="mysql_seconds_behind">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="kannel_smppbox_port_check">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
         <figure class="highcharts-figure-solid">
             <div id="container-speed" class="chart-container-solid"></div>
         </figure>
     </div>
 
-    <div class="col-md-2">
+    <div class="col-md-4">
         <figure class="highcharts-figure-solid">
             <div id="container-speed-2" class="chart-container-solid"></div>
         </figure>
@@ -124,6 +150,10 @@
 
 
 <script>
+    // window.location.reload(true);
+    // setTimeout(function () {
+    //     location.reload()
+    // }, 5000);
  var kannel_tps = <?php echo json_encode($kannel_tps);?> ;
     // Create the chart
 Highcharts.chart('kannel_tps', {
@@ -332,6 +362,212 @@ Highcharts.chart('kannel_queue', {
     ],
 });
 
+var kannel_smppbox_port_check = <?php echo json_encode($kannel_smppbox_port_check);?> ;
+
+ var data_kannel_smppbox_port_check = [];
+
+
+for (index = 0; index < kannel_smppbox_port_check.length; ++index) {
+    value = 0;
+    if((kannel_smppbox_port_check[index].RESULT) == true)
+    {
+        value = 1;
+    }
+    var object =  {
+                    name: kannel_smppbox_port_check[index].REDIS_IP,
+                    y: value,
+                    drilldown: null
+                } 
+                
+         this.data_kannel_smppbox_port_check.push(object);       
+}
+
+
+ console.log(kannel_smppbox_port_check)
+
+Highcharts.chart('kannel_smppbox_port_check', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Kannel Smppbox Port Check'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'RESULT'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
+    series: [
+        {
+            name: "Browsers",
+            colorByPoint: true,
+            data: data_kannel_smppbox_port_check
+        }
+    ],
+});
+
+
+var mysql_seconds_behind = <?php echo json_encode($mysql_seconds_behind);?> ;
+
+ var data_mysql_seconds_behind = [];
+
+
+for (index = 0; index < mysql_seconds_behind.length; ++index) {
+    var object =  {
+                    name: mysql_seconds_behind[index].SLAVE_IP,
+                    y: parseInt(mysql_seconds_behind[index].RESULT),
+                    drilldown: null
+                } 
+
+         this.data_mysql_seconds_behind.push(object);       
+}
+
+
+ console.log(mysql_seconds_behind)
+
+Highcharts.chart('mysql_seconds_behind', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Mysql Seconds Behind'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'RESULT'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Browsers",
+            colorByPoint: true,
+            data: data_mysql_seconds_behind
+        }
+    ],
+});
+
+ var redis_stats = <?php echo json_encode($redis_stats);?> ;
+
+ var data_redis = [];
+
+
+for (index = 0; index < redis_stats.length; ++index) {
+    var object =  {
+                    name: redis_stats[index].REDIS_IP,
+                    y: parseInt(redis_stats[index].TPS),
+                    drilldown: null
+                } 
+
+         this.data_redis.push(object);       
+}
+
+
+ console.log(redis_stats)
+
+Highcharts.chart('redis_stat', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Redis Stats'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'TPS'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Browsers",
+            colorByPoint: true,
+            data: data_redis
+        }
+    ],
+});
+
+
+var api_link = JSON.parse('<?php echo json_encode($api_link);?>');
+
+
 var gaugeOptions = {
     chart: {
         type: 'solidgauge'
@@ -364,9 +600,8 @@ var gaugeOptions = {
     // the value axis
     yAxis: {
         stops: [
-            [0.1, '#55BF3B'], // green
-            [0.5, '#DDDF0D'], // yellow
-            [0.9, '#DF5353'] // red
+            [0, '#EEE'], // green
+            [1, '#55BF3B']
         ],
         lineWidth: 0,
         tickWidth: 0,
@@ -391,13 +626,22 @@ var gaugeOptions = {
     }
 };
 
+var guage_api_link = 0;
+
+if (api_link.RESULT == "UP") {
+this.guage_api_link = 1;
+}
+else {
+  this.guage_api_link = 0;  
+}
+
 // The speed gauge
 var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
-        max: 200,
+        max: 1,
         title: {
-            text: 'Speed'
+            text: 'Api Link' + api_link.IP_Port
         }
     },
 
@@ -407,16 +651,15 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
 
     series: [{
         name: 'Speed',
-        data: [80],
+        data: [this.guage_api_link],
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">{y}</span><br/>' +
-                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+                '<span style="font-size:25px">'+api_link.RESULT+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
-            valueSuffix: ' km/h'
+            valueSuffix: 'Status'
         }
     }]
 
@@ -426,7 +669,7 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
 var chartSpeed = Highcharts.chart('container-speed-2', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
-        max: 200,
+        max: 1,
         title: {
             text: 'Speed'
         }

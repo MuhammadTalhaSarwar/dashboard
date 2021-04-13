@@ -37,8 +37,30 @@ class HomeController extends Controller
         $response = $client->get('http://172.27.108.45/redis_stats.php');
         $body = $response->getBody()->getContents();
         $redis_stats = json_decode($body);
+
+        $response = $client->get('http://172.27.108.45/mysql_seconds_behind.php');
+        $body = $response->getBody()->getContents();
+        $mysql_seconds_behind = json_decode($body);
+
+        $response = $client->get('http://172.27.108.45/kannel_smppbox_port_check.php');
+        $body = $response->getBody()->getContents();
+        $kannel_smppbox_port_check = json_decode($body);
+       
         
-        return view('home',compact('kannel_tps','kannel_queue','redis_stats'));
+        // $response = $client->get('http://172.27.108.45/mysql_repl_check.php');
+        // $body = $response->getBody()->getContents();
+        // $mysql_repl_check = json_decode($body);
+
+        // dd($mysql_repl_check);
+        
+        $response = $client->get('http://172.27.108.45/API_link.php');
+        $body = $response->getBody()->getContents();
+        $api_link = json_decode($body);
+        //dd($api_link);
+        
+
+        
+        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check'));
     }
     public function guzzle(){
         
