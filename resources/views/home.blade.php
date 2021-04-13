@@ -135,6 +135,14 @@
     </div>
 
     <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="smpp_links">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
         <figure class="highcharts-figure-solid">
             <div id="container-speed" class="chart-container-solid"></div>
         </figure>
@@ -358,6 +366,69 @@ Highcharts.chart('kannel_queue', {
                     drilldown: null
                 }
             ]
+        }
+    ],
+});
+
+var smpp_links = <?php echo json_encode($smpp_links);?> ;
+
+ var data_smpp_links = [];
+
+
+for (index = 0; index < smpp_links.length; ++index) {
+    value = 0;
+    if((smpp_links[index].RESULT) == 'UP')
+    {
+        value = 1;
+    }
+    var object =  {
+                    name: smpp_links[index].LA_Name+'<br>'+smpp_links[index].IP_Port,
+                    y: value,
+                    drilldown: null
+                } 
+                
+         this.data_smpp_links.push(object);       
+}
+
+
+ console.log(smpp_links)
+
+Highcharts.chart('smpp_links', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'SMPP Links'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'RESULT'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
+    series: [
+        {
+            name: "Browsers",
+            colorByPoint: true,
+            data: data_smpp_links
         }
     ],
 });
@@ -641,7 +712,7 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
         min: 0,
         max: 1,
         title: {
-            text: 'Api Link' + api_link.IP_Port
+            text: 'Api Link :' + api_link.IP_Port
         }
     },
 

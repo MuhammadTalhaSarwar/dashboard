@@ -45,6 +45,10 @@ class HomeController extends Controller
         $response = $client->get('http://172.27.108.45/kannel_smppbox_port_check.php');
         $body = $response->getBody()->getContents();
         $kannel_smppbox_port_check = json_decode($body);
+        
+        $response = $client->get('http://172.27.108.45/smpp_links.php');
+        $body = $response->getBody()->getContents();
+        $smpp_links = json_decode($body);
        
         
         // $response = $client->get('http://172.27.108.45/mysql_repl_check.php');
@@ -60,7 +64,7 @@ class HomeController extends Controller
         
 
         
-        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check'));
+        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','smpp_links'));
     }
     public function guzzle(){
         
