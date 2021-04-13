@@ -1,2 +1,2 @@
 # dashboard
-DAHSBOARD
+DASHBOARD
