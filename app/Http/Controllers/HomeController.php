@@ -24,13 +24,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $client = new Client();
+        //api 1
+        $response = $client->get('http://172.27.108.45/kannel_tps.php');
+        $body = $response->getBody()->getContents();
+        $kannel_tps = json_decode($body);
+
+        $response = $client->get('http://172.27.108.45/kannel_queue.php');
+        $body = $response->getBody()->getContents();
+        $kannel_queue = json_decode($body);
+
+        $response = $client->get('http://172.27.108.45/redis_stats.php');
+        $body = $response->getBody()->getContents();
+        $redis_stats = json_decode($body);
+        
+        return view('home',compact('kannel_tps','kannel_queue','redis_stats'));
     }
     public function guzzle(){
         
         $client = new Client();
         //api 1
-        $response = $client->get('https://jsonplaceholder.typicode.com/todos/1');
+        $response = $client->get('http://172.27.108.45/kannel_tps.php');
         $body = $response->getBody()->getContents();
         $project = json_decode($body);
         dd($project);
