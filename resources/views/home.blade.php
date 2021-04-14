@@ -1,392 +1,866 @@
-@extends('layouts.app', ['pageSlug' => 'dashboard'])
+@extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-6">
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">API DATA</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i>Response</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>Id</th>
-                                <th>UserID</th>
-                                <th>title</th>
-                            </tr>
-                            <tr>
-                                <td>{{$project->id}}</td>
-                                <td>{{$project->userId}}</td>
-                                <td>{{$project->title}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-                <div class="col-6">
-            <div class="card card-chart">
-                <div class="card-header ">
-                            <h5 class="card-category">Api</h5>
-                            <h2 class="card-title"> <i class="tim-icons icon-delivery-fast text-info"></i> Guage Rate</h2>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
 
-                    <canvas class="gauge-speed" style="margin-left: 200px;" data-type="radial-gauge" data-width="200"
-                    data-glow="false" data-height="200" data-units="km/hr" data-title="Speed" data-min-value="0"
-                    data-max-value="120" data-major-ticks="0,20,40,60,80,100,120" data-minor-ticks="2" data-value="60"
-                    data-stroke-ticks="false" 
-                    data-highlights='[{ "from": 0, "to": 60, "color": "#4caf50" },
-                    { "from": 60, "to": 90, "color": "#ff9800" },
-                    { "from": 80, "to": 120, "color": "#f44336" }]'
-                    Udata-color-needle-start="rgba(240, 128, 128, 1)" data-color-needle-end="rgba(255, 160, 122, .9)"
-                    data-value-box="true" data-animation-rule="linear" data-animation-duration="500"
-                    data-needle-shadow="false"></canvas>
-                </div>
-                </div>
-            </div>
-        </div>
+<style type="text/css">
+    .highcharts-figure-solid .chart-container-solid {
+    width: 300px;
+    height: 200px;
+    float: left;
+}
+
+.highcharts-figure-solid, .highcharts-data-table table {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+@media (max-width: 600px) {
+    .highcharts-figure-solid, .highcharts-data-table table {
+        width: 100%;
+    }
+    .highcharts-figure-solid .chart-container-solid {
+        width: 300px;
+        float: none;
+        margin: 0 auto;
+    }
+
+}
+
+.highcharts-figure, .highcharts-data-table table {
+    min-width: 310px; 
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+#container {
+    height: 400px;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+</style>
+<div class="row">
+    <div class="col-md-4">
+        <figure class="highcharts-figure">
+                    <div id="kannel_tps">
+                        
+                    </div>
+        </figure>
     </div>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="card card-chart">
+    <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="kannel_queue">
+                        
+                    </div>
+        </figure>
+    </div>
+
+
+      <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="redis_stat">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="mysql_seconds_behind">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="kannel_smppbox_port_check">
+                        
+                    </div>
+        </figure>
+    </div>
+
+
+    <div class="col-md-4">
+        <figure class="highcharts-figure">
+                   <div id="sinch_counts">
+                       
+                   </div>
+       </figure>
+   </div>
+
+    <div class="col-md-4">
+         <figure class="highcharts-figure">
+                    <div id="smpp_links">
+                        
+                    </div>
+        </figure>
+    </div>
+
+    <div class="col-md-4">
+        <figure class="highcharts-figure-solid">
+            <div id="container-speed" class="chart-container-solid"></div>
+        </figure>
+    </div>
+
+    <!-- <div class="col-md-4">
+        <figure class="highcharts-figure-solid">
+            <div id="container-speed-2" class="chart-container-solid"></div>
+        </figure>
+    </div> -->
+    
+</div>
+
+
+<script>
+ var sinch_counts = <?php echo json_encode($sinch_counts);?> ;
+    // Create the chart
+
+    console.log(sinch_counts)
+Highcharts.chart('sinch_counts', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Sinch Counts'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Counts'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Sinch",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "SINCH DELIVERED TODAY",
+                    y: parseInt(sinch_counts.SINCH_DELIVERED_TODAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH UNDELIVERED TODAY",
+                    y: parseInt(sinch_counts.SINCH_UNDELIVERED_TODAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH EXPIRED TODAY",
+                    y: parseInt(sinch_counts.SINCH_EXPIRED_TODAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH DELIVERED YESTERDAY",
+                    y: parseInt(sinch_counts.SINCH_DELIVERED_YESTERDAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH UN-DELIVERED YESTERDAY",
+                    y: parseInt(sinch_counts.SINCH_UNDELIVERED_YESTERDAY),
+                    drilldown: null
+                },
+                {
+                    name: "SINCH EXPIRED YESTERDAY",
+                    y: parseInt(sinch_counts.SINCH_EXPIRED_YESTERDAY),
+                    drilldown: null
+                }
                 
-                <div class="card-body">
-                    <div class="chart-area">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>IP PORT</th>
-                                <th>RESULT</th>
-                            </tr>
-                            <tr>
-                                <td>{{$API_link->IP_Port}}</td>
-                                <td>{{$API_link->RESULT}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="col-lg-4">
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">Daily Sales</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 3,500€</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="CountryChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <div class="col-lg-4">
-            <div class="card card-chart">
-                <div class="card-header">
-                    <h5 class="card-category">Completed Tasks</h5>
-                    <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 12,100K</h3>
-                </div>
-                <div class="card-body">
-                    <div class="chart-area">
-                        <canvas id="chartLineGreen"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-6 col-md-12">
-            <div class="card card-tasks">
-                <div class="card-header ">
-                    <h6 class="title d-inline">Tasks(5)</h6>
-                    <p class="card-category d-inline">today</p>
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-link dropdown-toggle btn-icon" data-toggle="dropdown">
-                            <i class="tim-icons icon-settings-gear-63"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#pablo">Action</a>
-                            <a class="dropdown-item" href="#pablo">Another action</a>
-                            <a class="dropdown-item" href="#pablo">Something else</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body ">
-                    <div class="table-full-width table-responsive">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="title">Update the Documentation</p>
-                                        <p class="text-muted">Dwuamish Head, Seattle, WA 8:47 AM</p>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                                            <i class="tim-icons icon-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="title">GDPR Compliance</p>
-                                        <p class="text-muted">The GDPR is a regulation that requires businesses to protect the personal data and privacy of Europe citizens for transactions that occur within EU member states.</p>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                                            <i class="tim-icons icon-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                    <span class="form-check-sign">
-                                                        <span class="check"></span>
-                                                    </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="title">Solve the issues</p>
-                                        <p class="text-muted">Fifty percent of all respondents said they would be more likely to shop at a company </p>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                                            <i class="tim-icons icon-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="title">Release v2.0.0</p>
-                                        <p class="text-muted">Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM</p>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                                            <i class="tim-icons icon-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="title">Export the processed files</p>
-                                        <p class="text-muted">The report also shows that consumers will not easily forgive a company once a breach exposing their personal data occurs. </p>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                                            <i class="tim-icons icon-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="">
-                                                <span class="form-check-sign">
-                                                    <span class="check"></span>
-                                                </span>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <p class="title">Arival at export process</p>
-                                        <p class="text-muted">Capitol Hill, Seattle, WA 12:34 AM</p>
-                                    </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" title="" class="btn btn-link" data-original-title="Edit Task">
-                                            <i class="tim-icons icon-pencil"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6 col-md-12">
-            <div class="card ">
-                <div class="card-header">
-                    <h4 class="card-title">Simple Table</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table tablesorter" id="">
-                            <thead class=" text-primary">
-                                <tr>
-                                    <th>
-                                        Name
-                                    </th>
-                                    <th>
-                                        Country
-                                    </th>
-                                    <th>
-                                        City
-                                    </th>
-                                    <th class="text-center">
-                                        Salary
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                      Dakota Rice
-                                    </td>
-                                    <td>
-                                      Niger
-                                    </td>
-                                    <td>
-                                      Oud-Turnhout
-                                    </td>
-                                    <td class="text-center">
-                                      $36,738
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Minerva Hooper
-                                    </td>
-                                    <td>
-                                        Curaçao
-                                    </td>
-                                    <td>
-                                        Sinaai-Waas
-                                    </td>
-                                    <td class="text-center">
-                                        $23,789
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Sage Rodriguez
-                                    </td>
-                                    <td>
-                                        Netherlands
-                                    </td>
-                                    <td>
-                                        Baileux
-                                    </td>
-                                    <td class="text-center">
-                                        $56,142
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Philip Chaney
-                                    </td>
-                                    <td>
-                                        Korea, South
-                                    </td>
-                                    <td>
-                                        Overland Park
-                                    </td>
-                                    <td class="text-center">
-                                        $38,735
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Doris Greene
-                                    </td>
-                                    <td>
-                                        Malawi
-                                    </td>
-                                    <td>
-                                        Feldkirchen in Kärnten
-                                    </td>
-                                    <td class="text-center">
-                                        $63,542
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Mason Porter
-                                    </td>
-                                    <td>
-                                        Chile
-                                    </td>
-                                    <td>
-                                        Gloucester
-                                    </td>
-                                    <td class="text-center">
-                                        $78,615
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Jon Porter
-                                    </td>
-                                    <td>
-                                        Portugal
-                                    </td>
-                                    <td>
-                                        Gloucester
-                                    </td>
-                                    <td class="text-center">
-                                        $98,615
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
+            ]
+        }
+    ],
+});
 
-@push('js')
-    <script src="{{ asset('black') }}/js/plugins/chartjs.min.js"></script>
-    <script>
-        $(document).ready(function() {
-          demo.initDashboardPageCharts();
-        });
-    </script>
-@endpush
+    // window.location.reload(true);
+    // setTimeout(function () {
+    //     location.reload()
+    // }, 5000);
+ var kannel_tps = <?php echo json_encode($kannel_tps);?> ;
+    // Create the chart
+Highcharts.chart('kannel_tps', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Kannel Tps'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Value'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Kannels Tps",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "JAZZCASH",
+                    y: parseFloat(kannel_tps.JAZZCASH),
+                    drilldown: null
+                },
+                {
+                    name: "CSMS1",
+                    y: parseFloat(kannel_tps.CSMS1),
+                    drilldown: null
+                },
+                {
+                    name: "AQO_INTL",
+                    y: parseFloat(kannel_tps.AQO_INTL),
+                    drilldown: null
+                },
+                {
+                    name: "AAQOOCMS2",
+                    y: parseFloat(kannel_tps.AAQOOCMS2),
+                    drilldown: null
+                },
+                {
+                    name: "WARID LA",
+                    y: parseFloat(kannel_tps.WARID_LA),
+                    drilldown: null
+                },
+                {
+                    name: "WARID LO",
+                    y: parseFloat(kannel_tps.WARID_LO),
+                    drilldown: null
+                },
+                {
+                    name: "AAQOO SINCH",
+                    y: parseFloat(kannel_tps.Aaqoo_Sinch),
+                    drilldown: null
+                },
+                {
+                    name: "AAQOO CMS3",
+                    y: parseFloat(kannel_tps.AAQOOCMS3),
+                    drilldown: null
+                },
+                {
+                    name: "CMT AQOO",
+                    y: parseFloat(kannel_tps.CMT_AQOO),
+                    drilldown: null
+                },
+                {
+                    name: "SC 7005",
+                    y: parseFloat(kannel_tps.SC_7005),
+                    drilldown: null
+                }
+            ]
+        }
+    ],
+});
+
+ var kannel_queue = <?php echo json_encode($kannel_queue);?> ;
+
+Highcharts.chart('kannel_queue', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Kannel Queue'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'Value'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Kannels Queue",
+            colorByPoint: true,
+            data: [
+                {
+                    name: "JAZZCASH",
+                    y: parseFloat(kannel_queue.JAZZCASH),
+                    drilldown: null
+                },
+                {
+                    name: "CSMS1",
+                    y: parseFloat(kannel_queue.CSMS1),
+                    drilldown: null
+                },
+                {
+                    name: "AQO_INTL",
+                    y: parseFloat(kannel_queue.AQO_INTL),
+                    drilldown: null
+                },
+                {
+                    name: "AAQOOCMS2",
+                    y: parseFloat(kannel_queue.AAQOOCMS2),
+                    drilldown: null
+                },
+                {
+                    name: "WARID LA",
+                    y: parseFloat(kannel_queue.WARID_LA),
+                    drilldown: null
+                },
+                {
+                    name: "WARID LO",
+                    y: parseFloat(kannel_queue.WARID_LO),
+                    drilldown: null
+                },
+                {
+                    name: "AAQOO SINCH",
+                    y: parseFloat(kannel_queue.Aaqoo_Sinch),
+                    drilldown: null
+                },
+                {
+                    name: "AAQOO CMS3",
+                    y: parseFloat(kannel_queue.AAQOOCMS3),
+                    drilldown: null
+                },
+                {
+                    name: "CMT AQOO",
+                    y: parseFloat(kannel_queue.CMT_AQOO),
+                    drilldown: null
+                },
+                {
+                    name: "SC 7005",
+                    y: parseFloat(kannel_queue.SC_7005),
+                    drilldown: null
+                }
+            ]
+        }
+    ],
+});
+
+var smpp_links = <?php echo json_encode($smpp_links);?> ;
+
+ var data_smpp_links = [];
+
+
+for (index = 0; index < smpp_links.length; ++index) {
+    value = 0;
+    if((smpp_links[index].RESULT) == 'UP')
+    {
+        value = 1;
+    }
+    var object =  {
+                    name: smpp_links[index].LA_Name+'<br>'+smpp_links[index].IP_Port,
+                    y: value,
+                    drilldown: null
+                } 
+                
+         this.data_smpp_links.push(object);       
+}
+
+
+ console.log(smpp_links)
+
+Highcharts.chart('smpp_links', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'SMPP Links'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'RESULT'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
+    series: [
+        {
+            name: "Browsers",
+            colorByPoint: true,
+            data: data_smpp_links
+        }
+    ],
+});
+
+var kannel_smppbox_port_check = <?php echo json_encode($kannel_smppbox_port_check);?> ;
+
+ var data_kannel_smppbox_port_check = [];
+
+
+for (index = 0; index < kannel_smppbox_port_check.length; ++index) {
+    value = 0;
+    if((kannel_smppbox_port_check[index].RESULT) == true)
+    {
+        value = 1;
+    }
+    var object =  {
+                    name: kannel_smppbox_port_check[index].REDIS_IP,
+                    y: value,
+                    drilldown: null
+                } 
+                
+         this.data_kannel_smppbox_port_check.push(object);       
+}
+
+
+ console.log(kannel_smppbox_port_check)
+
+Highcharts.chart('kannel_smppbox_port_check', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Kannel Smppbox Port Check'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'RESULT'
+        }
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+            }
+        }
+    },
+    series: [
+        {
+            name: "Kannels SMPP",
+            colorByPoint: true,
+            data: data_kannel_smppbox_port_check
+        }
+    ],
+});
+
+
+var mysql_seconds_behind = <?php echo json_encode($mysql_seconds_behind);?> ;
+
+ var data_mysql_seconds_behind = [];
+
+
+for (index = 0; index < mysql_seconds_behind.length; ++index) {
+    var object =  {
+                    name: mysql_seconds_behind[index].SLAVE_IP,
+                    y: parseInt(mysql_seconds_behind[index].RESULT),
+                    drilldown: null
+                } 
+
+         this.data_mysql_seconds_behind.push(object);       
+}
+
+
+ console.log(mysql_seconds_behind)
+
+Highcharts.chart('mysql_seconds_behind', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Mysql Seconds Behind'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'RESULT'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Mysql Seconds Behind",
+            colorByPoint: true,
+            data: data_mysql_seconds_behind
+        }
+    ],
+});
+
+ var redis_stats = <?php echo json_encode($redis_stats);?> ;
+
+ var data_redis = [];
+
+
+for (index = 0; index < redis_stats.length; ++index) {
+    var object =  {
+                    name: redis_stats[index].REDIS_IP,
+                    y: parseInt(redis_stats[index].TPS),
+                    drilldown: null
+                } 
+
+         this.data_redis.push(object);       
+}
+
+
+ console.log(redis_stats)
+
+Highcharts.chart('redis_stat', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Redis Stats'
+    },
+    // subtitle: {
+    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+    // },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
+    },
+    xAxis: {
+        type: 'category'
+    },
+    yAxis: {
+        title: {
+            text: 'TPS'
+        }
+
+    },
+    legend: {
+        enabled: false
+    },
+    plotOptions: {
+        series: {
+            borderWidth: 0,
+            dataLabels: {
+                enabled: true,
+                format: '{point.y:.2f}'
+            }
+        }
+    },
+
+    tooltip: {
+        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+    },
+
+    series: [
+        {
+            name: "Redis Stats",
+            colorByPoint: true,
+            data: data_redis
+        }
+    ],
+});
+
+
+var api_link = JSON.parse('<?php echo json_encode($api_link);?>');
+
+
+var gaugeOptions = {
+    chart: {
+        type: 'solidgauge'
+    },
+
+    title: null,
+
+    pane: {
+        center: ['50%', '85%'],
+        size: '140%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0, '#EEE'], // green
+            [1, '#55BF3B']
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        title: {
+            y: -70
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    }
+};
+
+var guage_api_link = 0;
+
+if (api_link.RESULT == "UP") {
+this.guage_api_link = 1;
+}
+else {
+  this.guage_api_link = 0;  
+}
+
+// The speed gauge
+var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'Api Link :' + api_link.IP_Port
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [this.guage_api_link],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">'+api_link.RESULT+'</span><br/>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: 'Status'
+        }
+    }]
+
+}));
+
+// The speed gauge
+var chartSpeed = Highcharts.chart('container-speed-2', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'Speed'
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [80],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">{y}</span><br/>' +
+                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: ' km/h'
+        }
+    }]
+
+}));
+
+</script>
+@endsection
