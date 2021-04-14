@@ -93,6 +93,7 @@
 }
 
 </style>
+<div class="container-fluid">
 <div class="row">
     <div class="col-md-4">
         <figure class="highcharts-figure">
@@ -126,13 +127,7 @@
         </figure>
     </div>
 
-    <div class="col-md-4">
-         <figure class="highcharts-figure">
-                    <div id="kannel_smppbox_port_check">
-                        
-                    </div>
-        </figure>
-    </div>
+ 
 
 
     <div class="col-md-4">
@@ -143,28 +138,118 @@
        </figure>
    </div>
 
-    <div class="col-md-4">
-         <figure class="highcharts-figure">
-                    <div id="smpp_links">
-                        
-                    </div>
-        </figure>
-    </div>
 
-    <div class="col-md-4">
-        <figure class="highcharts-figure-solid">
-            <div id="container-speed" class="chart-container-solid"></div>
-        </figure>
-    </div>
 
-    <!-- <div class="col-md-4">
-        <figure class="highcharts-figure-solid">
-            <div id="container-speed-2" class="chart-container-solid"></div>
-        </figure>
-    </div> -->
     
 </div>
+//usama code
+<div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">API LINKS</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="container-speed" class="chart-container-solid"></div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <?php foreach ($kannel_smppbox_port_check as $key => $value) {        ?>
+  
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Kannel Smppbox Port Check</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="<?php echo($key);?>" class="chart-container-solid"></div>
+              </figure>
+        </div>
+      </div>
+    </div>
+       <?php   }    ?>
+  </div>
+  <div class="row">
+      <?php foreach ($smpp_links as $key => $value) {        ?>
+  
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">SMPP Links</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="<?php echo('smpp'.$key);?>" class="chart-container-solid"></div>
+              </figure>
+        </div>
+      </div>
+    </div>
+       <?php   }    ?>
+  </div>
+  <div class="row">
+  
+      <?php foreach ($linksStatus as $key => $value) {    ?>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">USSD1 LINK STATUS</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="<?php echo ('ussd'.$key);?>" class="chart-container-solid"></div>
+              </figure>
+        </div>
+      </div>
+    </div>
+       <?php   }  ?>
+  </div>
+  <div class="row">
+  
+      <?php foreach ($pointCodesStatus as $key => $value) {     ?>
+  
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">USSD1 Point Codes Status</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="<?php echo ('code'.$key);?>" class="chart-container-solid"></div>
+              </figure>
+        </div>
+      </div>
+    </div>
+       <?php   }  ?>
+  </div>
+  <div class="row">
+  
+      <?php foreach ($linksStatus2 as $key => $value) { ?>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">USSD2 LINK STATUS</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="<?php echo ('ussd2'.$key);?>" class="chart-container-solid"></div>
+              </figure>
+        </div>
+      </div>
+    </div>
+       <?php   } ?>
+   </div>
+  <div class="row">
+  
+      <?php foreach ($pointCodesStatus2 as $key => $value) {?>
+  
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">USSD2 Point Codes Status</h5>
+          <figure class="highcharts-figure-solid">
+              <div id="<?php echo ('code2'.$key);?>" class="chart-container-solid"></div>
+              </figure>
+        </div>
+      </div>
+    </div>
+       <?php   } ?>
+  </div>
 
+
+</div>
 
 <script>
  var sinch_counts = <?php echo json_encode($sinch_counts);?> ;
@@ -253,22 +338,86 @@ Highcharts.chart('sinch_counts', {
     ],
 });
 
-    // window.location.reload(true);
-    // setTimeout(function () {
-    //     location.reload()
-    // }, 5000);
- var kannel_tps = <?php echo json_encode($kannel_tps);?> ;
+// $(document).ready(function(){
+//   $("button").click(function(){
+//     $("p").slideToggle();
+//   });
+// });
+
+
+
+
+
+
+
+var kannel_tps = <?php echo json_encode($kannel_tps);?> ;
+
+var kannel_tps_data = [];
+
+
+var keys = Object.keys(kannel_tps);
+var values = Object.values(kannel_tps);
+
+
+for (index = 0; index < keys.length; index++) {
+  
+    var object =  {
+                    name: keys[index],
+                    y: parseFloat(values[index]),
+                    drilldown: null
+                } 
+                
+         this.kannel_tps_data.push(object);       
+}
+
+
+function kannel_tps_test(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('kannel_tps')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+      console.log('kannel ajax')
+      console.log(res)
+            data = []
+            var keys = Object.keys(res);
+            var values = Object.values(res);
+
+
+        for (index = 0; index < keys.length; index++) {
+  
+                    var object =  {
+                    name: keys[index],
+                    y: parseFloat(values[index]),
+                    drilldown: null
+                } 
+                
+         data.push(object);       
+}
+    this.kannel_tps_data = data;
+            // alert(res);
+            // console.log(redis_stat_test.series[d])
+            kannel_graph_tps.series[0].setData(this.kannel_tps_data);
+            //redis_stat_test.update();
+        },
+      error: function (request, status, error) {
+        alert(request.responseText);
+      }
+    }); }, 2000);
+    
+ 
+}
+
     // Create the chart
-Highcharts.chart('kannel_tps', {
+var kannel_graph_tps = Highcharts.chart('kannel_tps', {
     chart: {
         type: 'column'
     },
     title: {
         text: 'Kannel Tps'
     },
-    // subtitle: {
-    //     text: 'Click the columns to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-    // },
+
     accessibility: {
         announceNewData: {
             enabled: true
@@ -305,65 +454,80 @@ Highcharts.chart('kannel_tps', {
         {
             name: "Kannels Tps",
             colorByPoint: true,
-            data: [
-                {
-                    name: "JAZZCASH",
-                    y: parseFloat(kannel_tps.JAZZCASH),
-                    drilldown: null
-                },
-                {
-                    name: "CSMS1",
-                    y: parseFloat(kannel_tps.CSMS1),
-                    drilldown: null
-                },
-                {
-                    name: "AQO_INTL",
-                    y: parseFloat(kannel_tps.AQO_INTL),
-                    drilldown: null
-                },
-                {
-                    name: "AAQOOCMS2",
-                    y: parseFloat(kannel_tps.AAQOOCMS2),
-                    drilldown: null
-                },
-                {
-                    name: "WARID LA",
-                    y: parseFloat(kannel_tps.WARID_LA),
-                    drilldown: null
-                },
-                {
-                    name: "WARID LO",
-                    y: parseFloat(kannel_tps.WARID_LO),
-                    drilldown: null
-                },
-                {
-                    name: "AAQOO SINCH",
-                    y: parseFloat(kannel_tps.Aaqoo_Sinch),
-                    drilldown: null
-                },
-                {
-                    name: "AAQOO CMS3",
-                    y: parseFloat(kannel_tps.AAQOOCMS3),
-                    drilldown: null
-                },
-                {
-                    name: "CMT AQOO",
-                    y: parseFloat(kannel_tps.CMT_AQOO),
-                    drilldown: null
-                },
-                {
-                    name: "SC 7005",
-                    y: parseFloat(kannel_tps.SC_7005),
-                    drilldown: null
-                }
-            ]
+            data: kannel_tps_data
         }
     ],
 });
 
  var kannel_queue = <?php echo json_encode($kannel_queue);?> ;
 
-Highcharts.chart('kannel_queue', {
+ var kannel_queue_data = [];
+
+
+var keys = Object.keys(kannel_queue);
+var values = Object.values(kannel_queue);
+
+
+for (index = 0; index < keys.length; index++) {
+  
+    var object =  {
+                    name: keys[index],
+                    y: parseFloat(values[index]),
+                    drilldown: null
+                } 
+                
+         this.kannel_queue_data.push(object);       
+}
+
+
+function kannel_queue_test(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('kannel_queue')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+      console.log('kannel queue ajax')
+      console.log(res)
+            data = []
+            var keys = Object.keys(res);
+            var values = Object.values(res);
+
+
+        for (index = 0; index < keys.length; index++) {
+  
+                    var object =  {
+                    name: keys[index],
+                    y: parseFloat(values[index]),
+                    drilldown: null
+                } 
+                
+         data.push(object);       
+}
+    this.kannel_queue_data = data;
+            // alert(res);
+            // console.log(redis_stat_test.series[d])
+            kannel_graph_queue.series[0].setData(this.kannel_queue_data);
+            //redis_stat_test.update();
+        },
+      error: function (request, status, error) {
+        alert(request.responseText);
+      }
+    }); }, 2000);
+    
+ 
+}
+
+
+
+
+
+
+
+
+
+
+var kannel_graph_queue = Highcharts.chart('kannel_queue', {
     chart: {
         type: 'column'
     },
@@ -409,187 +573,13 @@ Highcharts.chart('kannel_queue', {
         {
             name: "Kannels Queue",
             colorByPoint: true,
-            data: [
-                {
-                    name: "JAZZCASH",
-                    y: parseFloat(kannel_queue.JAZZCASH),
-                    drilldown: null
-                },
-                {
-                    name: "CSMS1",
-                    y: parseFloat(kannel_queue.CSMS1),
-                    drilldown: null
-                },
-                {
-                    name: "AQO_INTL",
-                    y: parseFloat(kannel_queue.AQO_INTL),
-                    drilldown: null
-                },
-                {
-                    name: "AAQOOCMS2",
-                    y: parseFloat(kannel_queue.AAQOOCMS2),
-                    drilldown: null
-                },
-                {
-                    name: "WARID LA",
-                    y: parseFloat(kannel_queue.WARID_LA),
-                    drilldown: null
-                },
-                {
-                    name: "WARID LO",
-                    y: parseFloat(kannel_queue.WARID_LO),
-                    drilldown: null
-                },
-                {
-                    name: "AAQOO SINCH",
-                    y: parseFloat(kannel_queue.Aaqoo_Sinch),
-                    drilldown: null
-                },
-                {
-                    name: "AAQOO CMS3",
-                    y: parseFloat(kannel_queue.AAQOOCMS3),
-                    drilldown: null
-                },
-                {
-                    name: "CMT AQOO",
-                    y: parseFloat(kannel_queue.CMT_AQOO),
-                    drilldown: null
-                },
-                {
-                    name: "SC 7005",
-                    y: parseFloat(kannel_queue.SC_7005),
-                    drilldown: null
-                }
-            ]
+            data: kannel_queue_data
         }
     ],
 });
 
-var smpp_links = <?php echo json_encode($smpp_links);?> ;
-
- var data_smpp_links = [];
 
 
-for (index = 0; index < smpp_links.length; ++index) {
-    value = 0;
-    if((smpp_links[index].RESULT) == 'UP')
-    {
-        value = 1;
-    }
-    var object =  {
-                    name: smpp_links[index].LA_Name+'<br>'+smpp_links[index].IP_Port,
-                    y: value,
-                    drilldown: null
-                } 
-                
-         this.data_smpp_links.push(object);       
-}
-
-
- console.log(smpp_links)
-
-Highcharts.chart('smpp_links', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'SMPP Links'
-    },
-    accessibility: {
-        announceNewData: {
-            enabled: true
-        }
-    },
-    xAxis: {
-        type: 'category'
-    },
-    yAxis: {
-        title: {
-            text: 'RESULT'
-        }
-    },
-    legend: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-            }
-        }
-    },
-    series: [
-        {
-            name: "Browsers",
-            colorByPoint: true,
-            data: data_smpp_links
-        }
-    ],
-});
-
-var kannel_smppbox_port_check = <?php echo json_encode($kannel_smppbox_port_check);?> ;
-
- var data_kannel_smppbox_port_check = [];
-
-
-for (index = 0; index < kannel_smppbox_port_check.length; ++index) {
-    value = 0;
-    if((kannel_smppbox_port_check[index].RESULT) == true)
-    {
-        value = 1;
-    }
-    var object =  {
-                    name: kannel_smppbox_port_check[index].REDIS_IP,
-                    y: value,
-                    drilldown: null
-                } 
-                
-         this.data_kannel_smppbox_port_check.push(object);       
-}
-
-
- console.log(kannel_smppbox_port_check)
-
-Highcharts.chart('kannel_smppbox_port_check', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Kannel Smppbox Port Check'
-    },
-    accessibility: {
-        announceNewData: {
-            enabled: true
-        }
-    },
-    xAxis: {
-        type: 'category'
-    },
-    yAxis: {
-        title: {
-            text: 'RESULT'
-        }
-    },
-    legend: {
-        enabled: false
-    },
-    plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true,
-            }
-        }
-    },
-    series: [
-        {
-            name: "Kannels SMPP",
-            colorByPoint: true,
-            data: data_kannel_smppbox_port_check
-        }
-    ],
-});
 
 
 var mysql_seconds_behind = <?php echo json_encode($mysql_seconds_behind);?> ;
@@ -597,7 +587,7 @@ var mysql_seconds_behind = <?php echo json_encode($mysql_seconds_behind);?> ;
  var data_mysql_seconds_behind = [];
 
 
-for (index = 0; index < mysql_seconds_behind.length; ++index) {
+for (index = 0; index < mysql_seconds_behind.length; index++) {
     var object =  {
                     name: mysql_seconds_behind[index].SLAVE_IP,
                     y: parseInt(mysql_seconds_behind[index].RESULT),
@@ -610,7 +600,41 @@ for (index = 0; index < mysql_seconds_behind.length; ++index) {
 
  console.log(mysql_seconds_behind)
 
-Highcharts.chart('mysql_seconds_behind', {
+ function mysql_second_behind_test(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('mysql_behind')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+            console.log('danish sql')
+            console.log(res);
+            data = []
+            for (index = 0; index < res.length; index++) {
+    var obj =  {
+                    name: res[index].SLAVE_IP,
+                    y: parseInt(res[index].RESULT),
+                    drilldown: null
+                } 
+
+         data.push(obj);       
+}
+    this.data_mysql_seconds_behind = data;
+            // alert(res);
+            // console.log(redis_stat_test.series[d])
+            mysql_second_test.series[0].setData(this.data_mysql_seconds_behind);
+            //redis_stat_test.update();
+        },
+      error: function (request, status, error) {
+        alert(request.responseText);
+      }
+    }); }, 2000);
+    
+ 
+}
+
+
+var mysql_second_test = Highcharts.chart('mysql_seconds_behind', {
     chart: {
         type: 'column'
     },
@@ -666,7 +690,7 @@ Highcharts.chart('mysql_seconds_behind', {
  var data_redis = [];
 
 
-for (index = 0; index < redis_stats.length; ++index) {
+for (index = 0; index < redis_stats.length; index++) {
     var object =  {
                     name: redis_stats[index].REDIS_IP,
                     y: parseInt(redis_stats[index].TPS),
@@ -679,7 +703,44 @@ for (index = 0; index < redis_stats.length; ++index) {
 
  console.log(redis_stats)
 
-Highcharts.chart('redis_stat', {
+
+
+ function redis_test(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('redis_stats')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+            console.log('danish')
+            console.log(res);
+            data = []
+            for (index = 0; index < res.length; index++) {
+    var obj =  {
+                    name: res[index].REDIS_IP,
+                    y: parseInt(res[index].TPS),
+                    drilldown: null
+                } 
+
+         data.push(obj);       
+}
+    this.data_redis = data;
+            // alert(res);
+            // console.log(redis_stat_test.series[d])
+            redis_stat_test.series[0].setData(this.data_redis);
+            //redis_stat_test.update();
+        },
+      error: function (request, status, error) {
+        alert(request.responseText);
+      }
+    }); }, 2000);
+    
+ 
+}
+
+window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); }
+
+var redis_stat_test = Highcharts.chart('redis_stat', {
     chart: {
         type: 'column'
     },
@@ -831,13 +892,26 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
 
 }));
 
-// The speed gauge
-var chartSpeed = Highcharts.chart('container-speed-2', Highcharts.merge(gaugeOptions, {
+//the smpp guages
+var kannel_smppbox_port_checkk = <?php echo json_encode($kannel_smppbox_port_check);?> ;
+
+ // var data_kannel_smppbox_port_check = [];
+ for (index = 0; index < kannel_smppbox_port_checkk.length; index++) {
+    value = 0;
+    link = "Down";
+    if((kannel_smppbox_port_checkk[index].RESULT) == true)
+    {
+        value = 1;
+        link = "UP";
+    }
+    console.log(value);
+
+    var chartSpeed = Highcharts.chart(''+index+'', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
         max: 1,
         title: {
-            text: 'Speed'
+            text: 'Redis IP :' + kannel_smppbox_port_checkk[index].REDIS_IP,
         }
     },
 
@@ -847,20 +921,242 @@ var chartSpeed = Highcharts.chart('container-speed-2', Highcharts.merge(gaugeOpt
 
     series: [{
         name: 'Speed',
-        data: [80],
+        data: [value],
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">{y}</span><br/>' +
-                '<span style="font-size:12px;opacity:0.4">km/h</span>' +
+                '<span style="font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
-            valueSuffix: ' km/h'
+            valueSuffix: 'Status'
         }
     }]
 
 }));
+}
+
+//ussd
+var ussd = <?php echo json_encode($linksStatus);?> ;
+
+ // var data_kannel_smppbox_port_check = [];
+ for (index = 0; index < ussd.length; index++) {
+    value = 0;
+    link = "Down";
+    if((ussd[index].status) == "UP")
+    {
+        value = 1;
+        link = "UP";
+    }
+    console.log(value);
+
+    var chartSpeed = Highcharts.chart('ussd'+index+'', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'LINK STATUS IP :' + ussd[index].ip +' Port :'+ ussd[index].port +'<br>' ,
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [value],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: 'Status'
+        }
+    }]
+
+}));
+}
+
+//code
+var code = <?php echo json_encode($pointCodesStatus);?> ;
+
+ // var data_kannel_smppbox_port_check = [];
+ for (index = 0; index < code.length; index++) {
+    value = 0;
+    link = "INACCESSIBLE";
+    if((code[index].signallingPointStatus) == "ACCESSIBLE")
+    {
+        value = 1;
+        link = "ACCESSIBLE";
+    }
+    console.log(value);
+
+    var chartSpeed = Highcharts.chart('code'+index+'', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'Point Code :' + code[index].pointCode ,
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [value],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: 'Status'
+        }
+    }]
+
+}));
+}
+
+//ussd2
+var ussd2 = <?php echo json_encode($linksStatus2);?> ;
+
+ // var data_kannel_smppbox_port_check = [];
+ for (index = 0; index < ussd2.length; index++) {
+    value = 0;
+    link = "Down";
+    if((ussd2[index].status) == "UP")
+    {
+        value = 1;
+        link = "UP";
+    }
+    console.log(value);
+
+    var chartSpeed = Highcharts.chart('ussd2'+index+'', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'LINK STATUS IP :' + ussd2[index].ip +' Port :'+ ussd2[index].port +'<br>' ,
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [value],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: 'Status'
+        }
+    }]
+
+}));
+}
+
+//code
+var code2 = <?php echo json_encode($pointCodesStatus2);?> ;
+
+ // var data_kannel_smppbox_port_check = [];
+ for (index = 0; index < code2.length; index++) {
+    value = 0;
+    link = "INACCESIBBLE";
+    if((code2[index].signallingPointStatus) == "ACCESSIBLE")
+    {
+        value = 1;
+        link = "ACCESSIBLE";
+    }
+    console.log(value);
+
+    var chartSpeed = Highcharts.chart('code2'+index+'', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'Point Code :' + code2[index].pointCode ,
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [value],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: 'Status'
+        }
+    }]
+
+}));
+}
+
+//smpp_links
+var smpp = <?php echo json_encode($smpp_links);?> ;
+
+ // var data_kannel_smppbox_port_check = [];
+ for (index = 0; index < smpp.length; index++) {
+    value = 0;
+    link = "DOWN";
+    if((smpp[index].RESULT) == "UP")
+    {
+        value = 1;
+        link = "UP";
+    }
+    console.log(value);
+
+    var chartSpeed = Highcharts.chart('smpp'+index+'', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: 0,
+        max: 1,
+        title: {
+            text: 'LA NAME :' + smpp[index].LA_Name +'PORT :'+smpp[index].IP_Port ,
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Speed',
+        data: [value],
+        dataLabels: {
+            format:
+                '<div style="text-align:center">' +
+                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '</div>'
+        },
+        tooltip: {
+            valueSuffix: 'Status'
+        }
+    }]
+
+}));
+}
+
+
 
 </script>
 @endsection
