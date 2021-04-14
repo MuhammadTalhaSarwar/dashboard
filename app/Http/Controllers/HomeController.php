@@ -71,12 +71,8 @@ class HomeController extends Controller
         //dd($api_link);
         
 
-        
-<<<<<<< HEAD
-        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','smpp_links'));
-=======
-        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','sinch_counts'));
->>>>>>> 09f1eb4476ab45d9255ae5e49623d609cbcb1eff
+
+        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','sinch_counts','smpp_links'));
     }
     public function guzzle(){
         
