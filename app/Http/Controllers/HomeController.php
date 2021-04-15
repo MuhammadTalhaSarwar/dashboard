@@ -174,7 +174,7 @@ class HomeController extends Controller
         
     }
 
-    public function linksStatus()
+     public function linksStatus()
     {
         $client = new Client();
         $response = $client->get('http://172.27.108.45/ussd1_link_status.php');

@@ -15,6 +15,9 @@
 </style>
 <div class="container-fluid">
 <div class="row">
+
+
+    @if(!empty($kannel_tps))
     <div class="col-md-4">
         <figure class="highcharts-figure">
                     <div id="kannel_tps">
@@ -22,6 +25,13 @@
                     </div>
         </figure>
     </div>
+
+  
+    @endif
+   
+
+
+    
     <div class="col-md-4">
          <figure class="highcharts-figure">
                     <div id="kannel_queue">
@@ -478,7 +488,7 @@ function kannel_tps_test(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -587,7 +597,7 @@ function kannel_queue_test(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -702,7 +712,7 @@ for (index = 0; index < mysql_seconds_behind.length; index++) {
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -807,7 +817,7 @@ for (index = 0; index < redis_stats.length; index++) {
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -880,12 +890,12 @@ function api_links_test(){
           
     if (res.RESULT == "UP") {
     this.guage_api_link = [1];
-    document.getElementById("api_link_status"+index).innerHTML = "<span id='api_link_status'+index+''>UP</span>";
+    document.getElementById("api_link_status").innerHTML = "<span id='api_link_status'>UP</span>";
     
 }
    else {
     this.guage_api_link = [0];  
-    document.getElementById("api_link_status"+index).innerHTML = "<span id='api_link_status'+index+'' style='position:relative;right:20px;text-align:center';>DOWN</span>";
+    document.getElementById("api_link_status").innerHTML = "<span id='api_link_status' style='position:relative;right:20px;text-align:center';>DOWN</span>";
 }
 
      api_links.series[0].setData(this.guage_api_link);
@@ -898,7 +908,7 @@ function api_links_test(){
         //console.log(request.responseText);
 
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -934,7 +944,7 @@ var api_links = Highcharts.chart('api_links', Highcharts.merge(gaugeOptions, {
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                    '<span  id="api_link_status'+index+'" style="font-size:25px">'+api_link.RESULT+'</span><br/>' +
+                    '<span  id="api_link_status" style="font-size:25px">'+api_link.RESULT+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -979,7 +989,7 @@ function kannel_smpp_port_check(){
         //console.log(request.responseText);
 
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -1068,7 +1078,7 @@ function linksStatus(){
         //console.log(request.responseText);
 
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -1154,7 +1164,7 @@ function pointCodesStatus(){
         // //console.log(request.responseText);
         //console.log(request.responseText)
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -1241,7 +1251,7 @@ function linksStatus2(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -1327,7 +1337,7 @@ function pointCodesStatus2(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
@@ -1414,7 +1424,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 2000);
+    }); }, 5000);
     
  
 }
