@@ -67,7 +67,7 @@
 <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Api Link</th>
+        <th class="text-center">Api Link</th>
       </tr>
     </thead>
     <tbody>
@@ -83,7 +83,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Kannel Smppbox Port Check</th>
+        <th class="text-center">Kannel Smppbox Port Check</th>
       </tr>
     </thead>
     <tbody>
@@ -108,7 +108,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>SMPP Links</th>
+        <th class="text-center">SMPP Links</th>
       </tr>
     </thead>
     <tbody>
@@ -135,7 +135,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>USSD1 LINK STATUS</th>
+        <th class="text-center">USSD1 LINK STATUS</th>
       </tr>
     </thead>
     <tbody>
@@ -160,7 +160,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>USSD1 Point Codes Status</th>
+        <th class="text-center">USSD1 Point Codes Status</th>
       </tr>
     </thead>
     <tbody>
@@ -188,7 +188,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>USSD2 LINK STATUS</th>
+        <th class="text-center">USSD2 LINK STATUS</th>
       </tr>
     </thead>
     <tbody>
@@ -215,7 +215,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>USSD2 Point Codes Status</th>
+        <th class="text-center">USSD2 Point Codes Status</th>
       </tr>
     </thead>
     <tbody>
@@ -880,9 +880,12 @@ function api_links_test(){
           
     if (res.RESULT == "UP") {
     this.guage_api_link = [1];
+    document.getElementById("api_link_status"+index).innerHTML = "<span id='api_link_status'+index+''>UP</span>";
+    
 }
    else {
     this.guage_api_link = [0];  
+    document.getElementById("api_link_status"+index).innerHTML = "<span id='api_link_status'+index+'' style='position:relative;right:20px;text-align:center';>DOWN</span>";
 }
 
      api_links.series[0].setData(this.guage_api_link);
@@ -931,7 +934,7 @@ var api_links = Highcharts.chart('api_links', Highcharts.merge(gaugeOptions, {
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+this.api_link_result+'</span><br/>' +
+                    '<span  id="api_link_status'+index+'" style="font-size:25px">'+api_link.RESULT+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -1046,10 +1049,12 @@ function linksStatus(){
              
     value = [0];
     link = "Down";
+    document.getElementById("linkstatuss"+index).innerHTML = "<span id='linkstatuss'+index+'' style='position:relative;right:20px;text-align:center';>DOWN</span>";
     if((res[index].status) == "UP")
     {
         value = [1];
         link = "UP";
+        document.getElementById("linkstatuss"+index).innerHTML = "<span id='linkstatuss'+index+''>UP</span>";
     }
 
 
@@ -1102,7 +1107,7 @@ var linksStatus_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '<span  id="linkstatuss'+index+'" style="font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -1130,10 +1135,12 @@ function pointCodesStatus(){
              
     value = [0];
     link = "INACCESSIBLE";
+    document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
     if((res[index].signallingPointStatus) == "ACCESSIBLE")
     {
         value = [1];
         link = "ACCESSIBLE";
+        document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
     }
 
 
@@ -1189,7 +1196,7 @@ var pointCodesStatus_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+link+'</span><br/>' +
+                    '<span id="pointcodein'+index+'" style="font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -1217,10 +1224,12 @@ function linksStatus2(){
              
     value = [0];
     link = "Down";
+    document.getElementById("linkstatus"+index).innerHTML = "<span id='linkstatus'+index+'' style='position:relative;right:20px;text-align:center';>DOWN</span>";
     if((res[index].status) == "UP")
     {
         value = [1];
         link = "UP";
+        document.getElementById("linkstatus"+index).innerHTML = "<span id='linkstatus'+index+''>UP</span>";
     }
 
 
@@ -1273,7 +1282,7 @@ var linksStatus2_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+link+'</span><br/>' +
+                    '<span id="linkstatus'+index+'" style="font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -1301,10 +1310,12 @@ function pointCodesStatus2(){
              
     value = [0];
     link = "INACCESIBBLE";
+    document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
     if((res[index].signallingPointStatus) == "ACCESSIBLE")
     {
         value = [1];
         link = "ACCESSIBLE";
+        document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
     }
 
 
@@ -1357,7 +1368,7 @@ var pointCodesStatus2_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+link+'</span><br/>' +
+                    '<span id="codein'+index+'" style="  font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -1385,11 +1396,13 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
             for (index = 0; index < res.length; index++) {
              
     value = [0];
+    document.getElementById("smppp"+index).innerHTML = "<span id='smppp'+index+'' style='position:relative;right:20px;text-align:center';>DOWN</span>";
     link = "DOWN";
     if((res[index].RESULT) == "UP")
     {
         value = [1];
         link = "UP";
+        document.getElementById("smppp"+index).innerHTML = "<span id='smppp'+index+''>UP</span>";
     }
 
 
@@ -1439,7 +1452,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+link+'</span><br/>' +
+                '<span id="smppp'+index+'"   style=" text-align:center; font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
