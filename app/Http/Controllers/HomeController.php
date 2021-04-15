@@ -59,9 +59,9 @@ class HomeController extends Controller
 
         
 
-        // $response = $client->get('http://172.27.108.45/sinch_counts.php');
-        // $body = $response->getBody()->getContents();
-        $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
+        $response = $client->get('http://172.27.108.45/sinch_counts.php');
+        $body = $response->getBody()->getContents();
+        // $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
         $sinch_counts = json_decode($body);
         
         

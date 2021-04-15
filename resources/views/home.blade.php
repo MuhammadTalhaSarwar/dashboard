@@ -6,91 +6,11 @@
     .highcharts-figure-solid .chart-container-solid {
     width: 300px;
     height: 200px;
-    float: left;
+   
 }
 
-.highcharts-figure-solid, .highcharts-data-table table {
-    width: 600px;
-    margin: 0 auto;
-}
 
-.highcharts-data-table table {
-    font-family: Verdana, sans-serif;
-    border-collapse: collapse;
-    border: 1px solid #EBEBEB;
-    margin: 10px auto;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-}
-.highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: #555;
-}
-.highcharts-data-table th {
-    font-weight: 600;
-    padding: 0.5em;
-}
-.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
-    padding: 0.5em;
-}
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
-    background: #f8f8f8;
-}
-.highcharts-data-table tr:hover {
-    background: #f1f7ff;
-}
 
-@media (max-width: 600px) {
-    .highcharts-figure-solid, .highcharts-data-table table {
-        width: 100%;
-    }
-    .highcharts-figure-solid .chart-container-solid {
-        width: 300px;
-        float: none;
-        margin: 0 auto;
-    }
-
-}
-
-.highcharts-figure, .highcharts-data-table table {
-    min-width: 310px; 
-    max-width: 800px;
-    margin: 1em auto;
-}
-
-#container {
-    height: 400px;
-}
-
-.highcharts-data-table table {
-    font-family: Verdana, sans-serif;
-    border-collapse: collapse;
-    border: 1px solid #EBEBEB;
-    margin: 10px auto;
-    text-align: center;
-    width: 100%;
-    max-width: 500px;
-}
-.highcharts-data-table caption {
-    padding: 1em 0;
-    font-size: 1.2em;
-    color: #555;
-}
-.highcharts-data-table th {
-    font-weight: 600;
-    padding: 0.5em;
-}
-.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
-    padding: 0.5em;
-}
-.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
-    background: #f8f8f8;
-}
-.highcharts-data-table tr:hover {
-    background: #f1f7ff;
-}
 
 </style>
 <div class="container-fluid">
@@ -119,7 +39,7 @@
         </figure>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-6">
          <figure class="highcharts-figure">
                     <div id="mysql_seconds_behind">
                         
@@ -130,7 +50,7 @@
  
 
 
-    <div class="col-md-4">
+    <div class="col-md-6">
         <figure class="highcharts-figure">
                    <div id="sinch_counts">
                        
@@ -142,124 +62,274 @@
 
     
 </div>
-//usama code
-<div class="row">
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">API LINKS</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="container-speed" class="chart-container-solid"></div>
-          </figure>
-        </div>
-      </div>
-    </div>
-  </div>
+
+
+<table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Api Link</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="row"><div class="card">
+         <figure class="highcharts-figure-solid">
+    <div id="api_links" class="chart-container-solid"></div>
+        </figure></div></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Kannel Smppbox Port Check</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="row">
+            <?php foreach ($kannel_smppbox_port_check as $key => $value) {        ?>
+       
+            <div class="card">
+                <figure class="highcharts-figure-solid">
+                    <div id="<?php echo($key);?>" class="chart-container-solid"></div>
+                    </figure>
+             
+            </div>
+          
+             <?php   }    ?>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>SMPP Links</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="row">
+            <?php foreach ($smpp_links as $key => $value) {        ?>
+        
+          
+            <div class="card">
+             
+                <figure class="highcharts-figure-solid">
+                    <div id="<?php echo('smpp'.$key);?>" class="chart-container-solid"></div>
+                    </figure>
+         
+          </div>
+             <?php   }    ?>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>USSD1 LINK STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>  <div class="row">
+  
+            <?php foreach ($linksStatus as $key => $value) {    ?>
+      
+            <div class="card">
+      
+                <figure class="highcharts-figure-solid">
+                    <div id="<?php echo ('ussd'.$key);?>" class="chart-container-solid"></div>
+                    </figure>
+          
+          </div>
+             <?php   }  ?>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>USSD1 Point Codes Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>  <div class="row">
+  
+            <?php foreach ($pointCodesStatus as $key => $value) {     ?>
+        
+         
+            <div class="card">
+        
+              
+                <figure class="highcharts-figure-solid">
+                    <div id="<?php echo ('code'.$key);?>" class="chart-container-solid"></div>
+                    </figure>
+         
+          </div>
+             <?php   }  ?>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>USSD2 LINK STATUS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+            <div class="row">
+            
+                <?php foreach ($linksStatus2 as $key => $value) { ?>
+           
+                <div class="card">
+               
+               
+                    <figure class="highcharts-figure-solid">
+                        <div id="<?php echo ('ussd2'.$key);?>" class="chart-container-solid"></div>
+                        </figure>
+              
+              </div>
+                 <?php   } ?>
+             </div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>USSD2 Point Codes Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          
   <div class="row">
-      <?php foreach ($kannel_smppbox_port_check as $key => $value) {        ?>
   
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Kannel Smppbox Port Check</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="<?php echo($key);?>" class="chart-container-solid"></div>
-              </figure>
-        </div>
-      </div>
-    </div>
-       <?php   }    ?>
+    <?php foreach ($pointCodesStatus2 as $key => $value) {?>
+
+
+    <div class="card">
+    
+     
+        <figure class="highcharts-figure-solid">
+            <div id="<?php echo ('code2'.$key);?>" class="chart-container-solid"></div>
+            </figure>
+ 
   </div>
-  <div class="row">
-      <?php foreach ($smpp_links as $key => $value) {        ?>
-  
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">SMPP Links</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="<?php echo('smpp'.$key);?>" class="chart-container-solid"></div>
-              </figure>
-        </div>
-      </div>
-    </div>
-       <?php   }    ?>
-  </div>
-  <div class="row">
-  
-      <?php foreach ($linksStatus as $key => $value) {    ?>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">USSD1 LINK STATUS</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="<?php echo ('ussd'.$key);?>" class="chart-container-solid"></div>
-              </figure>
-        </div>
-      </div>
-    </div>
-       <?php   }  ?>
-  </div>
-  <div class="row">
-  
-      <?php foreach ($pointCodesStatus as $key => $value) {     ?>
-  
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">USSD1 Point Codes Status</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="<?php echo ('code'.$key);?>" class="chart-container-solid"></div>
-              </figure>
-        </div>
-      </div>
-    </div>
-       <?php   }  ?>
-  </div>
-  <div class="row">
-  
-      <?php foreach ($linksStatus2 as $key => $value) { ?>
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">USSD2 LINK STATUS</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="<?php echo ('ussd2'.$key);?>" class="chart-container-solid"></div>
-              </figure>
-        </div>
-      </div>
-    </div>
-       <?php   } ?>
-   </div>
-  <div class="row">
-  
-      <?php foreach ($pointCodesStatus2 as $key => $value) {?>
-  
-    <div class="col-md-4">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">USSD2 Point Codes Status</h5>
-          <figure class="highcharts-figure-solid">
-              <div id="<?php echo ('code2'.$key);?>" class="chart-container-solid"></div>
-              </figure>
-        </div>
-      </div>
-    </div>
-       <?php   } ?>
-  </div>
+     <?php   } ?>
+</div></td>
+      </tr>
+    </tbody>
+  </table>
+
 
 
 </div>
 
 <script>
 
-window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); smpp_testing(); linksStatus(); linksStatus2(); pointCodesStatus(); pointCodesStatus2();}
+window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); smpp_testing(); linksStatus(); linksStatus2(); pointCodesStatus(); pointCodesStatus2();kannel_smpp_port_check();api_links_test();}
+
+
+var gaugeOptions = {
+    chart: {
+        type: 'solidgauge'
+    },
+
+    title: null,
+
+    pane: {
+        center: ['50%', '85%'],
+        size: '140%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#DF5353',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    exporting: {
+        enabled: false
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: [
+            [0, '#DF5353'], // green
+            [1, '#55BF3B']
+        ],
+        lineWidth: 0,
+        tickWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        title: {
+            y: -70
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  var sinch_counts = <?php echo json_encode($sinch_counts);?> ;
     // Create the chart
 
-    //console.log(sinch_counts)
+    ////console.log(sinch_counts)
 Highcharts.chart('sinch_counts', {
     chart: {
         type: 'column'
@@ -381,9 +451,9 @@ function kannel_tps_test(){
         url: '{{route('kannel_tps')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running1')
-      //console.log('kannel ajax')
-      //console.console.log(res)
+        success: function(res) { //console.log('running1')
+      ////console.log('kannel ajax')
+      //console.//console.log(res)
             data = []
             var keys = Object.keys(res);
             var values = Object.values(res);
@@ -400,13 +470,13 @@ function kannel_tps_test(){
          data.push(object);       
 }
     this.kannel_tps_data = data;
-            // console.log(res);
-            // //console.console.log(redis_stat_test.series[d])
+            // //console.log(res);
+            // //console.//console.log(redis_stat_test.series[d])
             kannel_graph_tps.series[0].setData(this.kannel_tps_data);
             //redis_stat_test.update();
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -490,9 +560,9 @@ function kannel_queue_test(){
         url: '{{route('kannel_queue')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running2')
-      //console.log('kannel queue ajax')
-      //console.console.log(res)
+        success: function(res) { //console.log('running2')
+      ////console.log('kannel queue ajax')
+      //console.//console.log(res)
             data = []
             var keys = Object.keys(res);
             var values = Object.values(res);
@@ -500,7 +570,7 @@ function kannel_queue_test(){
 
         for (index = 0; index < keys.length; index++) {
   
-                    var object =  {
+                    var object = {
                     name: keys[index],
                     y: parseFloat(values[index]),
                     drilldown: null
@@ -509,13 +579,13 @@ function kannel_queue_test(){
          data.push(object);       
 }
     this.kannel_queue_data = data;
-            // console.log(res);
-            // //console.console.log(redis_stat_test.series[d])
+            // //console.log(res);
+            // //console.//console.log(redis_stat_test.series[d])
             kannel_graph_queue.series[0].setData(this.kannel_queue_data);
             //redis_stat_test.update();
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -602,7 +672,7 @@ for (index = 0; index < mysql_seconds_behind.length; index++) {
 }
 
 
- //console.log(mysql_seconds_behind)
+ ////console.log(mysql_seconds_behind)
 
  function mysql_second_behind_test(){
     
@@ -610,9 +680,9 @@ for (index = 0; index < mysql_seconds_behind.length; index++) {
         url: '{{route('mysql_behind')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running3')
-            //console.log('danish sql')
-            //console.console.log(res);
+        success: function(res) { //console.log('running3')
+            ////console.log('danish sql')
+            //console.//console.log(res);
             data = []
             for (index = 0; index < res.length; index++) {
     var obj =  {
@@ -624,13 +694,13 @@ for (index = 0; index < mysql_seconds_behind.length; index++) {
          data.push(obj);       
 }
     this.data_mysql_seconds_behind = data;
-            // console.log(res);
-            // //console.console.log(redis_stat_test.series[d])
+            // //console.log(res);
+            // //console.//console.log(redis_stat_test.series[d])
             mysql_second_test.series[0].setData(this.data_mysql_seconds_behind);
             //redis_stat_test.update();
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -705,7 +775,7 @@ for (index = 0; index < redis_stats.length; index++) {
 }
 
 
- //console.console.log(redis_stats)
+ //console.//console.log(redis_stats)
 
 
 
@@ -715,9 +785,9 @@ for (index = 0; index < redis_stats.length; index++) {
         url: '{{route('redis_stats')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running4')
-            //console.log('danish')
-            //console.console.log(res);
+        success: function(res) { //console.log('running4')
+            ////console.log('danish')
+            //console.//console.log(res);
             data = []
             for (index = 0; index < res.length; index++) {
     var obj =  {
@@ -729,13 +799,13 @@ for (index = 0; index < redis_stats.length; index++) {
          data.push(obj);       
 }
     this.data_redis = data;
-            // console.log(res);
-            // //console.console.log(redis_stat_test.series[d])
+            // //console.log(res);
+            // //console.//console.log(redis_stat_test.series[d])
             redis_stat_test.series[0].setData(this.data_redis);
             //redis_stat_test.update();
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -799,65 +869,40 @@ var redis_stat_test = Highcharts.chart('redis_stat', {
 var api_link = JSON.parse('<?php echo json_encode($api_link);?>');
 
 
-var gaugeOptions = {
-    chart: {
-        type: 'solidgauge'
-    },
+function api_links_test(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('api_link')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) { //console.log('running10')
+        // this.api_link_result = "Down";
+          
+    if (res.RESULT == "UP") {
+    this.guage_api_link = [1];
+}
+   else {
+    this.guage_api_link = [0];  
+}
 
-    title: null,
+     api_links.series[0].setData(this.guage_api_link);
+    // pointCodesStatus_array[index].series[0].
+        
 
-    pane: {
-        center: ['50%', '85%'],
-        size: '140%',
-        startAngle: -90,
-        endAngle: 90,
-        background: {
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
-            innerRadius: '60%',
-            outerRadius: '100%',
-            shape: 'arc'
-        }
-    },
 
-    exporting: {
-        enabled: false
-    },
-
-    tooltip: {
-        enabled: false
-    },
-
-    // the value axis
-    yAxis: {
-        stops: [
-            [0, '#EEE'], // green
-            [1, '#55BF3B']
-        ],
-        lineWidth: 0,
-        tickWidth: 0,
-        minorTickInterval: null,
-        tickAmount: 2,
-        title: {
-            y: -70
         },
-        labels: {
-            y: 16
-        }
-    },
+      error: function (request, status, error) {
+        //console.log(request.responseText);
 
-    plotOptions: {
-        solidgauge: {
-            dataLabels: {
-                y: 5,
-                borderWidth: 0,
-                useHTML: true
-            }
-        }
-    }
-};
+      }
+    }); }, 2000);
+    
+ 
+}
+
 
 var guage_api_link = 0;
+var api_link_result = '';
 
 if (api_link.RESULT == "UP") {
 this.guage_api_link = 1;
@@ -865,9 +910,9 @@ this.guage_api_link = 1;
 else {
   this.guage_api_link = 0;  
 }
-
+this.api_link_result = api_link.RESULT;
 // The speed gauge
-var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+var api_links = Highcharts.chart('api_links', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
         max: 1,
@@ -886,7 +931,7 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                '<span style="font-size:25px">'+api_link.RESULT+'</span><br/>' +
+                '<span style="font-size:25px">'+this.api_link_result+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -896,8 +941,53 @@ var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptio
 
 }));
 
-//the smpp guages
+//the smpp guages kannel_smpp_port_check
+
+
 var kannel_smppbox_port_checkk = <?php echo json_encode($kannel_smppbox_port_check);?> ;
+
+function kannel_smpp_port_check(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('kannel_smpp_port_check')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) { //console.log('running11')
+        //console.log(res[0].RESULT)
+            data = []
+            for (index = 0; index < res.length; index++) {
+             
+    value = [0];
+    link = "Down";
+    if((res[index].RESULT) == true)
+    {
+        value = [1];
+        link = "UP";
+    }
+
+
+    kannel_smpp_port_check_array[index].series[0].setData(value);
+    // pointCodesStatus_array[index].series[0].
+        
+}
+
+        },
+      error: function (request, status, error) {
+        //console.log(request.responseText);
+
+      }
+    }); }, 2000);
+    
+ 
+}
+
+
+
+var kannel_smpp_port_check_array =  new Array();
+
+
+
+
 
  // var data_kannel_smppbox_port_check = [];
  for (index = 0; index < kannel_smppbox_port_checkk.length; index++) {
@@ -908,9 +998,9 @@ var kannel_smppbox_port_checkk = <?php echo json_encode($kannel_smppbox_port_che
         value = 1;
         link = "UP";
     }
-    //console.log(value);
+    ////console.log(value);
 
-    var chartSpeed = Highcharts.chart(''+index+'', Highcharts.merge(gaugeOptions, {
+    kannel_smpp_port_check_array[index] = Highcharts.chart(''+index+'', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
         max: 1,
@@ -949,7 +1039,7 @@ function linksStatus(){
         url: '{{route('linksStatus')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running5')
+        success: function(res) { //console.log('running5')
 
             data = []
             for (index = 0; index < res.length; index++) {
@@ -970,7 +1060,7 @@ function linksStatus(){
 
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
 
       }
     }); }, 2000);
@@ -991,7 +1081,7 @@ var linksStatus_array =  new Array();
         value = 1;
         link = "UP";
     }
-    //console.log(value);
+    ////console.log(value);
 
     linksStatus_array[index] = Highcharts.chart('ussd'+index+'', Highcharts.merge(gaugeOptions, {
     yAxis: {
@@ -1033,8 +1123,8 @@ function pointCodesStatus(){
         url: '{{route('pointCodesStatus')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running6')
-            //console.log('running')
+        success: function(res) { //console.log('running6')
+            ////console.log('running')
             data = []
             for (index = 0; index < res.length; index++) {
              
@@ -1054,8 +1144,8 @@ function pointCodesStatus(){
 
         },
       error: function (request, status, error) {
-        // console.log(request.responseText);
-        console.log(request.responseText)
+        // //console.log(request.responseText);
+        //console.log(request.responseText)
       }
     }); }, 2000);
     
@@ -1078,7 +1168,7 @@ var pointCodesStatus_array =  new Array();
         value = 1;
         link = "ACCESSIBLE";
     }
-    //console.log(value);
+    ////console.log(value);
 
     pointCodesStatus_array[index] = Highcharts.chart('code'+index+'', Highcharts.merge(gaugeOptions, {
     yAxis: {
@@ -1120,7 +1210,7 @@ function linksStatus2(){
         url: '{{route('linksStatus2')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running7')
+        success: function(res) { //console.log('running7')
 
             data = []
             for (index = 0; index < res.length; index++) {
@@ -1140,7 +1230,7 @@ function linksStatus2(){
 
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -1162,7 +1252,7 @@ var linksStatus2_array =  new Array();
         value = 1;
         link = "UP";
     }
-    //console.log(value);
+    ////console.log(value);
 
     linksStatus2_array[index] = Highcharts.chart('ussd2'+index+'', Highcharts.merge(gaugeOptions, {
     yAxis: {
@@ -1204,7 +1294,7 @@ function pointCodesStatus2(){
         url: '{{route('pointCodesStatus2')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running8')
+        success: function(res) { //console.log('running8')
 
             data = []
             for (index = 0; index < res.length; index++) {
@@ -1224,7 +1314,7 @@ function pointCodesStatus2(){
 
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -1245,7 +1335,7 @@ var pointCodesStatus2_array =  new Array();
         value = 1;
         link = "ACCESSIBLE";
     }
-    //console.log(value);
+    ////console.log(value);
 
 
     pointCodesStatus2_array[index] = Highcharts.chart('code2'+index+'', Highcharts.merge(gaugeOptions, {
@@ -1289,7 +1379,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         url: '{{route('smpp_links')}}',
         type: 'GET',
         dataType: 'json', // added data type
-        success: function(res) { console.log('running9')
+        success: function(res) { //console.log('running9')
 
             data = []
             for (index = 0; index < res.length; index++) {
@@ -1309,7 +1399,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
 
         },
       error: function (request, status, error) {
-        console.log(request.responseText);
+        //console.log(request.responseText);
       }
     }); }, 2000);
     
@@ -1327,7 +1417,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         value = 1;
         link = "UP";
     }
-    //console.log(value);
+    ////console.log(value);
     
     
     smpp_test[index] = Highcharts.chart('smpp'+index+'', Highcharts.merge(gaugeOptions, {
@@ -1335,7 +1425,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         min: 0,
         max: 1,
         title: {
-            text: 'LA NAME :' + smpp[index].LA_Name +'PORT :'+smpp[index].IP_Port ,
+            text: smpp[index].LA_Name +'  PORT :'+smpp[index].IP_Port ,
         }
     },
 
