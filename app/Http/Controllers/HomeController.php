@@ -174,6 +174,44 @@ class HomeController extends Controller
         
     }
 
+    public function linksStatus()
+    {
+        $client = new Client();
+        $response = $client->get('http://172.27.108.45/ussd1_link_status.php');
+        $body = $response->getBody()->getContents();   
+        $ussd1_link_status = json_decode($body);
+        $linksStatus = $ussd1_link_status->linksStatus;
+        return response()->json($linksStatus);
+    }
+    public function pointCodesStatus()
+    {
+        $client = new Client();
+        $response = $client->get('http://172.27.108.45/ussd1_link_status.php');
+        $body = $response->getBody()->getContents();
+        $ussd1_link_status = json_decode($body);
+        $pointCodesStatus = $ussd1_link_status->pointCodesStatus;
+        return response()->json($pointCodesStatus);
+    }
+
+    public function linksStatus2()
+    {
+        $client = new Client();
+        $response = $client->get('http://172.27.108.45/ussd2_link_status.php');
+        $body = $response->getBody()->getContents();   
+        $ussd2_link_status = json_decode($body);
+        $linksStatus2 = $ussd2_link_status->linksStatus;
+        return response()->json($linksStatus2);
+    }
+    public function pointCodesStatus2()
+    {
+        $client = new Client();
+        $response = $client->get('http://172.27.108.45/ussd2_link_status.php');
+        $body = $response->getBody()->getContents();
+        $ussd2_link_status = json_decode($body);
+        $pointCodesStatus2 = $ussd2_link_status->pointCodesStatus;
+        return response()->json($pointCodesStatus2);
+    }
+
     public function guzzle(){
         
         $client = new Client();
