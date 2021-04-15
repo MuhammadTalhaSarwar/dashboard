@@ -26,7 +26,7 @@ Route::get('/kannel_queue', [App\Http\Controllers\HomeController::class, 'kannel
 Route::get('/redis_stats', [App\Http\Controllers\HomeController::class, 'redis_stats'])->name('redis_stats');
 Route::get('/mysql_seconds_behind', [App\Http\Controllers\HomeController::class, 'mysql_seconds_behind'])->name('mysql_behind');
 Route::get('/kannel_smpp_port_check', [App\Http\Controllers\HomeController::class, 'kannel_smpp_port_check']);
-Route::get('/smpp_links', [App\Http\Controllers\HomeController::class, 'smpp_links']);
+Route::get('/smpp_links', [App\Http\Controllers\HomeController::class, 'smpp_links'])->name('smpp_links');
 Route::get('/sinch_count', [App\Http\Controllers\HomeController::class, 'sinch_count']);
 Route::get('/guzzle', [App\Http\Controllers\HomeController::class, 'guzzle'])->name('guzzle');
 

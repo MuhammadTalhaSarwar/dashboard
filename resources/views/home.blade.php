@@ -738,7 +738,7 @@ for (index = 0; index < redis_stats.length; index++) {
  
 }
 
-window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); }
+
 
 var redis_stat_test = Highcharts.chart('redis_stat', {
     chart: {
@@ -1116,6 +1116,44 @@ var code2 = <?php echo json_encode($pointCodesStatus2);?> ;
 var smpp = <?php echo json_encode($smpp_links);?> ;
 
  // var data_kannel_smppbox_port_check = [];
+
+ function smpp_test(){
+    
+    setInterval(function(){    $.ajax({
+        url: '{{route('smpp_links')}}',
+        type: 'GET',
+        dataType: 'json', // added data type
+        success: function(res) {
+            console.log('smppdanish')
+            console.log(res);
+            data = []
+            for (index = 0; index < res.length; index++) {
+             
+    value = [0];
+    link = "DOWN";
+    if((res[index].RESULT) == "UP")
+    {
+        value = [1];
+        link = "UP";
+    }
+
+
+    smpp_test[index].series[0].setData(value);
+        
+}
+
+        },
+      error: function (request, status, error) {
+        alert(request.responseText);
+      }
+    }); }, 2000);
+    
+ 
+}
+
+window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); smpp_test(); }
+ //
+ var smpp_test = new Array();
  for (index = 0; index < smpp.length; index++) {
     value = 0;
     link = "DOWN";
@@ -1125,8 +1163,9 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         link = "UP";
     }
     console.log(value);
-
-    var chartSpeed = Highcharts.chart('smpp'+index+'', Highcharts.merge(gaugeOptions, {
+    
+    
+    smpp_test[index] = Highcharts.chart('smpp'+index+'', Highcharts.merge(gaugeOptions, {
     yAxis: {
         min: 0,
         max: 1,
@@ -1154,6 +1193,8 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
     }]
 
 }));
+
+
 }
 
 
