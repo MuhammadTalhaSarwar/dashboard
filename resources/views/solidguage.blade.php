@@ -6,207 +6,266 @@
     .highcharts-figure-solid .chart-container-solid {
     width: 300px;
     height: 200px;
+    }
+
+   .anchor-style{
+        cursor: pointer;
+    }   
    
-}
+
 
 
 
 
 </style>
-<div class="container-fluid">
+<div class="container">
 
 
+
+
+
+      <div class="col-md-12" style="text-align: center">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th data-toggle="collapse" data-parent="#accordion" href="#collapse-api_link-check" class="text-center anchor-style">Api Link</th>
+              </tr>
+            </thead>
+        </table>
+        <div id="collapse-api_link-check" class="panel-collapse collapse">
+    
+              <div class="col-md-4" style="float:left"></div>
+        
+           
+           <div class="col-md-4 text-center" style="float:left">
+            <div id="api_links" style="width: 300px; height: 200px;"></div>
+            </div>
+            
+          
+      
+             <div class="col-md-4"></div>
+        
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="text-center">Api Link</th>
-            <th class="text-center">My Sql Repl Check</th>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-repl-check" class="text-center anchor-style" aria-expanded="true">My Sql Repl Check</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><div class="row"><div class="card">
-             <figure class="highcharts-figure-solid">
-        <div id="api_links" class="chart-container-solid"></div>
-            </figure></div></div></td>
-            <td>
-            <div class="row">
-                <?php foreach ($mysql_repl_check as $key => $value) {        ?>
-           
-                <div class="card">
-                    <figure class="highcharts-figure-solid">
-                        <div id="<?php echo('repl_check'.$key);?>" class="chart-container-solid"></div>
-                        </figure>
-                 
-                </div>
-              
-                 <?php   }    ?>
-            </div></td>
-          </tr>
-        </tbody>
-      </table>
+    </table>
+    <div id="collapse-repl-check" class="panel-collapse collapse-show">
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">Kannel Smppbox Port Check</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><div class="row">
-            <?php foreach ($kannel_smppbox_port_check as $key => $value) {        ?>
+          <div class="col-md-2" style="float:left"></div>
+        <?php foreach ($mysql_repl_check as $key => $value) {        ?>
        
-            <div class="card">
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo($key);?>" class="chart-container-solid"></div>
-                    </figure>
-             
-            </div>
-          
-             <?php   }    ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">SMPP Links</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><div class="row">
-            <?php foreach ($smpp_links as $key => $value) {        ?>
+       <div class="col-md-4 text-center" style="float:left">
+        <div id="<?php echo('repl_check'.$key);?>" style="width: 300px; height: 200px;"></div>
+        </div>
         
-          
-            <div class="card">
-             
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo('smpp'.$key);?>" class="chart-container-solid"></div>
-                    </figure>
-         
-          </div>
-             <?php   }    ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD1 LINK STATUS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>  <div class="row">
-  
-            <?php foreach ($linksStatus as $key => $value) {    ?>
       
-            <div class="card">
-      
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo ('ussd'.$key);?>" class="chart-container-solid"></div>
-                    </figure>
-          
-          </div>
-             <?php   }  ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD1 Point Codes Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>  <div class="row">
-  
-            <?php foreach ($pointCodesStatus as $key => $value) {     ?>
-        
-         
-            <div class="card">
-        
-              
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo ('code'.$key);?>" class="chart-container-solid"></div>
-                    </figure>
-         
-          </div>
-             <?php   }  ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD2 LINK STATUS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-            <div class="row">
-            
-                <?php foreach ($linksStatus2 as $key => $value) { ?>
-           
-                <div class="card">
-               
-               
-                    <figure class="highcharts-figure-solid">
-                        <div id="<?php echo ('ussd2'.$key);?>" class="chart-container-solid"></div>
-                        </figure>
-              
-              </div>
-                 <?php   } ?>
-             </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD2 Point Codes Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          
-  <div class="row">
-  
-    <?php foreach ($pointCodesStatus2 as $key => $value) {?>
-
-
-    <div class="card">
+         <?php   }    ?>
+         <div class="col-md-2"></div>
     
-     
-        <figure class="highcharts-figure-solid">
-            <div id="<?php echo ('code2'.$key);?>" class="chart-container-solid"></div>
-            </figure>
- 
-  </div>
-     <?php   } ?>
-</div></td>
-      </tr>
-    </tbody>
-  </table>
+    </div>
+</div>
 
+
+
+
+
+
+
+
+
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-smpp" class="text-center anchor-style">Kannel Smppbox Port Check</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-smpp" class="panel-collapse collapse">
+
+      <?php foreach ($kannel_smppbox_port_check as $key => $value) {       
+          if($key == 6) {
+              echo '<div class="col-md-4" style="float:left"></div> <div class="col-md-4 text-center" style="float:left">
+            <div id="'.$key.'" style="width: 300px; height: 200px;"></div>
+        </div><div class="col-md-4"></div>';
+          }
+          else {
+          
+          ?>
+       
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo($key);?>" style="width: 300px; height: 200px;"></div>
+        </div>
+        
+      
+         <?php }  }    ?>
+     
+    </div>
+</div>
+
+
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-smpp-links" class="text-center anchor-style">SMPP Links</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-smpp-links" class="panel-collapse collapse">
+
+        <?php foreach ($smpp_links as $key => $value) {        ?>
+       
+       <div class="col-md-4 text-center" style="float:left">
+        <div id="<?php echo('smpp'.$key);?>" style="width: 300px; height: 200px;"></div>
+        </div>
+        
+      
+         <?php   }    ?>
+     
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-ussd1" class="text-center anchor-style">USSD1 LINK STATUS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-ussd1" class="panel-collapse collapse">
+       <?php foreach ($linksStatus as $key => $value) {     
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="ussd'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('ussd'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-code1" class="text-center anchor-style">USSD1 Point Codes Status</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-code1" class="panel-collapse collapse">
+      <?php foreach ($pointCodesStatus as $key => $value) {       
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="code'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('code'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-ussd2" class="text-center anchor-style">USSD2 LINK STATUS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-ussd2" class="panel-collapse collapse">
+       <?php foreach ($linksStatus2 as $key => $value) {       
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="ussd2'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('ussd2'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-code2" class="text-center anchor-style" role="button" aria-expanded="true">USSD2 Point Codes Status</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-code2" class="panel-collapse collapse">
+       <?php foreach ($pointCodesStatus2 as $key => $value) {      
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="code2'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('code2'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
 
 
 </div>
@@ -221,7 +280,7 @@ var gaugeOptions = {
         type: 'solidgauge'
     },
 
-    title: null,
+    title:null,
 
     pane: {
         center: ['50%', '85%'],
@@ -256,7 +315,10 @@ var gaugeOptions = {
         minorTickInterval: null,
         tickAmount: 2,
         title: {
-            y: -70
+            y: -70,
+            style: {
+                    fontSize: '18px'
+                }
         },
         labels: {
             y: 16
@@ -340,6 +402,9 @@ var mysql_repl_checkk_array =  new Array();
         max: 1,
         title: {
             text: 'Slave IP :' + mysql_repl_checkk[index].SLAVE_IP,
+            style: {
+                    fontSize: '18px'
+                }
         }
     },
 
@@ -520,6 +585,9 @@ var kannel_smpp_port_check_array =  new Array();
         max: 1,
         title: {
             text: 'Redis IP :' + kannel_smppbox_port_checkk[index].REDIS_IP,
+            style: {
+                    fontSize: '18px'
+                }
         }
     },
 
@@ -604,7 +672,7 @@ var linksStatus_array =  new Array();
         min: 0,
         max: 1,
         title: {
-            text: 'LINK STATUS IP :' + ussd[index].ip +' Port :'+ ussd[index].port +'<br>' ,
+            text: '' + ussd[index].ip +' Port :'+ ussd[index].port +'<br>' ,
         }
     },
 
@@ -707,7 +775,7 @@ var pointCodesStatus_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                    '<span id="pointcodein'+index+'" style="font-size:25px">'+link+'</span><br/>' +
+                    '<span id="pointcodein'+index+'" style="font-size:20px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -779,7 +847,7 @@ var linksStatus2_array =  new Array();
         min: 0,
         max: 1,
         title: {
-            text: 'LINK STATUS IP :' + ussd2[index].ip +' Port :'+ ussd2[index].port +'<br>' ,
+            text: '' + ussd2[index].ip +' Port :'+ ussd2[index].port +'<br>' ,
         }
     },
 
@@ -879,7 +947,7 @@ var pointCodesStatus2_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                    '<span id="codein'+index+'" style="  font-size:25px">'+link+'</span><br/>' +
+                    '<span id="codein'+index+'" style="  font-size:20px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -949,7 +1017,11 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         min: 0,
         max: 1,
         title: {
-            text: smpp[index].LA_Name +'  PORT :'+smpp[index].IP_Port ,
+            y: -85,
+            text: smpp[index].LA_Name+'<br>' +'  PORT :'+smpp[index].IP_Port ,
+            style: {
+                    fontSize: '15px !important'
+                }
         }
     },
 
