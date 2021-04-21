@@ -65,6 +65,14 @@
        </figure>
    </div>
 
+   <div class="col-md-12">
+    <figure class="highcharts-figure">
+               <div id="sinch_hourly_stats">
+                   
+               </div>
+   </figure>
+</div>
+
 
 
     
@@ -76,6 +84,9 @@
 
 window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); sinch_stats_update();}
 
+var global1 = new Array();
+var global2 = new Array();
+var global3 = new Array();
 
 var gaugeOptions = {
     chart: {
@@ -188,6 +199,9 @@ values_delivered_test.forEach(element => {
 
 });
 
+
+
+
 function sinch_stats_update(){
     setInterval(function(){    $.ajax({
         url: '{{route('sinch_stats')}}',
@@ -243,45 +257,28 @@ values_delivered_test.forEach(element => {
     values_delivered.push(parseInt(element))
 
 });
-    sinch_stats_data = [];
-    var object3 =  {
-        name: 'Total',
-        data: values_total
-
-    }
-    var object1 = {
-        name: 'Delivered',
-        data: values_delivered
-
-    }
-    var object2 =  {
-        name: 'Un-delivered',
-        data: values_undelivered
-
-    }
 
 
-    console.log(values_total)
-    console.log(values_undelivered)
-    console.log(values_delivered)
-    sinch_stats_data.push(object3)
-    sinch_stats_data.push(object1)
-    sinch_stats_data.push(object2)
 
 
-    // console.log(keys_total_test)
-    // console.log(sinch_stats_data)
+
+ 
 
     sinch_stats_graph.xAxis[0].setCategories(keys_total_test);
-    sinch_stats_graph.series[0].setData(this.sinch_stats_data);
+    sinch_stats_graph.series[0].setData(values_total)
+    sinch_stats_graph.series[1].setData(values_delivered)
+    sinch_stats_graph.series[2].setData(values_undelivered)
+
+
    
 
         },
       error: function (request, status, error) {
 
       }
-    }); }, 5000);
+    }); }, 1000 * 60 * 60 * 24);
 }
+
 
 var sinch_stats_graph = Highcharts.chart('sinch_stats', {
     chart: {
@@ -317,6 +314,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_stats', {
             borderWidth: 0
         }
     },
+
     series: [{
         name: 'Total',
         data: values_total
