@@ -13,12 +13,12 @@
 
 
 </style>
-<div class="container-fluid">
+<div class="container">
 <div class="row">
 
 
     @if(!empty($kannel_tps))
-    <div class="col-md-4">
+    <div class="col-md-6">
         <figure class="highcharts-figure">
                     <div id="kannel_tps">
                         
@@ -29,7 +29,7 @@
   
     @endif
    
-    <div class="col-md-4">
+    <div class="col-md-6">
          <figure class="highcharts-figure">
                     <div id="kannel_queue">
                         
@@ -38,7 +38,7 @@
     </div>
 
 
-      <div class="col-md-4">
+      <div class="col-md-6">
          <figure class="highcharts-figure">
                     <div id="redis_stat">
                         
@@ -57,7 +57,7 @@
  
 
 
-    <div class="col-md-6">
+    <div class="col-md-12">
         <figure class="highcharts-figure">
                    <div id="sinch_counts">
                        

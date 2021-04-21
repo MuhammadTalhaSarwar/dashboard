@@ -6,222 +6,375 @@
     .highcharts-figure-solid .chart-container-solid {
     width: 300px;
     height: 200px;
+    }
+
+   .anchor-style{
+        cursor: pointer;
+    }   
+   th {background-color: #CC66FF}
    
-}
-
-
-
+   /*th {background-color: #FF0066}*/
+   /*body {background-color: #F5F5F5}*/
+   /*div {background-color: white}*/
 
 </style>
-<div class="container-fluid">
 
+<audio  loop muted autoplay id="myAudio" src="{{ asset('resources/audio/alert.mp3')}}" ></audio>
+<div class="container">
 
+      <div class="col-md-12" style="text-align: center">
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th data-toggle="collapse" data-parent="#accordion" href="#collapse-api_link-check" class="text-center anchor-style">API LINK</th>
+              </tr>
+            </thead>
+        </table>
+        <div id="collapse-api_link-check" class="panel-collapse collapse-show">
+    
+              <div class="col-md-4" style="float:left"></div>
+        
+           
+           <div class="col-md-4 text-center" style="float:left">
+            <div id="api_links" style="width: 300px; height: 200px;"></div>
+            </div>
+            
+          
+      
+             <div class="col-md-4"></div>
+        
+        </div>
+    </div>
+
+<div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
         <thead>
           <tr>
-            <th class="text-center">Api Link</th>
-            <th class="text-center">My Sql Repl Check</th>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-repl-check" class="text-center anchor-style">MY SQL REPL CHECK</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td><div class="row"><div class="card">
-             <figure class="highcharts-figure-solid">
-        <div id="api_links" class="chart-container-solid"></div>
-            </figure></div></div></td>
-            <td>
-            <div class="row">
-                <?php foreach ($mysql_repl_check as $key => $value) {        ?>
-           
-                <div class="card">
-                    <figure class="highcharts-figure-solid">
-                        <div id="<?php echo('repl_check'.$key);?>" class="chart-container-solid"></div>
-                        </figure>
-                 
-                </div>
-              
-                 <?php   }    ?>
-            </div></td>
-          </tr>
-        </tbody>
-      </table>
+    </table>
+    <div id="collapse-repl-check" class="panel-collapse collapse">
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">Kannel Smppbox Port Check</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><div class="row">
-            <?php foreach ($kannel_smppbox_port_check as $key => $value) {        ?>
+          <div class="col-md-2" style="float:left"></div>
+        <?php foreach ($mysql_repl_check as $key => $value) {        ?>
        
-            <div class="card">
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo($key);?>" class="chart-container-solid"></div>
-                    </figure>
-             
-            </div>
-          
-             <?php   }    ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">SMPP Links</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><div class="row">
-            <?php foreach ($smpp_links as $key => $value) {        ?>
+       <div class="col-md-4 text-center" style="float:left">
+        <div id="<?php echo('repl_check'.$key);?>" style="width: 300px; height: 200px;"></div>
+        </div>
         
-          
-            <div class="card">
-             
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo('smpp'.$key);?>" class="chart-container-solid"></div>
-                    </figure>
-         
-          </div>
-             <?php   }    ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD1 LINK STATUS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>  <div class="row">
-  
-            <?php foreach ($linksStatus as $key => $value) {    ?>
       
-            <div class="card">
-      
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo ('ussd'.$key);?>" class="chart-container-solid"></div>
-                    </figure>
-          
-          </div>
-             <?php   }  ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD1 Point Codes Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>  <div class="row">
-  
-            <?php foreach ($pointCodesStatus as $key => $value) {     ?>
-        
-         
-            <div class="card">
-        
-              
-                <figure class="highcharts-figure-solid">
-                    <div id="<?php echo ('code'.$key);?>" class="chart-container-solid"></div>
-                    </figure>
-         
-          </div>
-             <?php   }  ?>
-        </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD2 LINK STATUS</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-            <div class="row">
-            
-                <?php foreach ($linksStatus2 as $key => $value) { ?>
-           
-                <div class="card">
-               
-               
-                    <figure class="highcharts-figure-solid">
-                        <div id="<?php echo ('ussd2'.$key);?>" class="chart-container-solid"></div>
-                        </figure>
-              
-              </div>
-                 <?php   } ?>
-             </div></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th class="text-center">USSD2 Point Codes Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          
-  <div class="row">
-  
-    <?php foreach ($pointCodesStatus2 as $key => $value) {?>
-
-
-    <div class="card">
+         <?php   }    ?>
+         <div class="col-md-2"></div>
     
-     
-        <figure class="highcharts-figure-solid">
-            <div id="<?php echo ('code2'.$key);?>" class="chart-container-solid"></div>
-            </figure>
- 
-  </div>
-     <?php   } ?>
-</div></td>
-      </tr>
-    </tbody>
-  </table>
+    </div>
+</div>
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-smpp-links" class="text-center anchor-style">SMPP LINKS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-smpp-links" class="panel-collapse collapse">
 
+        <?php foreach ($smpp_links as $key => $value) {        ?>
+       
+       <div class="col-md-4 text-center" style="float:left">
+        <div id="<?php echo('smpp'.$key);?>" style="width: 300px; height: 200px;"></div>
+        </div>
+        
+      
+         <?php   }    ?>
+     
+    </div>
+</div>
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-ussd1" class="text-center anchor-style">USSD1 LINK STATUS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-ussd1" class="panel-collapse collapse">
+       <?php foreach ($linksStatus as $key => $value) {     
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="ussd'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('ussd'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-code1" class="text-center anchor-style">USSD1 POINT CODES STATUS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-code1" class="panel-collapse collapse">
+      <?php foreach ($pointCodesStatus as $key => $value) {       
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="code'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('code'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-ussd2" class="text-center anchor-style">USSD2 LINK STATUS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-ussd2" class="panel-collapse collapse">
+       <?php foreach ($linksStatus2 as $key => $value) {       
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="ussd2'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('ussd2'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-code2" class="text-center anchor-style" role="button" aria-expanded="true">USSD2 POINT CODES STATUS</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-code2" class="panel-collapse collapse">
+       <?php foreach ($pointCodesStatus2 as $key => $value) {      
+          if($key == 3) {
+              echo '<div class="col-md-2" style="float:left"></div> 
+              <div class="col-md-4 text-center" style="float:left">
+            <div id="code2'.$key.'" style="width: 300px; height: 200px;">
+            </div>
+        </div>
+        <div class="col-md-2"></div>';
+          }
+          else {
+          
+          ?>
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo('code2'.$key)?>" style="width: 300px; height: 200px;"></div>
+        </div>
+         <?php }  }    ?>
+    </div>
+</div>
+<div class="col-md-12" style="text-align: center">
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th data-toggle="collapse" data-parent="#accordion" href="#collapse-smpp" class="text-center anchor-style">KANNEL SMPPBOX PORT CHECK</th>
+          </tr>
+        </thead>
+    </table>
+    <div id="collapse-smpp" class="panel-collapse collapse">
+
+      <?php foreach ($kannel_smppbox_port_check as $key => $value) {       
+          if($key == 6) {
+              echo '<div class="col-md-4" style="float:left"></div> <div class="col-md-4 text-center" style="float:left">
+            <div id="'.$key.'" style="width: 300px; height: 200px;"></div>
+        </div><div class="col-md-4"></div>';
+          }
+          else {
+          
+          ?>
+       
+       <div class="col-md-4 text-center" style="float:left">
+            <div id="<?php echo($key);?>" style="width: 300px; height: 200px;"></div>
+        </div>
+        
+      
+         <?php }  }    ?>
+     
+    </div>
+</div>
 
 
 </div>
+<script src="{{ asset('resources/js/howler.js') }}"></script>
 
 <script>
 
 window.onload = function() { smpp_testing(); linksStatus(); linksStatus2(); pointCodesStatus(); pointCodesStatus2();kannel_smpp_port_check();api_links_test(); my_sql_repl_check();}
 
-
+// Highcharts.setOptions({
+//     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee", 
+//         "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
+//     chart: {
+//         backgroundColor: {
+//             linearGradient: [0, 0, 0, 400],
+//             stops: [
+//                 [0, 'rgb(96, 96, 96)'],
+//                 [1, 'rgb(16, 16, 16)']
+//             ]
+//         },
+//         borderWidth: 0,
+//         borderRadius: 15,
+//         plotBackgroundColor: null,
+//         plotShadow: false,
+//         plotBorderWidth: 0
+//     },
+//     title: {
+//         style: { 
+//             color: '#FFF',
+//             font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+//         }
+//     },
+//     subtitle: {
+//         style: { 
+//             color: '#DDD',
+//             font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+//         }
+//     },
+//     xAxis: {
+//         gridLineWidth: 0,
+//         lineColor: '#999',
+//         tickColor: '#999',
+//         labels: {
+//             style: {
+//                 color: '#999',
+//                 fontWeight: 'bold'
+//             }
+//         },
+//         title: {
+//             style: {
+//                 color: '#AAA',
+//                 font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+//             }               
+//         }
+//     },
+//     yAxis: {
+//         alternateGridColor: null,
+//         minorTickInterval: null,
+//         gridLineColor: 'rgba(255, 255, 255, .1)',
+//         lineWidth: 0,
+//         tickWidth: 0,
+//         labels: {
+//             style: {
+//                 color: '#999',
+//                 fontWeight: 'bold'
+//             }
+//         },
+//         title: {
+//             style: {
+//                 color: '#AAA',
+//                 font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
+//             }               
+//         }
+//     },
+//     legend: {
+//         itemStyle: {
+//             color: '#CCC'
+//         },
+//         itemHoverStyle: {
+//             color: '#FFF'
+//         },
+//         itemHiddenStyle: {
+//             color: '#333'
+//         }
+//     },
+//     credits: {
+//         style: {
+//             right: '50px'
+//         }
+//     },
+//     labels: {
+//         style: {
+//             color: '#CCC'
+//         }
+//     },
+//     tooltip: {
+//         backgroundColor: {
+//             linearGradient: [0, 0, 0, 50],
+//             stops: [
+//                 [0, 'rgba(96, 96, 96, .8)'],
+//                 [1, 'rgba(16, 16, 16, .8)']
+//             ]
+//         },
+//         borderWidth: 0,
+//         style: {
+//             color: '#FFF'
+//         }
+//     },
+    
+    
+//     plotOptions: {
+//         line: {
+//             dataLabels: {
+//                 color: '#CCC'
+//             },
+//             marker: {
+//                 lineColor: '#333'
+//             }
+//         },
+//         spline: {
+//             marker: {
+//                 lineColor: '#333'
+//             }
+//         },
+//         scatter: {
+//             marker: {
+//                 lineColor: '#333'
+//             }
+//         }
+//     },
+    
+//     toolbar: {
+//         itemStyle: {
+//             color: '#CCC'
+//         }
+//     }
+// });
 var gaugeOptions = {
     chart: {
         type: 'solidgauge'
     },
 
-    title: null,
+    title:null,
 
     pane: {
         center: ['50%', '85%'],
@@ -256,7 +409,10 @@ var gaugeOptions = {
         minorTickInterval: null,
         tickAmount: 2,
         title: {
-            y: -70
+            y: -70,
+            style: {
+                    fontSize: '18px'
+                }
         },
         labels: {
             y: 16
@@ -296,6 +452,12 @@ function my_sql_repl_check(){
         value = [1];
         link = "UP";
         document.getElementById("repl_check_status"+index).innerHTML = "<span id='repl_check_status'+index+''>UP</span>";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
 
     console.log('reply'+value);
@@ -331,6 +493,12 @@ var mysql_repl_checkk_array =  new Array();
     {
         value = 1;
         link = "UP";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
     ////console.log(value);
 
@@ -340,6 +508,9 @@ var mysql_repl_checkk_array =  new Array();
         max: 1,
         title: {
             text: 'Slave IP :' + mysql_repl_checkk[index].SLAVE_IP,
+            style: {
+                    fontSize: '18px'
+                }
         }
     },
 
@@ -393,6 +564,11 @@ function api_links_test(){
    else {
     this.guage_api_link = [0];  
     document.getElementById("api_link_status").innerHTML = "<span id='api_link_status' style='position:relative;right:20px;text-align:center';>DOWN</span>";
+     var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
 }
 
      api_links.series[0].setData(this.guage_api_link);
@@ -419,6 +595,11 @@ this.guage_api_link = 1;
 }
 else {
   this.guage_api_link = 0;  
+   var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
 }
 this.api_link_result = api_link.RESULT;
 // The speed gauge
@@ -511,6 +692,13 @@ var kannel_smpp_port_check_array =  new Array();
     {
         value = 1;
         link = "UP";
+    }else{
+
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
     ////console.log(value);
 
@@ -520,6 +708,9 @@ var kannel_smpp_port_check_array =  new Array();
         max: 1,
         title: {
             text: 'Redis IP :' + kannel_smppbox_port_checkk[index].REDIS_IP,
+            style: {
+                    fontSize: '18px'
+                }
         }
     },
 
@@ -566,6 +757,12 @@ function linksStatus(){
         value = [1];
         link = "UP";
         document.getElementById("linkstatuss"+index).innerHTML = "<span id='linkstatuss'+index+''>UP</span>";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
 
 
@@ -596,6 +793,12 @@ var linksStatus_array =  new Array();
     {
         value = 1;
         link = "UP";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
     ////console.log(value);
 
@@ -604,7 +807,7 @@ var linksStatus_array =  new Array();
         min: 0,
         max: 1,
         title: {
-            text: 'LINK STATUS IP :' + ussd[index].ip +' Port :'+ ussd[index].port +'<br>' ,
+            text: '' + ussd[index].ip +' Port :'+ ussd[index].port +'<br>' ,
         }
     },
 
@@ -652,6 +855,12 @@ function pointCodesStatus(){
         value = [1];
         link = "ACCESSIBLE";
         document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
 
 
@@ -707,7 +916,7 @@ var pointCodesStatus_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                    '<span id="pointcodein'+index+'" style="font-size:25px">'+link+'</span><br/>' +
+                    '<span id="pointcodein'+index+'" style="font-size:20px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -741,6 +950,12 @@ function linksStatus2(){
         value = [1];
         link = "UP";
         document.getElementById("linkstatus"+index).innerHTML = "<span id='linkstatus'+index+''>UP</span>";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
 
 
@@ -771,6 +986,12 @@ var linksStatus2_array =  new Array();
     {
         value = 1;
         link = "UP";
+    }else{
+        var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
     ////console.log(value);
 
@@ -779,7 +1000,7 @@ var linksStatus2_array =  new Array();
         min: 0,
         max: 1,
         title: {
-            text: 'LINK STATUS IP :' + ussd2[index].ip +' Port :'+ ussd2[index].port +'<br>' ,
+            text: '' + ussd2[index].ip +' Port :'+ ussd2[index].port +'<br>' ,
         }
     },
 
@@ -809,7 +1030,7 @@ var code2 = <?php echo json_encode($pointCodesStatus2);?> ;
 
 
 function pointCodesStatus2(){
-    
+    var sound;
     setInterval(function(){    $.ajax({
         url: '{{route('pointCodesStatus2')}}',
         type: 'GET',
@@ -819,14 +1040,31 @@ function pointCodesStatus2(){
             data = []
             for (index = 0; index < res.length; index++) {
              
-    value = [0];
-    link = "INACCESIBBLE";
-    document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
+    
+      // var audio = new Audio('{{ asset('resources/audio/alert.mp3')}}');
+      //   audio.play();
+        // document.getElementById('myAudio').autoplay = true;
+        // document.getElementById('myAudio').muted = true; 
+        // document.getElementById('myAudio').muted = false; 
+        // document.getElementById('myAudio').play();
+        // document.getElementById('myAudio').play();
     if((res[index].signallingPointStatus) == "ACCESSIBLE")
     {
         value = [1];
         link = "ACCESSIBLE";
         document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
+    }else{
+        value = [0];
+        link = "INACCESIBBLE";
+        document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
+        // document.getElementById('myAudio').muted = false;
+        // document.getElementById('myAudio').play();
+        var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
+
     }
 
 
@@ -856,6 +1094,12 @@ var pointCodesStatus2_array =  new Array();
     {
         value = 1;
         link = "ACCESSIBLE";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
     ////console.log(value);
 
@@ -879,7 +1123,7 @@ var pointCodesStatus2_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                    '<span id="codein'+index+'" style="  font-size:25px">'+link+'</span><br/>' +
+                    '<span id="codein'+index+'" style="  font-size:20px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
@@ -914,6 +1158,12 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         value = [1];
         link = "UP";
         document.getElementById("smppp"+index).innerHTML = "<span id='smppp'+index+''>UP</span>";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
 
 
@@ -940,6 +1190,12 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
     {
         value = 1;
         link = "UP";
+    }else{
+         var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     }
     ////console.log(value);
     
@@ -949,7 +1205,11 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         min: 0,
         max: 1,
         title: {
-            text: smpp[index].LA_Name +'  PORT :'+smpp[index].IP_Port ,
+            y: -85,
+            text: smpp[index].LA_Name+'<br>' +'  PORT :'+smpp[index].IP_Port ,
+            style: {
+                    fontSize: '15px !important'
+                }
         }
     },
 

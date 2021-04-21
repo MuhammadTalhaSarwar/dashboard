@@ -33,9 +33,8 @@ class GuageController extends Controller
         $response = $client->get('http://172.27.108.45/smpp_links.php');
         $body = $response->getBody()->getContents();
         $smpp_links = json_decode($body);
+  
 
-        $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
-        $sinch_counts = json_decode($body);
         
         
         $response = $client->get('http://172.27.108.45/API_link.php');
