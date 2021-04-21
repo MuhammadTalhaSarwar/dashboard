@@ -7,6 +7,17 @@
     width: 300px;
     height: 200px;
     }
+<<<<<<< HEAD
+=======
+
+   .anchor-style{
+        cursor: pointer;
+    }   
+   
+
+
+
+>>>>>>> 917b83626dae50941b77de3c9c4297aded97c12d
 
    .anchor-style{
         cursor: pointer;
@@ -18,6 +29,7 @@
    /*div {background-color: white}*/
 
 </style>
+<div class="container">
 
 <audio  loop muted autoplay id="myAudio" src="{{ asset('resources/audio/alert.mp3')}}" ></audio>
 <div class="container">
