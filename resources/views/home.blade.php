@@ -59,7 +59,7 @@
 
     <div class="col-md-12">
         <figure class="highcharts-figure">
-                   <div id="sinch_counts">
+                   <div id="sinch_stats">
                        
                    </div>
        </figure>
@@ -74,7 +74,7 @@
 
 <script>
 
-window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test();}
+window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); sinch_stats_update();}
 
 
 var gaugeOptions = {
@@ -135,86 +135,207 @@ var gaugeOptions = {
     }
 };
 
- var sinch_counts = <?php echo json_encode($sinch_counts);?> ;
+ var sinch_stats = <?php echo json_encode($sinch_stats);?>;
+console.log('danish');
+// console.log(sinch_stats.DELIVERED)
 
-Highcharts.chart('sinch_counts', {
+var values_undelivered = new Array();
+var temp_delivered = []
+var keys_delivered_test = []
+var values_delivered_test = []
+var keys_total_test = []
+var values_total_test = []
+
+
+for(let i=0; i<sinch_stats.DELIVERED.length; i++){ 
+//    console.log(sinch_stats.DELIVERED[i])
+   this.keys_delivered_test.push(Object.keys(sinch_stats.DELIVERED[i]));
+   this.values_delivered_test.push(Object.values(sinch_stats.DELIVERED[i]));
+    // this.values_undelivered.push(temp);
+}
+for(let i=0; i<sinch_stats.TOTAL.length; i++){
+    
+    // console.log(sinch_stats.TOTAL[i])
+    this.keys_total_test.push(Object.keys(sinch_stats.TOTAL[i]));
+    this.values_total_test.push(Object.values(sinch_stats.TOTAL[i]));
+     // this.values_undelivered.push(temp);
+ }
+
+
+
+// var keys_delivered = Object.keys(temp_delivered);
+// var values_delivered = Object.values(temp_delivered);
+// var keys_total = Object.keys(sinch_stats.TOTAL);
+// var values_total = Object.values(sinch_stats.TOTAL);
+
+for(let i=0; i<keys_delivered_test.length; i++) {
+    var temp = values_total_test[i] - values_delivered_test[i];
+    this.values_undelivered.push(temp);
+}
+
+
+
+var values_total = [];
+values_total_test.forEach(element => {
+    // console.log(parseInt(element))
+    values_total.push(parseInt(element))
+
+});
+var values_delivered = [];
+values_delivered_test.forEach(element => {
+    // console.log(parseInt(element))
+    values_delivered.push(parseInt(element))
+
+});
+
+function sinch_stats_update(){
+    setInterval(function(){    $.ajax({
+        url: '{{route('sinch_stats')}}',
+        type: 'GET',
+        dataType: 'json',
+        success: function(sinch_stats) {
+            // console.log(sinch_stats) 
+            var values_undelivered = new Array();
+var temp_delivered = []
+var keys_delivered_test = []
+var values_delivered_test = []
+var keys_total_test = []
+var values_total_test = []
+
+
+for(let i=0; i<sinch_stats.DELIVERED.length; i++){ 
+//    console.log(sinch_stats.DELIVERED[i])
+   keys_delivered_test.push(Object.keys(sinch_stats.DELIVERED[i]));
+   values_delivered_test.push(Object.values(sinch_stats.DELIVERED[i]));
+    // this.values_undelivered.push(temp);
+}
+for(let i=0; i<sinch_stats.TOTAL.length; i++){
+    
+    // console.log(sinch_stats.TOTAL[i])
+    keys_total_test.push(Object.keys(sinch_stats.TOTAL[i]));
+    values_total_test.push(Object.values(sinch_stats.TOTAL[i]));
+     // this.values_undelivered.push(temp);
+ }
+
+
+
+// var keys_delivered = Object.keys(temp_delivered);
+// var values_delivered = Object.values(temp_delivered);
+// var keys_total = Object.keys(sinch_stats.TOTAL);
+// var values_total = Object.values(sinch_stats.TOTAL);
+
+for(let i=0; i<keys_delivered_test.length; i++) {
+    var temp = values_total_test[i] - values_delivered_test[i];
+    values_undelivered.push(temp);
+}
+
+
+
+var values_total = [];
+values_total_test.forEach(element => {
+    // console.log(parseInt(element))
+    values_total.push(parseInt(element))
+
+});
+var values_delivered = [];
+values_delivered_test.forEach(element => {
+    // console.log(parseInt(element))
+    values_delivered.push(parseInt(element))
+
+});
+    sinch_stats_data = [];
+    var object3 =  {
+        name: 'Total',
+        data: values_total
+
+    }
+    var object1 = {
+        name: 'Delivered',
+        data: values_delivered
+
+    }
+    var object2 =  {
+        name: 'Un-delivered',
+        data: values_undelivered
+
+    }
+
+
+    console.log(values_total)
+    console.log(values_undelivered)
+    console.log(values_delivered)
+    sinch_stats_data.push(object3)
+    sinch_stats_data.push(object1)
+    sinch_stats_data.push(object2)
+
+
+    // console.log(keys_total_test)
+    // console.log(sinch_stats_data)
+
+    sinch_stats_graph.xAxis[0].setCategories(keys_total_test);
+    sinch_stats_graph.series[0].setData(this.sinch_stats_data);
+   
+
+        },
+      error: function (request, status, error) {
+
+      }
+    }); }, 5000);
+}
+
+var sinch_stats_graph = Highcharts.chart('sinch_stats', {
     chart: {
         type: 'column'
     },
     title: {
-        text: 'Sinch Counts'
-    },
-    accessibility: {
-        announceNewData: {
-            enabled: true
-        }
+        text: 'Sinch Stats'
     },
     xAxis: {
-        type: 'category'
+        categories: this.keys_total_test,
+        crosshair: true,
+        scrollbar: {
+      enabled: true
+    }
     },
     yAxis: {
+        min: 0,
         title: {
-            text: 'Counts'
+            text: 'Values (per day)'
         }
-
     },
-    legend: {
-        enabled: false
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
     },
     plotOptions: {
-        series: {
-            borderWidth: 0,
-            dataLabels: {
-                enabled: true
-            }
+        column: {
+            pointPadding: 0,
+            borderWidth: 0
         }
     },
+    series: [{
+        name: 'Total',
+        data: values_total
 
-    tooltip: {
-        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
-    },
+    }, {
+        name: 'Delivered',
+        data: values_delivered
 
-    series: [
-        {
-            name: "Sinch",
-            colorByPoint: true,
-            data: [
-                {
-                    name: "SINCH DELIVERED TODAY",
-                    y: parseInt(sinch_counts.SINCH_DELIVERED_TODAY),
-                    drilldown: null
-                },
-                {
-                    name: "SINCH UNDELIVERED TODAY",
-                    y: parseInt(sinch_counts.SINCH_UNDELIVERED_TODAY),
-                    drilldown: null
-                },
-                {
-                    name: "SINCH EXPIRED TODAY",
-                    y: parseInt(sinch_counts.SINCH_EXPIRED_TODAY),
-                    drilldown: null
-                },
-                {
-                    name: "SINCH DELIVERED YESTERDAY",
-                    y: parseInt(sinch_counts.SINCH_DELIVERED_YESTERDAY),
-                    drilldown: null
-                },
-                {
-                    name: "SINCH UN-DELIVERED YESTERDAY",
-                    y: parseInt(sinch_counts.SINCH_UNDELIVERED_YESTERDAY),
-                    drilldown: null
-                },
-                {
-                    name: "SINCH EXPIRED YESTERDAY",
-                    y: parseInt(sinch_counts.SINCH_EXPIRED_YESTERDAY),
-                    drilldown: null
-                }
-                
-            ]
-        }
-    ],
+    }, {
+        name: 'Un-delivered',
+        data: values_undelivered
+
+    }]
 });
+
+
+
+
+
 
 var kannel_tps = <?php echo json_encode($kannel_tps);?> ;
 

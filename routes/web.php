@@ -27,7 +27,7 @@ Route::get('/redis_stats', [App\Http\Controllers\HomeController::class, 'redis_s
 Route::get('/mysql_seconds_behind', [App\Http\Controllers\HomeController::class, 'mysql_seconds_behind'])->name('mysql_behind');
 // Route::get('/kannel_smpp_port_check', [App\Http\Controllers\HomeController::class, 'kannel_smpp_port_check'])->name('kannel_smpp_port_check');
 // Route::get('/smpp_links', [App\Http\Controllers\HomeController::class, 'smpp_links'])->name('smpp_links');
-Route::get('/sinch_count', [App\Http\Controllers\HomeController::class, 'sinch_count'])->name('sinch_count');
+Route::get('/sinch_stats', [App\Http\Controllers\HomeController::class, 'sinch_stats'])->name('sinch_stats');
 // Route::get('/linksStatus', [App\Http\Controllers\HomeController::class, 'linksStatus'])->name('linksStatus');
 // Route::get('/linksStatus2', [App\Http\Controllers\HomeController::class, 'linksStatus2'])->name('linksStatus2');
 // Route::get('/pointCodesStatus', [App\Http\Controllers\HomeController::class, 'pointCodesStatus'])->name('pointCodesStatus');

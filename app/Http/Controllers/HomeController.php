@@ -59,10 +59,10 @@ class HomeController extends Controller
 
         
 
-        // $response = $client->get('http://172.27.108.45/sinch_counts.php');
-        // $body = $response->getBody()->getContents();
-        $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
-        $sinch_counts = json_decode($body);
+        $response = $client->get('http://172.27.108.45/sinch_stats.php');
+        $body = $response->getBody()->getContents();
+        // $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
+        $sinch_stats = json_decode($body);
         
         
         $response = $client->get('http://172.27.108.45/API_link.php');
@@ -90,7 +90,7 @@ class HomeController extends Controller
         
 
 
-        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','sinch_counts','smpp_links','ussd1_link_status','linksStatus','pointCodesStatus','linksStatus2','pointCodesStatus2','mysql_repl_check'));
+        return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','sinch_stats','smpp_links','ussd1_link_status','linksStatus','pointCodesStatus','linksStatus2','pointCodesStatus2','mysql_repl_check'));
     }
 
     public function api_link(){
@@ -113,14 +113,14 @@ class HomeController extends Controller
         
     }
 
-    public function sinch_count(){
+    public function sinch_stats(){
 
         $client = new Client();
-        $response = $client->get('http://172.27.108.45/sinch_counts.php');
+        $response = $client->get('http://172.27.108.45/sinch_stats.php');
         $body = $response->getBody()->getContents();
         // $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
-        $sinch_counts = json_decode($body);
-        return response()->json($sinch_counts);
+        $sinch_stats = json_decode($body);
+        return response()->json($sinch_stats);
         
     }
 
