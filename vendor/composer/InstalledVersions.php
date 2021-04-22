@@ -25,12 +25,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '0fc249a0aafac7634a0ce0c232c443be71d3ac27',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -455,12 +455,12 @@ private static $installed = array (
     ),
     'laravel/laravel' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '0fc249a0aafac7634a0ce0c232c443be71d3ac27',
     ),
     'laravel/sail' => 
     array (
@@ -589,6 +589,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '06e2ebd25f2869e54a306dda991f7db58066f7f6',
+    ),
+    'paragonie/random_compat' => 
+    array (
+      'pretty_version' => 'v9.99.100',
+      'version' => '9.99.100.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+    ),
+    'paragonie/sodium_compat' => 
+    array (
+      'pretty_version' => 'v1.15.4',
+      'version' => '1.15.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8a93bfe047c7f699f819459de8ddda144cd636a4',
     ),
     'phar-io/manifest' => 
     array (
@@ -789,6 +807,15 @@ private static $installed = array (
       array (
       ),
       'reference' => 'e4573f47750dd6c92dca5aee543fa77513cbd8d3',
+    ),
+    'pusher/pusher-php-server' => 
+    array (
+      'pretty_version' => '5.0.3',
+      'version' => '5.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1024077ff60beebaf5706b4e0208a1e648d20cf4',
     ),
     'ralouphie/getallheaders' => 
     array (

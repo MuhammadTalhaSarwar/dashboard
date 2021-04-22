@@ -43,3 +43,9 @@ Route::get('/pointCodesStatus2', [App\Http\Controllers\GuageController::class, '
 Route::get('/kannel_smpp_port_check', [App\Http\Controllers\GuageController::class, 'kannel_smpp_port_check'])->name('kannel_smpp_port_check');
 Route::get('/api_link', [App\Http\Controllers\GuageController::class, 'api_link'])->name('api_link');
 Route::get('/repl_check', [App\Http\Controllers\GuageController::class, 'repl_check'])->name('repl_check');
+
+
+
+
+Route::get('/event_trigger', [App\Http\Controllers\HomeController::class, 'event_trigger'])->name('event_trigger');
+

@@ -9,6 +9,10 @@
    
 }
 
+::selection{
+    background: #F22F46;
+    color: #fff;
+}
 
 
 
@@ -65,6 +69,14 @@
        </figure>
    </div>
 
+   <div class="col-md-12">
+    <figure class="highcharts-figure">
+               <div id="sinch_hourly_stats">
+                   
+               </div>
+   </figure>
+</div>
+
 
 
     
@@ -76,6 +88,9 @@
 
 window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); sinch_stats_update();}
 
+var global1 = new Array();
+var global2 = new Array();
+var global3 = new Array();
 
 var gaugeOptions = {
     chart: {
@@ -137,7 +152,7 @@ var gaugeOptions = {
 
  var sinch_stats = <?php echo json_encode($sinch_stats);?>;
 console.log('danish');
-// console.log(sinch_stats.DELIVERED)
+
 
 var values_undelivered = new Array();
 var temp_delivered = []
@@ -148,25 +163,20 @@ var values_total_test = []
 
 
 for(let i=0; i<sinch_stats.DELIVERED.length; i++){ 
-//    console.log(sinch_stats.DELIVERED[i])
+
    this.keys_delivered_test.push(Object.keys(sinch_stats.DELIVERED[i]));
    this.values_delivered_test.push(Object.values(sinch_stats.DELIVERED[i]));
-    // this.values_undelivered.push(temp);
+  
 }
 for(let i=0; i<sinch_stats.TOTAL.length; i++){
     
-    // console.log(sinch_stats.TOTAL[i])
+   
     this.keys_total_test.push(Object.keys(sinch_stats.TOTAL[i]));
     this.values_total_test.push(Object.values(sinch_stats.TOTAL[i]));
-     // this.values_undelivered.push(temp);
+    
  }
 
 
-
-// var keys_delivered = Object.keys(temp_delivered);
-// var values_delivered = Object.values(temp_delivered);
-// var keys_total = Object.keys(sinch_stats.TOTAL);
-// var values_total = Object.values(sinch_stats.TOTAL);
 
 for(let i=0; i<keys_delivered_test.length; i++) {
     var temp = values_total_test[i] - values_delivered_test[i];
@@ -177,16 +187,19 @@ for(let i=0; i<keys_delivered_test.length; i++) {
 
 var values_total = [];
 values_total_test.forEach(element => {
-    // console.log(parseInt(element))
+
     values_total.push(parseInt(element))
 
 });
 var values_delivered = [];
 values_delivered_test.forEach(element => {
-    // console.log(parseInt(element))
+
     values_delivered.push(parseInt(element))
 
 });
+
+
+
 
 function sinch_stats_update(){
     setInterval(function(){    $.ajax({
@@ -194,7 +207,7 @@ function sinch_stats_update(){
         type: 'GET',
         dataType: 'json',
         success: function(sinch_stats) {
-            // console.log(sinch_stats) 
+ 
             var values_undelivered = new Array();
 var temp_delivered = []
 var keys_delivered_test = []
@@ -204,25 +217,22 @@ var values_total_test = []
 
 
 for(let i=0; i<sinch_stats.DELIVERED.length; i++){ 
-//    console.log(sinch_stats.DELIVERED[i])
+
    keys_delivered_test.push(Object.keys(sinch_stats.DELIVERED[i]));
    values_delivered_test.push(Object.values(sinch_stats.DELIVERED[i]));
-    // this.values_undelivered.push(temp);
+
 }
 for(let i=0; i<sinch_stats.TOTAL.length; i++){
     
-    // console.log(sinch_stats.TOTAL[i])
+   
     keys_total_test.push(Object.keys(sinch_stats.TOTAL[i]));
     values_total_test.push(Object.values(sinch_stats.TOTAL[i]));
-     // this.values_undelivered.push(temp);
+ 
  }
 
 
 
-// var keys_delivered = Object.keys(temp_delivered);
-// var values_delivered = Object.values(temp_delivered);
-// var keys_total = Object.keys(sinch_stats.TOTAL);
-// var values_total = Object.values(sinch_stats.TOTAL);
+
 
 for(let i=0; i<keys_delivered_test.length; i++) {
     var temp = values_total_test[i] - values_delivered_test[i];
@@ -243,45 +253,23 @@ values_delivered_test.forEach(element => {
     values_delivered.push(parseInt(element))
 
 });
-    sinch_stats_data = [];
-    var object3 =  {
-        name: 'Total',
-        data: values_total
 
-    }
-    var object1 = {
-        name: 'Delivered',
-        data: values_delivered
-
-    }
-    var object2 =  {
-        name: 'Un-delivered',
-        data: values_undelivered
-
-    }
-
-
-    console.log(values_total)
-    console.log(values_undelivered)
-    console.log(values_delivered)
-    sinch_stats_data.push(object3)
-    sinch_stats_data.push(object1)
-    sinch_stats_data.push(object2)
-
-
-    // console.log(keys_total_test)
-    // console.log(sinch_stats_data)
 
     sinch_stats_graph.xAxis[0].setCategories(keys_total_test);
-    sinch_stats_graph.series[0].setData(this.sinch_stats_data);
+    sinch_stats_graph.series[0].setData(values_total)
+    sinch_stats_graph.series[1].setData(values_delivered)
+    sinch_stats_graph.series[2].setData(values_undelivered)
+
+
    
 
         },
       error: function (request, status, error) {
 
       }
-    }); }, 5000);
+    }); }, 1000 * 60 * 60 * 24);
 }
+
 
 var sinch_stats_graph = Highcharts.chart('sinch_stats', {
     chart: {
@@ -317,6 +305,81 @@ var sinch_stats_graph = Highcharts.chart('sinch_stats', {
             borderWidth: 0
         }
     },
+
+    series: [{
+        name: 'Total',
+        data: values_total
+
+    }, {
+        name: 'Delivered',
+        data: values_delivered
+
+    }, {
+        name: 'Un-delivered',
+        data: values_undelivered
+
+    }]
+});
+
+var sinch_hourly_stats = <?php echo json_encode($sinch_hourly_stats);?> ;
+console.log('sinch hourly')
+console.log(sinch_hourly_stats)
+
+var keys = new Array()
+var values = new Array()
+
+
+
+
+sinch_hourly_stats.forEach(element => {
+     console.log(element)
+    keys.push(Object.keys(element).toString());
+    values.push(Object.values(element).toString());
+
+});
+console.log(keys)
+console.log(values)
+var strArray = keys[0].split(" ");
+console.log(strArray)
+
+
+
+
+var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Sinch Stats'
+    },
+    xAxis: {
+        categories: this.keys_total_test,
+        crosshair: true,
+        scrollbar: {
+      enabled: true
+    }
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Values (per day)'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.0f}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0,
+            borderWidth: 0
+        }
+    },
+
     series: [{
         name: 'Total',
         data: values_total
@@ -333,10 +396,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_stats', {
 });
 
 
-
-
-
-
+//sinch_hourly_stats_ends
 var kannel_tps = <?php echo json_encode($kannel_tps);?> ;
 
 var kannel_tps_data = [];
@@ -389,7 +449,7 @@ function kannel_tps_test(){
       error: function (request, status, error) {
 
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -494,7 +554,7 @@ function kannel_queue_test(){
       error: function (request, status, error) {
 
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -591,7 +651,7 @@ for (index = 0; index < mysql_seconds_behind.length; index++) {
         },
       error: function (request, status, error) {
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -682,7 +742,7 @@ for (index = 0; index < redis_stats.length; index++) {
         },
       error: function (request, status, error) {
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }

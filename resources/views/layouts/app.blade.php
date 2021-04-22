@@ -13,6 +13,8 @@
     <script src="{{ asset('resources/js/app.js') }}" defer></script>
 
     <!-- Fonts -->
+    <script src="{{ asset('resources/js/jquery-3.6.0.min.js') }}"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('resources/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -138,7 +140,6 @@
     </div>
 </body>
 
-<script src="{{ asset('resources/js/jquery-3.6.0.min.js') }}"></script>
 
 
 <script src="{{ asset('resources/js/bootstrap.min.js') }}"></script>

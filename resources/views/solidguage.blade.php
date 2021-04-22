@@ -7,17 +7,6 @@
     width: 300px;
     height: 200px;
     }
-<<<<<<< HEAD
-=======
-
-   .anchor-style{
-        cursor: pointer;
-    }   
-   
-
-
-
->>>>>>> 917b83626dae50941b77de3c9c4297aded97c12d
 
    .anchor-style{
         cursor: pointer;
@@ -28,11 +17,48 @@
    /*body {background-color: #F5F5F5}*/
    /*div {background-color: white}*/
 
-</style>
-<div class="container">
+.alert.warning {background-color: #ff9800;}
 
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 5px solid #eed3d7;
+  border-radius: 4px;
+  
+  bottom: 0;
+  right: 0;
+  /* Each alert has its own width */
+  float: right;
+  clear: right;
+  background-color: white;
+}
+.alert-red {
+  color: white;
+  background-color: #DA4453;
+}
+.alert-green {
+  color: white;
+  background-color: #37BC9B;
+}
+.alert-blue {
+  color: white;
+  background-color: #4A89DC;
+}
+.alert-yellow {
+  color: white;
+  background-color: #F6BB42;
+}
+.alert-orange {
+  color:white;
+  background-color: #E9573F;
+}
+</style>
+<div id="ohsnap"></div>
+    
 <audio  loop muted autoplay id="myAudio" src="{{ asset('resources/audio/alert.mp3')}}" ></audio>
 <div class="container">
+
 
       <div class="col-md-12" style="text-align: center">
         <table class="table table-bordered">
@@ -96,8 +122,6 @@
        <div class="col-md-4 text-center" style="float:left">
         <div id="<?php echo('smpp'.$key);?>" style="width: 300px; height: 200px;"></div>
         </div>
-        
-      
          <?php   }    ?>
      
     </div>
@@ -248,7 +272,34 @@
 
 </div>
 <script src="{{ asset('resources/js/howler.js') }}"></script>
+<script src="{{ asset('resources/js/ohsnap.js') }}"></script>
+<script>
+var close = document.getElementsByClassName("closebtn");
+var i;
 
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function(){
+    var div = this.parentElement;
+    div.style.opacity = "0";
+    setTimeout(function(){ div.style.display = "none"; }, 600);
+  }
+}
+// Enable pusher logging - don't include this in production
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('b4a9128b34bec56168bc', {
+  cluster: 'ap2'
+});
+
+var channel = pusher.subscribe('my-channel');
+channel.bind('link-status', function(data) {
+    // ohSnap('Oh Snap! I cannot process your card...', {color: 'red'});  // alert will have class 'alert-color'
+    ohSnap(''+JSON.stringify(data.text)+'', {'duration':'5000'});  // 2 seconds
+    // $('#msgs').html("<span class='closebtn'>'&times;'</span><div class='alert alert-danger'>"+JSON.stringify(data.text)+"</div>");
+//   alert(JSON.stringify(data));
+});
+
+</script>
 <script>
 
 window.onload = function() { smpp_testing(); linksStatus(); linksStatus2(); pointCodesStatus(); pointCodesStatus2();kannel_smpp_port_check();api_links_test(); my_sql_repl_check();}
@@ -484,7 +535,7 @@ function my_sql_repl_check(){
         //console.log(request.responseText);
 
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -593,7 +644,7 @@ function api_links_test(){
         //console.log(request.responseText);
 
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -683,7 +734,7 @@ function kannel_smpp_port_check(){
         //console.log(request.responseText);
 
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -788,7 +839,7 @@ function linksStatus(){
         //console.log(request.responseText);
 
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -886,7 +937,7 @@ function pointCodesStatus(){
         // //console.log(request.responseText);
         //console.log(request.responseText)
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -979,7 +1030,7 @@ function linksStatus2(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -1088,7 +1139,7 @@ function pointCodesStatus2(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -1187,7 +1238,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 5000);
+    }); }, 30000);
     
  
 }
@@ -1251,4 +1302,5 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
 
 
 </script>
+
 @endsection
