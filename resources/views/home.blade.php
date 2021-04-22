@@ -255,6 +255,11 @@ values_delivered_test.forEach(element => {
 });
 
 
+
+
+
+ 
+
     sinch_stats_graph.xAxis[0].setCategories(keys_total_test);
     sinch_stats_graph.series[0].setData(values_total)
     sinch_stats_graph.series[1].setData(values_delivered)
