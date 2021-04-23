@@ -32,7 +32,7 @@
 .alert {
   padding: 15px;
   margin-bottom: 20px;
-  border: 5px solid #d7dfad;
+  border: 5px solid #f7867e;
   border-radius: 4px;
   
   bottom: 0;
@@ -40,7 +40,8 @@
   /* Each alert has its own width */
   float: right;
   clear: right;
-  background-color: white;
+  background-color: #f7867e;
+  color: black;
 }
 .alert-red {
   color: white;

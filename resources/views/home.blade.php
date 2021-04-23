@@ -3,6 +3,7 @@
 @section('content')
 
 <style type="text/css">
+
     .highcharts-figure-solid .chart-container-solid {
     width: 300px;
     height: 200px;
@@ -22,11 +23,16 @@
 
 
     @if(!empty($kannel_tps))
+
     <div class="col-md-6">
         <figure class="highcharts-figure">
+        <div class="card">
+  <div style="background-color: #fcf4a7;" class="card-body">
                     <div id="kannel_tps">
                         
                     </div>
+  </div>
+        </div>
         </figure>
     </div>
 
@@ -35,26 +41,38 @@
    
     <div class="col-md-6">
          <figure class="highcharts-figure">
+         <div class="card">
+  <div style="background-color: #fcf4a7;" class="card-body">
                     <div id="kannel_queue">
                         
                     </div>
+  </div>
+         </div>
         </figure>
     </div>
 
 
       <div class="col-md-6">
          <figure class="highcharts-figure">
+         <div class="card">
+  <div class="card-body">
                     <div id="redis_stat">
                         
                     </div>
+  </div>
+         </div>
         </figure>
     </div>
 
     <div class="col-md-6">
          <figure class="highcharts-figure">
+         <div class="card">
+  <div class="card-body">
                     <div id="mysql_seconds_behind">
                         
                     </div>
+  </div>
+         </div>
         </figure>
     </div>
 
@@ -63,17 +81,25 @@
 
     <div class="col-md-12">
         <figure class="highcharts-figure">
+        <div class="card">
+  <div style="background-color: #fcf4a7;" class="card-body">
                    <div id="sinch_stats">
                        
                    </div>
+  </div>
+        </div>
        </figure>
    </div>
 
    <div class="col-md-12">
     <figure class="highcharts-figure">
+    <div class="card">
+  <div class="card-body">
                <div id="sinch_hourly_stats">
                    
                </div>
+  </div>
+    </div>
    </figure>
 </div>
 
@@ -278,9 +304,15 @@ values_delivered_test.forEach(element => {
 console.log(this.keys_total_test)
 
 var sinch_stats_graph = Highcharts.chart('sinch_stats', {
+    
     chart: {
-        type: 'column'
+        type: 'column',
+        backgroundColor: '#fcf4a7'
     },
+    credits: {
+           text: '',
+           href: ''
+       },
     title: {
         text: 'Sinch Stats'
     },
@@ -307,22 +339,27 @@ var sinch_stats_graph = Highcharts.chart('sinch_stats', {
     },
     plotOptions: {
         column: {
-            pointPadding: 0,
+            pointPadding: 0.2,
             borderWidth: 0
         }
     },
 
     series: [{
         name: 'Total',
-        data: values_total
+        data: values_total,
+        color: '#a30000'
 
     }, {
         name: 'Delivered',
-        data: values_delivered
+        data: values_delivered,
+        color: '#000000'
+
 
     }, {
         name: 'Un-delivered',
-        data: values_undelivered
+        data: values_undelivered,
+        color: '#8f8f8f'
+
 
     }]
 });
@@ -466,6 +503,10 @@ var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
     chart: {
         type: 'column'
     },
+    credits: {
+           text: '',
+           href: ''
+       },
     title: {
         text: 'Sinch Hourly Stats'
     },
@@ -492,7 +533,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
     },
     plotOptions: {
         column: {
-            pointPadding: 0,
+            pointPadding: 0.2,
             borderWidth: 0
         }
     },
@@ -562,8 +603,14 @@ function kannel_tps_test(){
     // Create the chart
 var kannel_graph_tps = Highcharts.chart('kannel_tps', {
     chart: {
-        type: 'column'
+        type: 'column',
+        backgroundColor: '#fcf4a7'
+
     },
+    credits: {
+           text: '',
+           href: ''
+       },
     title: {
         text: 'Kannel Tps'
     },
@@ -667,8 +714,14 @@ function kannel_queue_test(){
 
 var kannel_graph_queue = Highcharts.chart('kannel_queue', {
     chart: {
-        type: 'column'
+        type: 'column',
+        backgroundColor: '#fcf4a7'
+
     },
+    credits: {
+           text: '',
+           href: ''
+       },
     title: {
         text: 'Kannel Queue'
     },
@@ -766,6 +819,10 @@ var mysql_second_test = Highcharts.chart('mysql_seconds_behind', {
     chart: {
         type: 'column'
     },
+    credits: {
+           text: '',
+           href: ''
+       },
     title: {
         text: 'Mysql Seconds Behind'
     },
@@ -858,6 +915,10 @@ var redis_stat_test = Highcharts.chart('redis_stat', {
     chart: {
         type: 'column'
     },
+    credits: {
+           text: '',
+           href: ''
+       },
     title: {
         text: 'Redis Stats'
     },

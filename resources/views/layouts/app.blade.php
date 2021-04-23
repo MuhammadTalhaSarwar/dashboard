@@ -89,9 +89,9 @@
                     @else
                     <ul class="navbar-nav mr-auto">
                         <div class="sidenav ">
-                            <label style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;DASHBOARD</label>
-                                <a href="{{route('home')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> GRAPHS</a>
-                                <a href="{{route('guage')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> LINKS</a>
+                            <label style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DASHBOARD</label>
+                                <a href="{{route('home')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>Dashboard V1</a>
+                                <a href="{{route('guage')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>Dashboard V2</a>
                              </div>
                     </ul>
                     @endguest
@@ -128,7 +128,7 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user" aria-hidden="true"></i>
 
-                                    {{ Auth::user()->name }}
+                                &nbsp; {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -153,6 +153,10 @@
         </nav>
 
         <main class="py-8">
+            <div style="padding-left:16%;">
+            <h2>WELCOME TO AAQOO's DASHBOARD</h2>
+            </div>
+            <br>
             @yield('content')
 
         </main>
