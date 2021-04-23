@@ -11,7 +11,10 @@
    .anchor-style{
         cursor: pointer;
     }   
-   th {background-color: #CC66FF}
+   th {
+    background-color: #d7dfad;
+    border: 5px solid #eed3d7;
+  border-radius: 4px;}
    
    /*th {background-color: #FF0066}*/
    /*body {background-color: #F5F5F5}*/
@@ -23,7 +26,7 @@
 .alert {
   padding: 15px;
   margin-bottom: 20px;
-  border: 5px solid #eed3d7;
+  border: 5px solid #d7dfad;
   border-radius: 4px;
   
   bottom: 0;
@@ -294,7 +297,12 @@ var pusher = new Pusher('b4a9128b34bec56168bc', {
 var channel = pusher.subscribe('my-channel');
 channel.bind('link-status', function(data) {
     // ohSnap('Oh Snap! I cannot process your card...', {color: 'red'});  // alert will have class 'alert-color'
-    ohSnap(''+JSON.stringify(data.text)+'', {'duration':'5000'});  // 2 seconds
+    ohSnap(''+JSON.stringify(data.text)+'', {'duration':'5000'});  // 5 seconds
+    var sound = new Howl({
+                src: ['{{ asset('resources/audio/alert.mp3')}}']
+            });
+
+        sound.play();
     // $('#msgs').html("<span class='closebtn'>'&times;'</span><div class='alert alert-danger'>"+JSON.stringify(data.text)+"</div>");
 //   alert(JSON.stringify(data));
 });
@@ -515,12 +523,6 @@ function my_sql_repl_check(){
         value = [1];
         link = "UP";
         document.getElementById("repl_check_status"+index).innerHTML = "<span id='repl_check_status'+index+''>UP</span>";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
 
     console.log('reply'+value);
@@ -535,7 +537,7 @@ function my_sql_repl_check(){
         //console.log(request.responseText);
 
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -556,12 +558,6 @@ var mysql_repl_checkk_array =  new Array();
     {
         value = 1;
         link = "UP";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
     ////console.log(value);
 
@@ -627,11 +623,6 @@ function api_links_test(){
    else {
     this.guage_api_link = [0];  
     document.getElementById("api_link_status").innerHTML = "<span id='api_link_status' style='position:relative;right:20px;text-align:center';>DOWN</span>";
-     var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
 }
 
      api_links.series[0].setData(this.guage_api_link);
@@ -644,7 +635,7 @@ function api_links_test(){
         //console.log(request.responseText);
 
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -658,11 +649,6 @@ this.guage_api_link = 1;
 }
 else {
   this.guage_api_link = 0;  
-   var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
 }
 this.api_link_result = api_link.RESULT;
 // The speed gauge
@@ -734,7 +720,7 @@ function kannel_smpp_port_check(){
         //console.log(request.responseText);
 
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -755,13 +741,6 @@ var kannel_smpp_port_check_array =  new Array();
     {
         value = 1;
         link = "UP";
-    }else{
-
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
     ////console.log(value);
 
@@ -820,12 +799,6 @@ function linksStatus(){
         value = [1];
         link = "UP";
         document.getElementById("linkstatuss"+index).innerHTML = "<span id='linkstatuss'+index+''>UP</span>";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
 
 
@@ -839,7 +812,7 @@ function linksStatus(){
         //console.log(request.responseText);
 
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -856,12 +829,6 @@ var linksStatus_array =  new Array();
     {
         value = 1;
         link = "UP";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
     ////console.log(value);
 
@@ -918,12 +885,6 @@ function pointCodesStatus(){
         value = [1];
         link = "ACCESSIBLE";
         document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
 
 
@@ -937,7 +898,7 @@ function pointCodesStatus(){
         // //console.log(request.responseText);
         //console.log(request.responseText)
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -1013,12 +974,6 @@ function linksStatus2(){
         value = [1];
         link = "UP";
         document.getElementById("linkstatus"+index).innerHTML = "<span id='linkstatus'+index+''>UP</span>";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
 
 
@@ -1030,7 +985,7 @@ function linksStatus2(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -1049,12 +1004,6 @@ var linksStatus2_array =  new Array();
     {
         value = 1;
         link = "UP";
-    }else{
-        var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
     ////console.log(value);
 
@@ -1122,12 +1071,6 @@ function pointCodesStatus2(){
         document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
         // document.getElementById('myAudio').muted = false;
         // document.getElementById('myAudio').play();
-        var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
-
     }
 
 
@@ -1139,7 +1082,7 @@ function pointCodesStatus2(){
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -1157,12 +1100,6 @@ var pointCodesStatus2_array =  new Array();
     {
         value = 1;
         link = "ACCESSIBLE";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
     ////console.log(value);
 
@@ -1221,12 +1158,6 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
         value = [1];
         link = "UP";
         document.getElementById("smppp"+index).innerHTML = "<span id='smppp'+index+''>UP</span>";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
 
 
@@ -1238,7 +1169,7 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
       error: function (request, status, error) {
         //console.log(request.responseText);
       }
-    }); }, 30000);
+    }); }, 5000);
     
  
 }
@@ -1253,12 +1184,6 @@ var smpp = <?php echo json_encode($smpp_links);?> ;
     {
         value = 1;
         link = "UP";
-    }else{
-         var sound = new Howl({
-                src: ['{{ asset('resources/audio/alert.mp3')}}']
-            });
-
-        sound.play();
     }
     ////console.log(value);
     

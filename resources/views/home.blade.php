@@ -275,6 +275,7 @@ values_delivered_test.forEach(element => {
     }); }, 1000 * 60 * 60 * 24);
 }
 
+console.log(this.keys_total_test)
 
 var sinch_stats_graph = Highcharts.chart('sinch_stats', {
     chart: {
@@ -327,25 +328,136 @@ var sinch_stats_graph = Highcharts.chart('sinch_stats', {
 });
 
 var sinch_hourly_stats = <?php echo json_encode($sinch_hourly_stats);?> ;
-console.log('sinch hourly')
+// console.log('sinch hourly')
 console.log(sinch_hourly_stats)
-
+var time = ["00:00:00","01:00:00","02:00:00","03:00:00","04:00:00","05:00:00","06:00:00","07:00:00","08:00:00","09:00:00","10:00:00","11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00","22:00:00","23:00:00"]
 var keys = new Array()
-var values = new Array()
+var values1 = new Array()
+var values2 = new Array()
+var values3 = new Array()
+
+
+// sinch_hourly_stats.forEach(element => {
+//      console.log(element)
+//     keys.push(Object.keys(element).toString());
+//     // values.push(Object.values(element).toString());
+
+// });
+
+var day_date = '';
+for (let x=0; x<24; x++){
+    // console.log('here')
+    // console.log(sinch_hourly_stats[x]);
+    keys.push(Object.keys(sinch_hourly_stats[x]).toString());
+    values1.push(parseInt(Object.values(sinch_hourly_stats[x])));
+    // console.log('endhere')
+    var strArray = keys[0].split(" ");
+    day_date = strArray[0];
+    console.log(day_date)
+    }
+
+    var object1 = {
+    date: day_date,
+    hours:  values1
+    }
+
+    for (let x=24; x<48; x++){
+  
+    this.keys = [];
+
+    keys.push(Object.keys(sinch_hourly_stats[x]).toString());
+    values2.push(parseInt(Object.values(sinch_hourly_stats[x])));
+
+    var strArray = keys[0].split(" ");
+    day_date = strArray[0];
+    console.log(day_date)
+    }
+
+    var object2 = {
+    date: day_date,
+    hours:  values2
+    }   
+
+    for (let x=48; x<sinch_hourly_stats.length; x++){
+        this.keys = [];
+
+    keys.push(Object.keys(sinch_hourly_stats[x]).toString());
+    values3.push(parseInt(Object.values(sinch_hourly_stats[x])));
+    var strArray = keys[0].split(" ");
+    day_date = strArray[0];
+    console.log(day_date)
+    }
+
+    var object3 = {
+    date: day_date,
+    hours:  values3
+    }   
 
 
 
+// console.log(values1)
+// console.log(keys)
+// console.log(values)
+// var strArray = keys[23].split(" ");
+// console.log(strArray)
+// var object1 = {
+//     date: "21-04-2021",
+//     hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+//     }
+// var object2 = {
+//     date: "22-04-2021",
+//     hours: [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+// };
+// var object3 = {
+//     date: "23-04-2021",
+//     hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793]
+// };
 
-sinch_hourly_stats.forEach(element => {
-     console.log(element)
-    keys.push(Object.keys(element).toString());
-    values.push(Object.values(element).toString());
+var data_testing = new Array();
+ data_testing.push(object1)
+data_testing.push(object2)
+data_testing.push(object3)
 
+
+var categorie = []
+var new_hours = []
+
+data_testing.forEach(element => {
+    categorie.push(element.date)
+    new_hours.push(element.hours)
 });
-console.log(keys)
-console.log(values)
-var strArray = keys[0].split(" ");
-console.log(strArray)
+
+
+series_array = []
+
+var series_obj = {
+        name: categorie[0],
+        data: new_hours[0]
+    }
+    var series_obj1 = {
+        name: categorie[1],
+        data: new_hours[1]
+    }
+    var series_obj2 = {
+        name: categorie[2],
+        data: new_hours[2]
+    }
+series_array.push(series_obj)
+series_array.push(series_obj1)
+series_array.push(series_obj2)
+
+console.log(series_array)
+
+// sinch_hourly_stats.forEach(element => {
+//      console.log(element)
+//     keys.push(Object.keys(element).toString());
+//     values.push(Object.values(element).toString());
+
+// });
+// console.log(keys)
+// console.log(values)
+// var strArray = keys[0].split(" ");
+// console.log(strArray)
 
 
 
@@ -355,10 +467,10 @@ var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
         type: 'column'
     },
     title: {
-        text: 'Sinch Stats'
+        text: 'Sinch Hourly Stats'
     },
     xAxis: {
-        categories: this.keys_total_test,
+        categories: time,
         crosshair: true,
         scrollbar: {
       enabled: true
@@ -367,7 +479,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Values (per day)'
+            text: 'Values (per hour)'
         }
     },
     tooltip: {
@@ -385,19 +497,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
         }
     },
 
-    series: [{
-        name: 'Total',
-        data: values_total
-
-    }, {
-        name: 'Delivered',
-        data: values_delivered
-
-    }, {
-        name: 'Un-delivered',
-        data: values_undelivered
-
-    }]
+    series: series_array
 });
 
 

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Api_Check extends Authenticatable
+class Notification extends Authenticatable
 {
     use HasFactory, Notifiable;
-    protected $table = 'api_data';
+    protected $table = 'notification';
     /**
      * The attributes that are mass assignable.
      *
@@ -18,7 +18,7 @@ class Api_Check extends Authenticatable
      */
     protected $fillable = [
         'id',
-        'IP_Address',
+        'text',
         'Status',
     ];
 }

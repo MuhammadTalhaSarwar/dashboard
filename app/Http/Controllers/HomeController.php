@@ -76,9 +76,26 @@ class HomeController extends Controller
         $response = $client->get('http://172.27.108.45/sinch_hourly_stats.php');
         $body = $response->getBody()->getContents();
         // $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
-        $sinch_hourly_stats = json_decode($body);
-    
-        
+         $sinch_hourly_stats = json_decode($body);
+        //  $test_array = [];
+        //  $object1 = '{
+        //     date: "21-04-2021",
+        //     hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+        //     }';
+        //    $object2 = '{
+        //     date: "22-04-2021",
+        //     hours: [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+        //     }';
+        //     $object3 = '{
+        //     date: "23-04-2021",
+        //     hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+        //     }';
+        //     array_push($test_array,$object1,$object2,$object3);
+        // //  dd($test_array);
+
+        // $sinch_hourly_stats = $test_array;
+
+
         $response = $client->get('http://172.27.108.45/ussd1_link_status.php');
         $body = $response->getBody()->getContents();
         
@@ -138,7 +155,24 @@ class HomeController extends Controller
         $body = $response->getBody()->getContents();
         // $body = '{"SINCH_DELIVERED_TODAY":"628201","SINCH_UNDELIVERED_TODAY":"11121","SINCH_EXPIRED_TODAY":"8240","SINCH_DELIVERED_YESTERDAY":"1335780","SINCH_UNDELIVERED_YESTERDAY":"25650","SINCH_EXPIRED_YESTERDAY":"16074"}';
         $sinch_hourly_stats = json_decode($body);
-        return response()->json($ $sinch_hourly_stats);
+    //     $test_array = [];
+    //     $object1 = '{
+    //        date: "21-04-2021",
+    //        hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+    //        }';
+    //       $object2 = '{
+    //        date: "22-04-2021",
+    //        hours: [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+    //        }';
+    //        $object3 = '{
+    //        date: "23-04-2021",
+    //        hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+    //        }';
+    //        array_push($test_array,$object1,$object2,$object3);
+    //    //  dd($test_array);
+
+    //    $sinch_hourly_stats = $test_array;
+        return response()->json($sinch_hourly_stats);
         
     }
     public function smpp_links(){

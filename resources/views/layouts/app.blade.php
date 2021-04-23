@@ -76,7 +76,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
+            <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -85,13 +85,16 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    @guest
+                    @else
                     <ul class="navbar-nav mr-auto">
                         <div class="sidenav ">
-                            
+                            <label style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;DASHBOARD</label>
                                 <a href="{{route('home')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> GRAPHS</a>
                                 <a href="{{route('guage')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i> LINKS</a>
                              </div>
                     </ul>
+                    @endguest
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -109,6 +112,19 @@
                                 </li>
                             @endif
                         @else
+                        <!-- <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                                <a id="navbarDropdown-noti" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="label label-pill label-danger count" style="border-radius:10px;"></span><i class="fa fa-bell" aria-hidden="true"></i>
+                                </a>
+                                <ul class="dropdown-menu-noti">
+                                    <li><a><strong>Usama here showing notification</strong></a></li>
+                                    <li><a><strong>Usama here showing notification</strong></a></li>
+                                    <li><a><strong>Usama here showing notification</strong></a></li>
+
+                                </ul>
+                            </li>
+                            </ul> -->
+
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user" aria-hidden="true"></i>
 
@@ -127,6 +143,9 @@
                                     </form>
                                 </div>
                             </li>
+
+
+                            
                         @endguest
                     </ul>
                 </div>
