@@ -3,6 +3,12 @@
 @section('content')
 
 <style type="text/css">
+
+.table {
+  
+    margin-bottom: 0px!important;
+
+}
     .highcharts-figure-solid .chart-container-solid {
     width: 300px;
     height: 200px;
@@ -71,6 +77,9 @@
               </tr>
             </thead>
         </table>
+        <div class="card">
+  <div class="card-body">
+ 
         <div id="collapse-api_link-check" class="panel-collapse collapse-show">
     
               <div class="col-md-4" style="float:left"></div>
@@ -87,6 +96,9 @@
         </div>
     </div>
 
+  </div>
+</div>
+
 <div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
         <thead>
@@ -95,6 +107,9 @@
           </tr>
         </thead>
     </table>
+    <div class="card">
+  <div class="card-body">
+
     <div id="collapse-repl-check" class="panel-collapse collapse">
 
           <div class="col-md-2" style="float:left"></div>
@@ -109,6 +124,9 @@
          <div class="col-md-2"></div>
     
     </div>
+  </div>
+    </div>
+  
 </div>
 <div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
@@ -118,6 +136,8 @@
           </tr>
         </thead>
     </table>
+    <div class="card">
+  <div class="card-body">
     <div id="collapse-smpp-links" class="panel-collapse collapse">
 
         <?php foreach ($smpp_links as $key => $value) {        ?>
@@ -129,6 +149,10 @@
      
     </div>
 </div>
+</div>
+
+
+</div>
 
 <div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
@@ -138,6 +162,8 @@
           </tr>
         </thead>
     </table>
+    <div class="card">
+  <div class="card-body">
     <div id="collapse-ussd1" class="panel-collapse collapse">
        <?php foreach ($linksStatus as $key => $value) {     
           if($key == 3) {
@@ -157,6 +183,8 @@
          <?php }  }    ?>
     </div>
 </div>
+</div>
+</div>
 
 <div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
@@ -166,6 +194,8 @@
           </tr>
         </thead>
     </table>
+    <div class="card">
+  <div class="card-body">
     <div id="collapse-code1" class="panel-collapse collapse">
       <?php foreach ($pointCodesStatus as $key => $value) {       
           if($key == 3) {
@@ -184,6 +214,10 @@
         </div>
          <?php }  }    ?>
     </div>
+
+
+</div>
+</div>
 </div>
 
 
@@ -195,6 +229,10 @@
           </tr>
         </thead>
     </table>
+
+    <div class="card">
+  <div class="card-body">
+
     <div id="collapse-ussd2" class="panel-collapse collapse">
        <?php foreach ($linksStatus2 as $key => $value) {       
           if($key == 3) {
@@ -213,6 +251,8 @@
         </div>
          <?php }  }    ?>
     </div>
+  </div>
+    </div>
 </div>
 
 <div class="col-md-12" style="text-align: center">
@@ -223,6 +263,8 @@
           </tr>
         </thead>
     </table>
+    <div class="card">
+  <div class="card-body">
     <div id="collapse-code2" class="panel-collapse collapse">
        <?php foreach ($pointCodesStatus2 as $key => $value) {      
           if($key == 3) {
@@ -241,6 +283,8 @@
         </div>
          <?php }  }    ?>
     </div>
+  </div>
+    </div>
 </div>
 <div class="col-md-12" style="text-align: center">
     <table class="table table-bordered">
@@ -250,6 +294,8 @@
           </tr>
         </thead>
     </table>
+    <div class="card">
+  <div class="card-body">
     <div id="collapse-smpp" class="panel-collapse collapse">
 
       <?php foreach ($kannel_smppbox_port_check as $key => $value) {       
@@ -269,6 +315,8 @@
       
          <?php }  }    ?>
      
+    </div>
+  </div>
     </div>
 </div>
 
