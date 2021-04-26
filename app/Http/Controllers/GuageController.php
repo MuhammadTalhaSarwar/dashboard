@@ -391,7 +391,13 @@ class GuageController extends Controller
 
         if (!empty($notifi)) {
             foreach ($notifi as $notified) {
-                $output .= '<li><a href="#"><strong>' . $notified->text . '</strong><br /></a></li>';
+                if($notified->status == 0)
+                {
+                    $output .= '<li><strong>' . $notified->text . '</strong><br /></li>';
+                }else{
+
+                    $output .= '<li>' . $notified->text . '</strong><br /></li>';
+                }
             }
         } else {
             $output .= '<li><a href="#" class="text-bold text-italic">No Noti Found</a></li>';

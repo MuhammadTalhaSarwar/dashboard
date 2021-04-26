@@ -336,7 +336,6 @@ function load_unseen_notification(view = '')
       dataType:"json",
       success:function(data)
       {
-          console.log(data);
        $('.noti').html(data.notification);
        if(data.unseen_notification > 0)
        {
@@ -357,7 +356,6 @@ function load_unseen_notification(view = '')
       dataType:"json",
       success:function(data)
       {
-          console.log(data);
           $('.count').html('');
           load_unseen_notification();
       }

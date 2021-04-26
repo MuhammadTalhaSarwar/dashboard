@@ -120,7 +120,6 @@ function load_unseen_notification(view = '')
       dataType:"json",
       success:function(data)
       {
-          console.log(data);
        $('.noti').html(data.notification);
        if(data.unseen_notification > 0)
        {
@@ -130,7 +129,7 @@ function load_unseen_notification(view = '')
      });
     }
     load_unseen_notification();
-    setInterval(load_unseen_notification, 5000);
+    setInterval(load_unseen_notification, 30000);
 
     //updating notification seen status
     function updatenotificationcount(view = '')
