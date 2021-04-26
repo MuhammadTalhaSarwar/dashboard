@@ -18,6 +18,10 @@
 
 
 </style>
+<div style="padding-left:16%;">
+            <h2>WELCOME TO AAQOO's DASHBOARD</h2>
+            </div>
+            <br>
 <div class="container">
 <div class="row">
 

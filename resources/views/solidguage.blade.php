@@ -64,6 +64,10 @@
   background-color: #E9573F;
 }
 </style>
+<div style="padding-left:16%;">
+            <h2>WELCOME TO AAQOO's DASHBOARD</h2>
+            </div>
+            <br>
 <div id="ohsnap"></div>
     
 <audio  loop muted autoplay id="myAudio" src="{{ asset('resources/audio/alert.mp3')}}" ></audio>

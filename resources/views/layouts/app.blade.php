@@ -123,6 +123,8 @@
 
 <body>
     <div id="app">
+                    @guest
+                    @else
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -207,12 +209,11 @@
                 </div>
             </div>
         </nav>
+        @endguest
+
 
         <main class="py-8">
-            <div style="padding-left:16%;">
-            <h2>WELCOME TO AAQOO's DASHBOARD</h2>
-            </div>
-            <br>
+           
             @yield('content')
 
         </main>
