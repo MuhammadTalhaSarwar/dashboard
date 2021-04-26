@@ -80,6 +80,18 @@
         </figure>
     </div>
 
+
+    <div class="col-md-12">
+        <figure class="highcharts-figure">
+        <div class="card">
+      <div class="card-body">
+                   <div id="sinch_hourly_stats">
+                       
+                   </div>
+      </div>
+        </div>
+       </figure>
+    </div>
  
 
 
@@ -94,19 +106,6 @@
         </div>
        </figure>
    </div>
-
-   <div class="col-md-12">
-    <figure class="highcharts-figure">
-    <div class="card">
-  <div class="card-body">
-               <div id="sinch_hourly_stats">
-                   
-               </div>
-  </div>
-    </div>
-   </figure>
-</div>
-
 
 
     
