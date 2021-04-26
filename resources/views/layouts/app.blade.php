@@ -16,6 +16,7 @@
     <script src="{{ asset('resources/js/jquery-3.6.0.min.js') }}"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link href="{{ asset('resources/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -36,23 +37,70 @@
 </head>
 
 <style type="text/css">
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link{
+  background-color: #17A2B8;
+}
+.dropdown-menu{
+  top: 60px;
+  right: 0px;
+  left: unset;
+  width: 460px;
+  box-shadow: 0px 5px 7px -1px #c1c1c1;
+  padding-bottom: 0px;
+  padding: 0px;
+}
+.dropdown-menu:before{
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: 12px;
+  border:10px solid #343A40;
+  border-color: transparent transparent #343A40 transparent;
+}
+.footer{
+  padding:5px 15px;
+  border-radius: 0px 0px 3px 3px; 
+}
+.notification-box{
+  padding: 10px 0px; 
+}
+.bg-gray{
+  background-color: #eee;
+}
+@media (max-width: 640px) {
+    .dropdown-menu{
+      top: 50px;
+      left: -16px;  
+      width: 290px;
+    } 
+    .nav{
+      display: block;
+    }
+    .nav .nav-item,.nav .nav-item a{
+      padding-left: 0px;
+    }
+    .message{
+      font-size: 13px;
+    }
+}
 .sidenav {
   height: 100%;
-  width: 160px;
+  width: 200px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: #111;
+  /* background-color: #b02827; */
   overflow-x: hidden;
   padding-top: 20px;
+  background-image: linear-gradient(to bottom right, red, gray);
 }
 
 .sidenav a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   font-size: 18px;
-  color: #818181;
+  color: black;
   display: block;
 }
 
@@ -89,7 +137,7 @@
                     @else
                     <ul class="navbar-nav mr-auto">
                         <div class="sidenav ">
-                            <label style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DASHBOARD</label>
+                            <label style="color: white;">&nbsp;&nbsp;&nbsp;&nbsp;AAQOO's DASHBOARD</label>
                                 <a href="{{route('home')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>Dashboard V1</a>
                                 <a href="{{route('guage')}}"><i class="fa fa-cog fa-spin fa-1x fa-fw"></i>Dashboard V2</a>
                              </div>
@@ -112,14 +160,26 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item dropdown">
+ 
+              <ul class="nav nav-pills mr-auto justify-content-end">
+                <li class="nav-item dropdown">
+                  <a class="nav-link text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bell"></i><span class="w3-badge w3-green"><i class="count"></i></span>
+                  </a>
+                    <ul class="dropdown-menu">
+                      <li class="head text-light bg-dark">
+                        <div class="row">
+                          <div class="col-lg-12 col-sm-12 col-12">
+                            <span>Notifications </span>
+                            <a href="#" onclick="updatenotificationcount();" class="float-right text-light">Mark all as read</a>
+                          </div>
+                      </li>
+                    <div class="noti">
 
-                                <a id="navbarDropdown" onclick="updatenotificationcount();" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="label label-pill label-danger " style="border-radius:10px;"></span><i class="fa fa-bell  count" aria-hidden="true"></i>
-                                </a>
-                                <ul class="dropdown-menu noti">
-
-                                </ul>
-                            </li>
+                    </div>
+                    </ul>
+                </li>
+              </ul>
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user" aria-hidden="true"></i>

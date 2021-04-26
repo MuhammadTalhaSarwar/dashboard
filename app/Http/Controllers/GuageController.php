@@ -393,10 +393,32 @@ class GuageController extends Controller
             foreach ($notifi as $notified) {
                 if($notified->status == 0)
                 {
-                    $output .= '<li><strong>' . $notified->text . '</strong><br /></li>';
+                    $output .=  '<li class="notification-box bg-gray">
+                    <div class="row">
+                      <div class="col-lg-1 col-sm-1 col-1 text-center">
+                      </div>    
+                      <div class="col-lg-10 col-sm-10 col-10">
+                        <div>
+                        <strong class="text-success">'.$notified->text.'</strong>
+                        </div>
+                        <small class="text-warning">'.$notified->created_at.'</small>
+                      </div>    
+                    </div>
+                  </li>';
                 }else{
 
-                    $output .= '<li>' . $notified->text . '</strong><br /></li>';
+                    $output .= '<li class="notification-box">
+                    <div class="row">
+                      <div class="col-lg-1 col-sm-1 col-1 text-center">
+                      </div>    
+                      <div class="col-lg-10 col-sm-10 col-10">
+                        <div>
+                        <strong class="text-success">'.$notified->text.'</strong>
+                        </div>
+                        <small class="text-warning">'.$notified->created_at.'</small>
+                      </div>    
+                    </div>
+                  </li>';
                 }
             }
         } else {
