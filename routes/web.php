@@ -48,4 +48,6 @@ Route::get('/repl_check', [App\Http\Controllers\GuageController::class, 'repl_ch
 
 
 Route::get('/event_trigger', [App\Http\Controllers\HomeController::class, 'event_trigger'])->name('event_trigger');
+Route::get('/noti', [App\Http\Controllers\GuageController::class, 'noti'])->name('noti');
+
 

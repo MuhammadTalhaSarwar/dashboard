@@ -326,6 +326,27 @@
 <script src="{{ asset('resources/js/howler.js') }}"></script>
 <script src="{{ asset('resources/js/ohsnap.js') }}"></script>
 <script>
+
+//get notifications
+function load_unseen_notification(view = '')
+    {
+     $.ajax({
+      url: "{{route('noti')}}",
+      method:"GET",
+      dataType:"json",
+      success:function(data)
+      {
+          console.log(data);
+       $('.noti').html(data.notification);
+       if(data.unseen_notification > 0)
+       {
+        $('.count').html(data.unseen_notification);
+       }
+      }
+     });
+    }
+    load_unseen_notification();
+    setInterval(load_unseen_notification, 5000);
 var close = document.getElementsByClassName("closebtn");
 var i;
 
@@ -359,136 +380,8 @@ channel.bind('link-status', function(data) {
 </script>
 <script>
 
-window.onload = function() { smpp_testing(); linksStatus(); linksStatus2(); pointCodesStatus(); pointCodesStatus2();kannel_smpp_port_check();api_links_test(); my_sql_repl_check();}
+window.onload = function() { smpp_testing(); linksStatus(); linksStatus2(); pointCodesStatus(); pointCodesStatus2();kannel_smpp_port_check();api_links_test(); my_sql_repl_check();load_unseen_notification();}
 
-// Highcharts.setOptions({
-//     colors: ["#DDDF0D", "#7798BF", "#55BF3B", "#DF5353", "#aaeeee", "#ff0066", "#eeaaee", 
-//         "#55BF3B", "#DF5353", "#7798BF", "#aaeeee"],
-//     chart: {
-//         backgroundColor: {
-//             linearGradient: [0, 0, 0, 400],
-//             stops: [
-//                 [0, 'rgb(96, 96, 96)'],
-//                 [1, 'rgb(16, 16, 16)']
-//             ]
-//         },
-//         borderWidth: 0,
-//         borderRadius: 15,
-//         plotBackgroundColor: null,
-//         plotShadow: false,
-//         plotBorderWidth: 0
-//     },
-//     title: {
-//         style: { 
-//             color: '#FFF',
-//             font: '16px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-//         }
-//     },
-//     subtitle: {
-//         style: { 
-//             color: '#DDD',
-//             font: '12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-//         }
-//     },
-//     xAxis: {
-//         gridLineWidth: 0,
-//         lineColor: '#999',
-//         tickColor: '#999',
-//         labels: {
-//             style: {
-//                 color: '#999',
-//                 fontWeight: 'bold'
-//             }
-//         },
-//         title: {
-//             style: {
-//                 color: '#AAA',
-//                 font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-//             }               
-//         }
-//     },
-//     yAxis: {
-//         alternateGridColor: null,
-//         minorTickInterval: null,
-//         gridLineColor: 'rgba(255, 255, 255, .1)',
-//         lineWidth: 0,
-//         tickWidth: 0,
-//         labels: {
-//             style: {
-//                 color: '#999',
-//                 fontWeight: 'bold'
-//             }
-//         },
-//         title: {
-//             style: {
-//                 color: '#AAA',
-//                 font: 'bold 12px Lucida Grande, Lucida Sans Unicode, Verdana, Arial, Helvetica, sans-serif'
-//             }               
-//         }
-//     },
-//     legend: {
-//         itemStyle: {
-//             color: '#CCC'
-//         },
-//         itemHoverStyle: {
-//             color: '#FFF'
-//         },
-//         itemHiddenStyle: {
-//             color: '#333'
-//         }
-//     },
-//     credits: {
-//         style: {
-//             right: '50px'
-//         }
-//     },
-//     labels: {
-//         style: {
-//             color: '#CCC'
-//         }
-//     },
-//     tooltip: {
-//         backgroundColor: {
-//             linearGradient: [0, 0, 0, 50],
-//             stops: [
-//                 [0, 'rgba(96, 96, 96, .8)'],
-//                 [1, 'rgba(16, 16, 16, .8)']
-//             ]
-//         },
-//         borderWidth: 0,
-//         style: {
-//             color: '#FFF'
-//         }
-//     },
-    
-    
-//     plotOptions: {
-//         line: {
-//             dataLabels: {
-//                 color: '#CCC'
-//             },
-//             marker: {
-//                 lineColor: '#333'
-//             }
-//         },
-//         spline: {
-//             marker: {
-//                 lineColor: '#333'
-//             }
-//         },
-//         scatter: {
-//             marker: {
-//                 lineColor: '#333'
-//             }
-//         }
-//     },
-    
-//     toolbar: {
-//         itemStyle: {
-//             color: '#CCC'
-//         }
-//     }
-// });
 var gaugeOptions = {
     chart: {
         type: 'solidgauge'

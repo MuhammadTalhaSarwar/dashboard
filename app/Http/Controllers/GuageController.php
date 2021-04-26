@@ -381,4 +381,31 @@ class GuageController extends Controller
         $client = new Client(['base_uri' => 'https://reqres.in/']);
         $response = $client->request('GET', '/api/users?page=1');
     }
+
+    public function noti()
+    {
+        $count = Notification::where('status', "=", 0)->count();
+        // dd($count);
+        $notifi = Notification::latest()->take(5)->get();
+        $output = '';
+
+        if (!empty($notifi)) {
+            foreach ($notifi as $notified) {
+                $output .= '<li><a href="#"><strong>' . $notified->text . '</strong><br /></a></li>';
+            }
+        } else {
+            $output .= '<li><a href="#" class="text-bold text-italic">No Noti Found</a></li>';
+        }
+        $data = array(
+            'notification' => $output,
+            'unseen_notification'  => $count
+        );
+        // echo "<pre>";
+        // print_r($data);
+        // exit();
+
+        echo json_encode($data);
+        // return view('noti')->with('notified', $notified);
+        // return view('noti');
+    }
 }

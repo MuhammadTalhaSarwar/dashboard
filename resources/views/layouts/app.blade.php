@@ -112,18 +112,14 @@
                                 </li>
                             @endif
                         @else
-                        <!-- <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                                <a id="navbarDropdown-noti" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="label label-pill label-danger count" style="border-radius:10px;"></span><i class="fa fa-bell" aria-hidden="true"></i>
+                        <li class="nav-item dropdown">
+
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="label label-pill label-danger " style="border-radius:10px;"></span><i class="fa fa-bell  count" aria-hidden="true"></i>
                                 </a>
-                                <ul class="dropdown-menu-noti">
-                                    <li><a><strong>Usama here showing notification</strong></a></li>
-                                    <li><a><strong>Usama here showing notification</strong></a></li>
-                                    <li><a><strong>Usama here showing notification</strong></a></li>
+                                <ul class="dropdown-menu noti">
 
                                 </ul>
                             </li>
-                            </ul> -->
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><i class="fa fa-user" aria-hidden="true"></i>
