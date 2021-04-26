@@ -408,4 +408,17 @@ class GuageController extends Controller
         // return view('noti')->with('notified', $notified);
         // return view('noti');
     }
+
+    public function readnoti()
+    {
+        Notification::where('status', 0)
+            ->update([
+           'status' => 1
+        ]);
+        $count = Notification::where('status', "=", 0)->count();
+        $data = array(
+            'unseen_notification'  => $count
+        );
+        echo json_encode($data);
+    }
 }

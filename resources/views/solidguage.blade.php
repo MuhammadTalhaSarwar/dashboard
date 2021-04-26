@@ -347,6 +347,23 @@ function load_unseen_notification(view = '')
     }
     load_unseen_notification();
     setInterval(load_unseen_notification, 5000);
+
+    //updating notification seen status
+    function updatenotificationcount(view = '')
+    {
+     $.ajax({
+      url: "{{route('readnoti')}}",
+      method:"GET",
+      dataType:"json",
+      success:function(data)
+      {
+          console.log(data);
+          $('.count').html('');
+          load_unseen_notification();
+      }
+     });
+    }
+
 var close = document.getElementsByClassName("closebtn");
 var i;
 

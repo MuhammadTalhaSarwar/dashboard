@@ -114,7 +114,7 @@
                         @else
                         <li class="nav-item dropdown">
 
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="label label-pill label-danger " style="border-radius:10px;"></span><i class="fa fa-bell  count" aria-hidden="true"></i>
+                                <a id="navbarDropdown" onclick="updatenotificationcount();" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre><span class="label label-pill label-danger " style="border-radius:10px;"></span><i class="fa fa-bell  count" aria-hidden="true"></i>
                                 </a>
                                 <ul class="dropdown-menu noti">
 
