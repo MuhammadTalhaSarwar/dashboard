@@ -3,7 +3,10 @@
 @section('content')
 
 <style type="text/css">
-
+.yourDiv{
+  position:absolute;
+  top: 123px;
+}
 .table {
   
     margin-bottom: 0px!important;
