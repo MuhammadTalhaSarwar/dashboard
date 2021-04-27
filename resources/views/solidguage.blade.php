@@ -64,8 +64,9 @@
   background-color: #E9573F;
 }
 </style>
-<div class="row"><div id="ohsnap"></div></div>
 
+<div style="position:absolute;
+top: 80px; right:0px;" id="ohsnap"></div>
     
 <audio  loop muted autoplay id="myAudio" src="{{ asset('resources/audio/alert.mp3')}}" ></audio>
 <div class="row">
@@ -226,7 +227,8 @@ window.onload = function() { smpp_testing(); linksStatus(); linksStatus2(); poin
 
 var gaugeOptions = {
     chart: {
-        type: 'solidgauge'
+        type: 'solidgauge',
+        backgroundColor: '#f8f9fc'
     },
 
     title:null,
@@ -651,89 +653,90 @@ var code = <?php echo json_encode($pointCodesStatus);?> ;
 
 
 function pointCodesStatus(){
-    
-    setInterval(function(){    $.ajax({
-        url: '{{route('pointCodesStatus')}}',
-        type: 'GET',
-        dataType: 'json', // added data type
-        success: function(res) { //console.log('running6')
-            ////console.log('running')
-            data = []
-            for (index = 0; index < res.length; index++) {
-             
-    value = [0];
-    link = "INACCESSIBLE";
-    document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
-    if((res[index].signallingPointStatus) == "ACCESSIBLE")
-    {
-        value = [1];
-        link = "ACCESSIBLE";
-        document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
-    }
 
+setInterval(function(){ $.ajax({
+url: '{{route('pointCodesStatus')}}',
+type: 'GET',
+dataType: 'json', // added data type
+success: function(res) { //console.log('running6')
+////console.log('running')
+data = []
+for (index = 0; index < res.length; index++) {
 
-    pointCodesStatus_array[index].series[0].setData(value);
-    // pointCodesStatus_array[index].series[0].
-        
-}
-
-        },
-      error: function (request, status, error) {
-        // //console.log(request.responseText);
-        //console.log(request.responseText)
-      }
-    }); }, 5000);
-    
- 
+value = [0];
+link = "DOWN";
+document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' >DOWN</span>";
+if((res[index].signallingPointStatus) == "ACCESSIBLE")
+{
+value = [1];
+link = "UP";
+document.getElementById("pointcodein"+index).innerHTML = "<span id='pointcodein'+index+'' >UP</span>";
 }
 
 
+pointCodesStatus_array[index].series[0].setData(value);
+// pointCodesStatus_array[index].series[0].
 
-var pointCodesStatus_array =  new Array();
+}
+
+},
+error: function (request, status, error) {
+// //console.log(request.responseText);
+//console.log(request.responseText)
+}
+}); }, 5000);
+
+
+}
+
+
+
+var pointCodesStatus_array = new Array();
 
 
 
 
- // var data_kannel_smppbox_port_check = [];
- for (index = 0; index < code.length; index++) {
-    value = 0;
-    link = "INACCESSIBLE";
-    if((code[index].signallingPointStatus) == "ACCESSIBLE")
-    {
-        value = 1;
-        link = "ACCESSIBLE";
-    }
-    ////console.log(value);
+// var data_kannel_smppbox_port_check = [];
+for (index = 0; index < code.length; index++) {
+value = 0;
+link = "DOWN";
+if((code[index].signallingPointStatus) == "ACCESSIBLE")
+{
+value = 1;
+link = "UP";
+}
+////console.log(value);
 
-    pointCodesStatus_array[index] = Highcharts.chart('code'+index+'', Highcharts.merge(gaugeOptions, {
-    yAxis: {
-        min: 0,
-        max: 1,
-        title: {
-            text: 'Point Code :' + code[index].pointCode ,
-        }
-    },
+pointCodesStatus_array[index] = Highcharts.chart('code'+index+'', Highcharts.merge(gaugeOptions, {
+yAxis: {
+min: 0,
+max: 1,
+title: {
+text: 'Point Code :' + code[index].pointCode ,
+}
+},
 
-    credits: {
-        enabled: false
-    },
+credits: {
+enabled: false
+},
 
-    series: [{
-        name: 'Speed',
-        data: [value],
-        dataLabels: {
-            format:
-                '<div style="text-align:center">' +
-                    '<span id="pointcodein'+index+'" style="font-size:20px">'+link+'</span><br/>' +
-                '</div>'
-        },
-        tooltip: {
-            valueSuffix: 'Status'
-        }
-    }]
+series: [{
+name: 'Speed',
+data: [value],
+dataLabels: {
+format:
+'<div style="text-align:center">' +
+'<span id="pointcodein'+index+'" style="font-size:25px">'+link+'</span><br/>' +
+'</div>'
+},
+tooltip: {
+valueSuffix: 'Status'
+}
+}]
 
 }));
 }
+
 
 //ussd2
 var ussd2 = <?php echo json_encode($linksStatus2);?> ;
@@ -847,12 +850,12 @@ function pointCodesStatus2(){
     if((res[index].signallingPointStatus) == "ACCESSIBLE")
     {
         value = [1];
-        link = "ACCESSIBLE";
-        document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>ACCESSIBLE</span>";
+        link = "UP";
+        document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+''>UP</span>";
     }else{
         value = [0];
-        link = "INACCESIBBLE";
-        document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+'' style='position:relative;right:0px;text-align:center';>INACCESIBBLE</span>";
+        link = "DOWN";
+        document.getElementById("codein"+index).innerHTML = "<span id='codein'+index+''>DOWN</span>";
         // document.getElementById('myAudio').muted = false;
         // document.getElementById('myAudio').play();
     }
@@ -879,11 +882,11 @@ var pointCodesStatus2_array =  new Array();
  // var data_kannel_smppbox_port_check = [];
  for (index = 0; index < code2.length; index++) {
     value = 0;
-    link = "INACCESIBBLE";
+    link = "DOWN";
     if((code2[index].signallingPointStatus) == "ACCESSIBLE")
     {
         value = 1;
-        link = "ACCESSIBLE";
+        link = "UP";
     }
     ////console.log(value);
 
@@ -907,7 +910,7 @@ var pointCodesStatus2_array =  new Array();
         dataLabels: {
             format:
                 '<div style="text-align:center">' +
-                    '<span id="codein'+index+'" style="  font-size:20px">'+link+'</span><br/>' +
+                    '<span id="codein'+index+'" style="  font-size:25px">'+link+'</span><br/>' +
                 '</div>'
         },
         tooltip: {
