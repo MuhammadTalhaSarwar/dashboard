@@ -385,44 +385,64 @@ class GuageController extends Controller
     public function noti()
     {
         $count = Notification::where('status', "=", 0)->count();
-        // dd($count);
+        $count_critical = Notification::where('is_critical', "=", 1)->count();
+
+        // dd($count_critical);
         $notifi = Notification::latest()->take(50)->get();
         // echo "<pre>";
         // print_r($notifi);
         // exit();
         // dd($notifi);
         $output = '';
+        if($count_critical == 0)
+        {
+            $output .=  '<a class="dropdown-item d-flex align-items-center" href="#">
+            <div class="mr-3">
+                <div class="icon-circle bg-danger">
+                    <i class="fas fa-engine-warning text-white"></i>
+                </div>
+            </div>
+            <div>
+                <strong>There is no Critical Notification</strong>
+            </div>
+            
+        </a><hr>';
+        }
 
         if (!empty($notifi)) {
             foreach ($notifi as $notified) {
-
-                if($notified->is_critical == 1)
+                if($count_critical > 0){
+                    if($notified->is_critical == 1)
                 {
                     $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">
                     <div class="mr-3">
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-exclamation-triangle text-white"></i>
+                        <div class="icon-circle bg-danger">
+                            <i class="fas fa-engine-warning text-white"></i>
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">11-02-2021</div>
-                        <strong>THIS IS A CRITICAL NOTIFICATION</strong>
+                        <div class="small text-gray-500">'.$notified->created_at.'</div>
+                        <strong>'.$notified->text.'</strong>
                     </div>
                 </a>';
 
                 }else{
-                    $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">
+                    $output .=  '<a class="dropdown-item d-flex align-items-center"  href="#">
                     <div class="mr-3">
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-exclamation-triangle text-white"></i>
+                        <div class="icon-circle bg-danger">
+                            <i class="fas fa-engine-warning text-white"></i>
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">11-02-2021</div>
-                        <strong>THIS IS A CRITICAL NOTIFICATION</strong>
+                        <div class="small text-gray-500">'.$notified->created_at.'</div>
+                        '.$notified->text.'
                     </div>
                 </a>';
                 }
+                }else{
+                    // $output .= ''; 
+                }
+                
                 if($notified->status == 0)
                 {
                     $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">

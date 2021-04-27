@@ -88,12 +88,12 @@
         </div>
 
     </div>
-
+    <script src="{{ asset('resources/js/jquery.easing.min.js') }}"></script>
     <script src="{{ asset('resources/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('resources/js/bootstrap.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('resources/js/jquery.easing.min.js') }}"></script>
+
 
 </body>
 
