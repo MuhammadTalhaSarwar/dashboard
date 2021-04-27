@@ -386,39 +386,41 @@ class GuageController extends Controller
     {
         $count = Notification::where('status', "=", 0)->count();
         // dd($count);
-        $notifi = Notification::latest()->take(5)->get();
+        $notifi = Notification::latest()->take(50)->get();
+        // echo "<pre>";
+        // print_r($notifi);
+        // exit();
+        // dd($notifi);
         $output = '';
 
         if (!empty($notifi)) {
             foreach ($notifi as $notified) {
                 if($notified->status == 0)
                 {
-                    $output .=  '<li class="notification-box bg-gray">
-                    <div class="row">
-                      <div class="col-lg-1 col-sm-1 col-1 text-center">
-                      </div>    
-                      <div class="col-lg-10 col-sm-10 col-10">
-                        <div>
-                        <strong class="text-success">'.$notified->text.'</strong>
+                    $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
                         </div>
-                        <small class="text-warning">'.$notified->created_at.'</small>
-                      </div>    
                     </div>
-                  </li>';
+                    <div>
+                        <div class="small text-gray-500">'.$notified->created_at.'</div>
+                        <strong>'.$notified->text.'</strong>
+                    </div>
+                </a>';
                 }else{
 
-                    $output .= '<li class="notification-box">
-                    <div class="row">
-                      <div class="col-lg-1 col-sm-1 col-1 text-center">
-                      </div>    
-                      <div class="col-lg-10 col-sm-10 col-10">
-                        <div>
-                        <strong class="text-success">'.$notified->text.'</strong>
+                    $output .= '<a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
                         </div>
-                        <small class="text-warning">'.$notified->created_at.'</small>
-                      </div>    
                     </div>
-                  </li>';
+                    <div>
+                        <div class="small text-gray-500">'.$notified->created_at.'</div>
+                        '.$notified->text.'
+                    </div>
+                </a>';
                 }
             }
         } else {
@@ -447,6 +449,17 @@ class GuageController extends Controller
         $data = array(
             'unseen_notification'  => $count
         );
+        echo json_encode($data);
+    }
+    public function SingleNotification(Request $req)
+    {
+        $id = $req->id;
+        // $noti_id = $this->$id;
+        $change_notification = Notification::where('id', "=", $id)->first();
+        $change_notification->status = 1;
+        $change_notification->save();
+        
+        $data = 'status updated';
         echo json_encode($data);
     }
 }

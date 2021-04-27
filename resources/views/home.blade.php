@@ -221,6 +221,23 @@ function load_unseen_notification(view = '')
       }
      });
     }
+    //updating notification seen status for single notification on click
+    function SingleNotification(id)
+    {
+        // var id = this.id;
+        console.log(id);
+     $.ajax({
+      url: "{{route('SingleNotification')}}",
+      method:"POST",
+      data:{ "_token": "{{ csrf_token() }}",
+          id:id},
+      dataType:"json",
+      success:function(data)
+      {
+         load_unseen_notification();
+      }
+     });
+    }
 window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); sinch_stats_update();}
 
 var global1 = new Array();
