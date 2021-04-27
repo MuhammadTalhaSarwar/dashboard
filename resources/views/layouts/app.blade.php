@@ -45,6 +45,9 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-chart-network"></i>
+                </div>
                 <div class="sidebar-brand-text mx-3">AAQOOTECH</div>
             </a>
 
@@ -52,10 +55,10 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-
+      
             <li class="nav-item active">
                 <a class="nav-link" href="{{route('home')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <i class="fas fa-fw fa-chart-bar"></i>
                     <span>Dashboard V1</span></a>
             </li>
             <li class="nav-item active">
