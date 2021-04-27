@@ -171,6 +171,24 @@ function load_unseen_notification(view = '')
      });
     }
 
+    //updating notification seen status for single notification on click
+    function SingleNotification(id)
+    {
+        // var id = this.id;
+        console.log(id);
+     $.ajax({
+      url: "{{route('SingleNotification')}}",
+      method:"POST",
+      data:{ "_token": "{{ csrf_token() }}",
+          id:id},
+      dataType:"json",
+      success:function(data)
+      {
+        load_unseen_notification();
+      }
+     });
+    }
+
 var close = document.getElementsByClassName("closebtn");
 var i;
 

@@ -51,6 +51,8 @@ Route::get('/repl_check', [App\Http\Controllers\GuageController::class, 'repl_ch
 Route::get('/event_trigger', [App\Http\Controllers\HomeController::class, 'event_trigger'])->name('event_trigger');
 Route::get('/noti', [App\Http\Controllers\GuageController::class, 'noti'])->name('noti');
 Route::get('/readnoti', [App\Http\Controllers\GuageController::class, 'readnoti'])->name('readnoti');
+Route::post('/SingleNotification', [App\Http\Controllers\GuageController::class, 'SingleNotification'])->name('SingleNotification');
+
 
 
 
