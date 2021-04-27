@@ -10,7 +10,8 @@
     <meta name="author" content="">
 
     <title>AAQOO's Dashboard</title>
-
+    <link href="{{ asset('resources/css/all.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <script src="{{ asset('resources/js/jquery-3.6.0.min.js') }}"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -21,9 +22,9 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <link href="{{ asset('resources/css/all.min.css') }}" rel="stylesheet">
+   
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+   
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -35,6 +36,27 @@
 
 </head>
 <style>
+@font-face{
+    font-family:Font Awesome\ 5 Brands;
+    font-style:normal;
+    font-weight:400;
+    src:url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.eot);
+    src:url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-brands-400.svg#fontawesome) format("svg")
+}
+@font-face{
+    font-family:Font Awesome\ 5 Free;
+    font-style:normal;
+    font-weight:400;
+    src:url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-regular-400.eot);
+    src:url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-regular-400.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-regular-400.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-regular-400.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-regular-400.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-regular-400.svg#fontawesome) format("svg")
+}
+@font-face{
+    font-family:Font Awesome\ 5 Free;
+    font-style:normal;
+    font-weight:900;
+    src:url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-solid-900.eot);
+    src:url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-solid-900.woff2) format("woff2"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-solid-900.woff) format("woff"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-solid-900.ttf) format("truetype"),url(https://use.fontawesome.com/releases/v5.0.6/webfonts/fa-solid-900.svg#fontawesome) format("svg")
+}    
 .ScrollStyle
 {
     max-height: 400px;
@@ -44,7 +66,7 @@
 <body id="page-top">
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -215,12 +237,13 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-   
-    <script src="{{ asset('resources/js/sb-admin-2.min.js') }}"></script>
     <script src="{{ asset('resources/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('resources/js/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('resources/js/sb-admin-2.min.js') }}"></script>
+ 
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('resources/js/jquery.easing.min.js') }}"></script>
+  
     {{-- <script src="vendor/jquery-easing/jquery.easing.min.js"></script> --}}
 
     <!-- Custom scripts for all pages-->
