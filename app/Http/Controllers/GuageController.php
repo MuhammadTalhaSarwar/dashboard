@@ -395,6 +395,34 @@ class GuageController extends Controller
 
         if (!empty($notifi)) {
             foreach ($notifi as $notified) {
+
+                if($notified->is_critical == 1)
+                {
+                    $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">11-02-2021</div>
+                        <strong>THIS IS A CRITICAL NOTIFICATION</strong>
+                    </div>
+                </a>';
+
+                }else{
+                    $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">
+                    <div class="mr-3">
+                        <div class="icon-circle bg-warning">
+                            <i class="fas fa-exclamation-triangle text-white"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="small text-gray-500">11-02-2021</div>
+                        <strong>THIS IS A CRITICAL NOTIFICATION</strong>
+                    </div>
+                </a>';
+                }
                 if($notified->status == 0)
                 {
                     $output .=  '<a class="dropdown-item d-flex align-items-center" onclick="SingleNotification('.$notified->id.');" href="#">

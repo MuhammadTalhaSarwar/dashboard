@@ -3,7 +3,10 @@
 @section('content')
 
 <style type="text/css">
-
+.yourDiv{
+  position:absolute;
+  top: 123px;
+}
 .table {
   
     margin-bottom: 0px!important;
@@ -64,7 +67,7 @@
   background-color: #E9573F;
 }
 </style>
-<div id="ohsnap"></div>
+<div id="ohsnap "></div>
     
 <audio  loop muted autoplay id="myAudio" src="{{ asset('resources/audio/alert.mp3')}}" ></audio>
 <div class="container">
