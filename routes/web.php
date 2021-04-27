@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/viewCheck', [App\Http\Controllers\HomeController::class, 'viewCheck'])->name('viewCheck');
 // Route::get('/api_link', [App\Http\Controllers\HomeController::class, 'api_link'])->name('api_link');
 Route::get('/kannel_tps', [App\Http\Controllers\HomeController::class, 'kannel_tps'])->name('kannel_tps');
 Route::get('/kannel_queue', [App\Http\Controllers\HomeController::class, 'kannel_queue'])->name('kannel_queue');

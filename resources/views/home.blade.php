@@ -18,17 +18,14 @@
 
 
 </style>
-<div style="padding-left:16%;">
-            <h2>WELCOME TO AAQOO's DASHBOARD</h2>
-            </div>
-            <br>
-<div class="container">
+
+
 <div class="row">
 
 
     @if(!empty($kannel_tps))
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <figure class="highcharts-figure">
         <div class="card">
   <div style="background-color: #fcf4a7;" class="card-body">
@@ -43,23 +40,22 @@
   
     @endif
    
-    <div class="col-md-6">
+    <div class="col-md-4">
          <figure class="highcharts-figure">
          <div class="card">
-  <div style="background-color: #fcf4a7;" class="card-body">
-                    <div id="kannel_queue">
-                        
-                    </div>
-  </div>
+            <div class="card-body">
+                <div id="mysql_seconds_behind">
+                    
+                </div>
          </div>
         </figure>
     </div>
 
 
-      <div class="col-md-6">
+      <div class="col-md-4">
          <figure class="highcharts-figure">
          <div class="card">
-  <div class="card-body">
+  <div class="card-body"  style="background-color: #fcf4a7;">
                     <div id="redis_stat">
                         
                     </div>
@@ -68,20 +64,21 @@
         </figure>
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
          <figure class="highcharts-figure">
          <div class="card">
-  <div class="card-body">
-                    <div id="mysql_seconds_behind">
-                        
-                    </div>
+            <div class="card-body">
+                <div id="kannel_queue">
+                    
+                </div>
+
   </div>
          </div>
         </figure>
     </div>
 
 
-    <div class="col-md-12">
+    <div class="col-md-8">
         <figure class="highcharts-figure">
         <div class="card">
       <div class="card-body">
@@ -111,9 +108,84 @@
     
 </div>
 
-</div>
+
 
 <script>
+
+// Highcharts.setOptions({
+//     chart: {
+//         style: {
+//             fontFamily: 'monospace',
+//             color: "#f00"
+//         }
+
+//     },
+//     title: {
+//       style: {
+//          color: '#F00',
+//          font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
+//       }
+//    },
+//     xAxis: {
+//       gridLineWidth: 1,
+//       lineColor: '#000',
+//       tickColor: '#000',
+//       labels: {
+//          style: {
+//             color: '#F00',
+//             font: '11px Trebuchet MS, Verdana, sans-serif'
+//          }
+//       },
+//       title: {
+//          style: {
+//             color: '#333',
+//             fontWeight: 'bold',
+//             fontSize: '12px',
+//             fontFamily: 'Trebuchet MS, Verdana, sans-serif'
+
+//          }            
+//       }
+//    },
+//    yAxis: {
+//       minorTickInterval: 'auto',
+//       lineColor: '#000',
+//       lineWidth: 1,
+//       tickWidth: 1,
+//       tickColor: '#000',
+//       labels: {
+//          style: {
+//             color: '#F00',
+//             font: '11px Trebuchet MS, Verdana, sans-serif'
+//          }
+//       },
+//       title: {
+//          style: {
+//             color: '#333',
+//             fontWeight: 'bold',
+//             fontSize: '12px',
+//             fontFamily: 'Trebuchet MS, Verdana, sans-serif'
+//          }            
+//       }
+//    },
+// });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //get notifications
 function load_unseen_notification(view = '')
     {
@@ -155,63 +227,6 @@ var global1 = new Array();
 var global2 = new Array();
 var global3 = new Array();
 
-var gaugeOptions = {
-    chart: {
-        type: 'solidgauge'
-    },
-
-    title: null,
-
-    pane: {
-        center: ['50%', '85%'],
-        size: '140%',
-        startAngle: -90,
-        endAngle: 90,
-        background: {
-            backgroundColor:
-                Highcharts.defaultOptions.legend.backgroundColor || '#DF5353',
-            innerRadius: '60%',
-            outerRadius: '100%',
-            shape: 'arc'
-        }
-    },
-
-    exporting: {
-        enabled: false
-    },
-
-    tooltip: {
-        enabled: false
-    },
-
-    // the value axis
-    yAxis: {
-        stops: [
-            [0, '#DF5353'], // green
-            [1, '#55BF3B']
-        ],
-        lineWidth: 0,
-        tickWidth: 0,
-        minorTickInterval: null,
-        tickAmount: 2,
-        title: {
-            y: -70
-        },
-        labels: {
-            y: 16
-        }
-    },
-
-    plotOptions: {
-        solidgauge: {
-            dataLabels: {
-                y: 5,
-                borderWidth: 0,
-                useHTML: true
-            }
-        }
-    }
-};
 
  var sinch_stats = <?php echo json_encode($sinch_stats);?>;
 console.log('danish');
@@ -641,7 +656,8 @@ function kannel_tps_test(){
 var kannel_graph_tps = Highcharts.chart('kannel_tps', {
     chart: {
         type: 'column',
-        backgroundColor: '#fcf4a7'
+        backgroundColor: '#fcf4a7',
+        height:300
 
     },
     credits: {
@@ -751,8 +767,7 @@ function kannel_queue_test(){
 
 var kannel_graph_queue = Highcharts.chart('kannel_queue', {
     chart: {
-        type: 'column',
-        backgroundColor: '#fcf4a7'
+        type: 'column'
 
     },
     credits: {
@@ -854,7 +869,8 @@ for (index = 0; index < mysql_seconds_behind.length; index++) {
 
 var mysql_second_test = Highcharts.chart('mysql_seconds_behind', {
     chart: {
-        type: 'column'
+        type: 'column',
+        height:300
     },
     credits: {
            text: '',
@@ -950,7 +966,9 @@ for (index = 0; index < redis_stats.length; index++) {
 
 var redis_stat_test = Highcharts.chart('redis_stat', {
     chart: {
-        type: 'column'
+        type: 'column',
+        height:300,
+        backgroundColor: '#fcf4a7'
     },
     credits: {
            text: '',

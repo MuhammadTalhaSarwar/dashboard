@@ -22,6 +22,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+
+   
     public function index()
     {
         $client = new Client();
@@ -115,6 +118,10 @@ class HomeController extends Controller
 
         return view('home',compact('kannel_tps','kannel_queue','redis_stats','api_link','mysql_seconds_behind','kannel_smppbox_port_check','sinch_stats','smpp_links','ussd1_link_status','linksStatus','pointCodesStatus','linksStatus2','pointCodesStatus2','mysql_repl_check','sinch_hourly_stats'));
     }
+
+    public function viewCheck(){
+        return view('auth.registera');
+    } 
 
     public function api_link(){
 
