@@ -398,15 +398,13 @@ class GuageController extends Controller
         {
             $output .=  '<a class="dropdown-item d-flex align-items-center" href="#">
             <div class="mr-3">
-                <div class="icon-circle bg-danger">
-                    <i class="fas fa-engine-warning text-white"></i>
-                </div>
+               
             </div>
-            <div>
-                <strong>There is no Critical Notification</strong>
+            <div class="text-center">
+                There is no Critical Notification
             </div>
             
-        </a><hr>';
+        </a>';
         }
 
         if (!empty($notifi)) {
@@ -452,7 +450,7 @@ class GuageController extends Controller
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">'.$notified->created_at.'</div>
+                        <div class="small text-gray-500"><strong>'.$notified->created_at.'</strong></div>
                         <strong>'.$notified->text.'</strong>
                     </div>
                 </a>';
