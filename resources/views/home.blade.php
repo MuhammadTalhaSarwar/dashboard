@@ -82,7 +82,7 @@
         <figure class="highcharts-figure">
         <div class="card">
       <div class="card-body">
-                   <div id="sinch_hourly_stats">
+                   <div id="sinch_hourly_stat">
                        
                    </div>
       </div>
@@ -215,7 +215,7 @@ function load_unseen_notification(view = '')
       dataType:"json",
       success:function(data)
       {
-          console.log(data);
+        //   console.log(data);
           $('.count').html('');
           load_unseen_notification();
       }
@@ -225,7 +225,7 @@ function load_unseen_notification(view = '')
     function SingleNotification(id)
     {
         // var id = this.id;
-        console.log(id);
+        // console.log(id);
      $.ajax({
       url: "{{route('SingleNotification')}}",
       method:"POST",
@@ -238,7 +238,7 @@ function load_unseen_notification(view = '')
       }
      });
     }
-window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); sinch_stats_update();}
+window.onload = function() { mysql_second_behind_test(); redis_test(); kannel_tps_test(); kannel_queue_test(); sinch_stats_update(); sinch_hourly_stats_ajax();}
 
 var global1 = new Array();
 var global2 = new Array();
@@ -246,7 +246,7 @@ var global3 = new Array();
 
 
  var sinch_stats = <?php echo json_encode($sinch_stats);?>;
-console.log('danish');
+// console.log('danish');
 
 
 var values_undelivered = new Array();
@@ -353,8 +353,9 @@ values_delivered_test.forEach(element => {
 
 
 
- 
-
+//  console.log('debugging danish')
+//  console.log(keys_total_test)
+    
     sinch_stats_graph.xAxis[0].setCategories(keys_total_test);
     sinch_stats_graph.series[0].setData(values_total)
     sinch_stats_graph.series[1].setData(values_delivered)
@@ -370,7 +371,7 @@ values_delivered_test.forEach(element => {
     }); }, 1000 * 60 * 60 * 24);
 }
 
-console.log(this.keys_total_test)
+// console.log(this.keys_total_test)
 
 var sinch_stats_graph = Highcharts.chart('sinch_stats', {
     
@@ -435,7 +436,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_stats', {
 
 var sinch_hourly_stats = <?php echo json_encode($sinch_hourly_stats);?> ;
 // console.log('sinch hourly')
-console.log(sinch_hourly_stats)
+// console.log(sinch_hourly_stats)
 var time = ["00:00:00","01:00:00","02:00:00","03:00:00","04:00:00","05:00:00","06:00:00","07:00:00","08:00:00","09:00:00","10:00:00","11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00","17:00:00","18:00:00","19:00:00","20:00:00","21:00:00","22:00:00","23:00:00"]
 var keys = new Array()
 var values1 = new Array()
@@ -449,7 +450,6 @@ var values3 = new Array()
 //     // values.push(Object.values(element).toString());
 
 // });
-
 var day_date = '';
 for (let x=0; x<24; x++){
     // console.log('here')
@@ -459,7 +459,7 @@ for (let x=0; x<24; x++){
     // console.log('endhere')
     var strArray = keys[0].split(" ");
     day_date = strArray[0];
-    console.log(day_date)
+    // console.log(day_date)
     }
 
     var object1 = {
@@ -476,7 +476,7 @@ for (let x=0; x<24; x++){
 
     var strArray = keys[0].split(" ");
     day_date = strArray[0];
-    console.log(day_date)
+    // console.log(day_date)
     }
 
     var object2 = {
@@ -491,7 +491,7 @@ for (let x=0; x<24; x++){
     values3.push(parseInt(Object.values(sinch_hourly_stats[x])));
     var strArray = keys[0].split(" ");
     day_date = strArray[0];
-    console.log(day_date)
+    // console.log(day_date)
     }
 
     var object3 = {
@@ -565,10 +565,165 @@ console.log(series_array)
 // var strArray = keys[0].split(" ");
 // console.log(strArray)
 
+function sinch_hourly_stats_ajax(){
 
 
 
-var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
+    setInterval(function(){  $.ajax({
+      url: "{{route('sinch_hourly_stats')}}",
+      method:"GET",
+      dataType:"json",
+      success:function(sinch_hourly_stats)
+      {
+        // console.log(sinch_hourly_stats.length)
+
+        // console.log(sinch_hourly_stats.slice(Math.max(sinch_hourly_stats.length - 5, 0)))
+// sinch_hourly_stats  = sinch_hourly_stats.slice(Math.max(sinch_hourly_stats.length - 5, 0))
+// console.log(sinch_hourly_stats)
+    if (sinch_hourly_stats.length<48) {
+                sinch_hourly_stats_graph.series[0].setData()
+                sinch_hourly_stats_graph.showLoading('Error parsing data.');
+    }
+
+    else {
+                // this.day_date = '';
+var keys = new Array()
+var values1 = new Array()
+var values2 = new Array()
+var values3 = new Array()
+
+var day_date = '';
+for (let x=0; x<24; x++){
+    // console.log('here')
+    // console.log(sinch_hourly_stats[x]);
+    keys.push(Object.keys(sinch_hourly_stats[x]).toString());
+    values1.push(parseInt(Object.values(sinch_hourly_stats[x])));
+    // console.log('endhere')
+    var strArray = keys[0].split(" ");
+
+    day_date = strArray[0];
+    // console.log(strArray[0])
+    }
+
+    var object1 = {
+    date: day_date,
+    hours:  values1
+    }
+
+    for (let x=24; x<48; x++){
+  
+    keys = [];
+
+    keys.push(Object.keys(sinch_hourly_stats[x]).toString());
+    values2.push(parseInt(Object.values(sinch_hourly_stats[x])));
+
+    var strArray = keys[0].split(" ");
+    day_date = strArray[0];
+    // console.log(day_date)
+    // console.log(strArray[0])
+    }
+
+    var object2 = {
+    date: day_date,
+    hours:  values2
+    }   
+
+    for (let x=48; x<sinch_hourly_stats.length; x++){
+    keys = [];
+
+    keys.push(Object.keys(sinch_hourly_stats[x]).toString());
+    values3.push(parseInt(Object.values(sinch_hourly_stats[x])));
+    var strArray = keys[0].split(" ");
+    day_date = strArray[0];
+    // console.log(day_date)
+    // console.log(strArray[0])
+    }
+
+    var object3 = {
+    date: day_date,
+    hours:  values3
+    }   
+
+
+
+// console.log(values1)
+// console.log(keys)
+// console.log(values)
+// var strArray = keys[23].split(" ");
+// console.log(strArray)
+// var object1 = {
+//     date: "21-04-2021",
+//     hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+//     }
+// var object2 = {
+//     date: "22-04-2021",
+//     hours: [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793, 83930, 67762, 50122, 37413, 29284]
+// };
+// var object3 = {
+//     date: "23-04-2021",
+//     hours:  [25116, 30250, 42777, 27261, 27017, 65024, 35299, 36509, 77349, 76485, 39219, 38413, 79025, 80168, 76897, 70095,85313, 95366, 87793]
+// };
+
+var data_testing = new Array();
+ data_testing.push(object1)
+data_testing.push(object2)
+data_testing.push(object3)
+
+
+var categorie = []
+var new_hours = []
+
+data_testing.forEach(element => {
+    categorie.push(element.date)
+    new_hours.push(element.hours)
+});
+
+
+
+var serie_obj = {
+        name: categorie[0],
+        data: new_hours[0]
+    }
+    var serie_obj1 = {
+        name: categorie[1],
+        data: new_hours[1]
+    }
+    var serie_obj2 = {
+        name: categorie[2],
+        data: new_hours[2]
+    }
+// serie_array.push(series_obj)
+// serie_array.push(series_obj1)
+// serie_array.push(series_obj2)
+// // console.log('sinch hourly ajax')
+ console.log('updating')
+
+ sinch_hourly_stats_graph.series[0].update({name:categorie[0]}, false);
+ sinch_hourly_stats_graph.series[0].setData(new_hours[0]);
+ sinch_hourly_stats_graph.series[1].update({name:categorie[1]}, false);
+ sinch_hourly_stats_graph.series[1].setData(new_hours[1]);
+ sinch_hourly_stats_graph.series[2].update({name:categorie[2]}, false);
+ sinch_hourly_stats_graph.series[2].setData(new_hours[2]);
+    }
+
+      }
+     });
+     }, 2000 );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+var sinch_hourly_stats_graph = Highcharts.chart('sinch_hourly_stat', {
     chart: {
         type: 'column'
     },
@@ -607,7 +762,7 @@ var sinch_stats_graph = Highcharts.chart('sinch_hourly_stats', {
         }
     },
 
-    series: series_array
+    series: [series_obj,series_obj1,series_obj2]
 });
 
 
